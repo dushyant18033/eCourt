@@ -4,7 +4,8 @@ import Home
 import os
 import requests
 
-backend_url = "http://dbff8e30.ngrok.io/"
+
+backend_url = "http://8c3fb3ef.ngrok.io/"
 USERNAME=""
 di={"mode":"lawyer","username":"dushyant"}
 app=Flask(__name__,static_folder='static')
@@ -113,57 +114,81 @@ def Home():
 @app.route('/Lawyer/FileCase',methods=["GET","POST"])
 def FileCase():
 	global di
+	msg=""
 	if request.method=="POST":
-		pass 	#Read data here using request.form.get('name of entry')
-	"""	
-	Generate filing no. and filing date automatically
-		VictimID
-		Victim_LawyerID
-		AccusedID
-		Accused_LawyerID
-		Civil/Criminal (radio buttons)
-		FIRno
-		Doc_Uploaded_Victim
-		Doc_Uploaded_Accused
-		is_Verified
-	"""
+		LawyerID = request.form.get('LawyerID')
+		ClientID = request.form.get('ClientID')
+		AccusedID = request.form.get('AccusedID')
+		if(AccusedID.isnumeric()):
+			AccusedID=int(AccusedID)
+		Type = request.form.get('Type')
+		FilingNo = request.form.get('FilingNo')
+		if(FilingNo.isnumeric()):
+			FilingNo=int(FilingNo)
+		url=backend_url + "lawyer/updateStatus"
+		param={'LawyerID':int(LawyerID), 'ClientID':int(ClientID), 'Status': 1, 'AccusedID':AccusedID, 'Type':int(Type), 'FilingNo':FilingNo}
+		# print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
 
-	return render_template('Lawyer/FileCase.html',di=di)
+	return render_template('Lawyer/FileCase.html',di=di, message=msg)
 
 
 @app.route('/Lawyer/CaseHistory',methods=["GET","POST"])
 def CaseHistory():
-	hrs="" # [{"Date":"12345", "CNRno":'54321', "Prev_Date":'24141',"Purpose":'Just for fun'}]
+	global di
+	hrs=[] # [{"Date":"12345", "CNRno":'54321', "Prev_Date":'24141',"Purpose":'Just for fun'}]
 	if request.method=="POST":
 		cnr = request.form.get('CNRno')
-		# process find hearings using cnrNn and put into hrs.
+		url=backend_url + "lawyer/getPrevHearings"
+		param={'CNRno':cnr}
+		res = requests.post(url,json=param).json()
+		if res["res"] == "ok":
+			hrs = res["arr"]
+		else:
+			hrs = []
 	return render_template('Lawyer/CaseHistory.html',di=di,hearings=hrs)
 
 
 
-@app.route('/ClientRequests', methods=["POST","GET"])
+@app.route('/Lawyer/ClientRequests', methods=["POST","GET"])
 def ClientRequests():
-		global di 
-		#lawyerrequests need to be passed
-		clients=[]
-		# print(request.args)
-		# <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success">Accept</a>
-		# <a href="/ClientRequests?reject&{{cl}}" class="btn btn-danger">Reject</a>
+	global di 
+	clients=[]
 
-		if request.method=="POST":
-			LawyerID = request.form.get('LawyerID')
-			url=backend_url + "lawyer/getRequests"
-			param={'LawyerID':LawyerID}
-			clients = requests.post(url,param).json()
-			if clients["res"]=="ok":
-				clients=clients["arr"]
-			else:
-				clients=[]
+	if request.method=="POST":
+		LawyerID = request.form.get('LawyerID')
+		url=backend_url + "lawyer/getRequests"
+		param={'LawyerID':LawyerID}
+		clients = requests.post(url,json=param).json()
+		if clients["res"]=="ok":
+			clients=clients["arr"]
+		else:
+			clients=[]
 
-		return render_template('lawyer/ClientRequests.html',di=di, clientRequests=clients)
+	return render_template('Lawyer/ClientRequests.html',di=di, clientRequests=clients)
 
 
-@app.route('/ActivePending', methods=["POST","GET"])
+@app.route('/Lawyer/RejectCase', methods=["POST","GET"])
+def RejectCase():
+	if request.method=="POST":
+		LawyerID = request.form.get('LawyerID')
+		ClientID = request.form.get('ClientID')
+		
+		url=backend_url + "lawyer/updateStatus"
+		param={"LawyerID":int(LawyerID), "ClientID":int(ClientID), "Status":2, "AccusedID":"", "Type":"", "FilingNo":""}
+		print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+	
+	return redirect(url_for('ClientRequests'))
+
+
+@app.route('/Lawyer/ActivePending', methods=["POST","GET"])
 def ActivePending():
 	global di, backend_url
 	active=[]	#List of jsons containing all columns from table ActiveCases
@@ -174,7 +199,7 @@ def ActivePending():
 		
 		url=backend_url + "lawyer/getActiveCases"
 		param={'LawyerID':LawyerID}
-		active = requests.post(url,param).json()
+		active = requests.post(url,json=param).json()
 		if active["res"]=="ok":
 			active=active["arr"]
 		else:
@@ -182,7 +207,7 @@ def ActivePending():
 
 		url=backend_url + "lawyer/getPendingCases"
 		param={'LawyerID':LawyerID}
-		pending = requests.post(url,param).json()
+		pending = requests.post(url,json=param).json()
 		if pending["res"]=="ok":
 			pending=pending["arr"]
 		else:
@@ -193,23 +218,33 @@ def ActivePending():
 
 
 
-@app.route('/Lawyer/Schedule')
+@app.route('/Lawyer/Schedule',methods=["POST","GET"])
 def Schedule():
-	schedule=[] #List of jsons containing all cols of active cases
-	return render_template('Lawyer/Schedule.html',di=di,schedule=schedule)
+	res=[] #List of jsons containing all cols of active cases
+	if request.method=="POST":
+		LawyerID=request.form.get('LawyerID')
+		url=backend_url + "lawyer/todaySchedule"
+		param={'LawyerID':LawyerID}
+		res = requests.post(url,json=param).json()
+		if res["res"]=='ok':
+			res=res["arr"]
+		else:
+			res=[]
+	return render_template('Lawyer/Schedule.html',di=di,schedule=res)
 
 
 @app.route('/Lawyer/RequestPayment', methods=["POST","GET"])
 def RequestPayment():
 	if request.method == "POST":
-		pass	#Process the payment entry to add to the table
-	"""
-	LawyerID
-	ClientID
-	CNRno
-	Side
-	Fee
-	"""
+		LawyerID = request.form.get('LawyerID')
+		ClientID = request.form.get('ClientID')
+		CNRno = request.form.get('CNRno')
+		Fee = request.form.get('Fee')
+		
+		url=backend_url + "lawyer/createPaymentRequest"
+		param={'LawyerID':LawyerID, 'ClientID':ClientID, 'CNRno':CNRno, 'Fee':Fee}
+		res = requests.post(url,param)
+
 	return render_template('Lawyer/RequestPayment.html',di=di)
 
 

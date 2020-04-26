@@ -165,14 +165,14 @@
                                 <div class="card-content">
                                     <h4 class="card-title">File A Case: Fill In The Details</h4>
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/FileCase" method="POST">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawyer/FileCase" method="POST">
                                 
                                             
                                             
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Victim ID" name="VictimID">
+                                                        <input class="form-control" type="number" placeholder="Enter Lawyer ID" name="LawyerID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,7 +180,7 @@
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Victim Lawyer ID" name="Victim_LawyerID">
+                                                        <input class="form-control" type="number" placeholder="Enter Client ID" name="ClientID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,15 +188,7 @@
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Accused ID" name="AccusedID">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Accused Lawyer ID" name="Accused_LawyerID">
+                                                        <input class="form-control" type="text" placeholder="Enter Accused ID (only in case of criminal)" name="AccusedID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,44 +196,18 @@
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">  
-                                                        <input class="form-control" type="text" placeholder="FIR No" name="FIRno">                                                       
+                                                        <input class="form-control" type="number" placeholder="Enter Type (0 for Civil/1 for Criminal )" name="Type">                                                       
                                                     </div>
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-md-6">
-                                                <div class="togglebutton">
-                                                    <label>
-                                                        <input type="checkbox" name="Type"> Civil | Criminal
-                                                    </label>
+                                            <div class="col-sm-8">
+                                                <div class="row"> 
+                                                    <div class="form-group label-floating">  
+                                                        <input class="form-control" type="number" placeholder="Enter Filing Number" name="FilingNo">                                                       
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-6">
-                                                <div class="togglebutton">
-                                                    <label>
-                                                        <input type="checkbox" name="Doc_Uploaded_Victim"> Docs Uploaded by Victim?
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="togglebutton">
-                                                    <label>
-                                                        <input type="checkbox" name="Doc_Uploaded_Accused"> Docs Uploaded by Accused?
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="togglebutton">
-                                                    <label>
-                                                        <input type="checkbox" name="isVerified"> Docs Verified?
-                                                    </label>
-                                                </div>
-                                            </div>
-
                                             
 
                                             <div class="col-sm-8">
@@ -258,6 +224,7 @@
                             </div>
                         </div>
                     </div>
+                    <h3>{{message}}</h3>
                 </div>
             </div>
         

@@ -166,7 +166,7 @@
                                 <div class="card-content">
                                     <h4 class="card-title">Enter Lawyer ID To Search</h4>
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/ClientRequests" method="POST">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawyer/ClientRequests" method="POST">
                                 
                                             
                                             <div class="col-sm-8">
@@ -180,7 +180,7 @@
 
                                             <div class="col-sm-8">
                                                 <div class="row">
-                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
+                                                    <input type="submit" class="btn btn-rose btn-fill">
                                                 </div>
                                             </div>
 
@@ -235,8 +235,12 @@
                                                                 <td>{{cl.Quotation}}</td>
                                                                 <td>{{cl.Status}}</td>
                                                                 <td>
-                                                                    <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success">Accept</a>
-                                                                    <a href="/ClientRequests?reject&{{cl}}" class="btn btn-danger">Reject</a>
+                                                                    <a href="/Lawyer/FileCase" class="btn btn-success">Accept</a>
+                                                                    <form action="/Lawyer/RejectCase" method="POST">
+                                                                        <input type="hidden" name="LawyerID" value="{{cl.LawyerID}}">
+                                                                        <input type="hidden" name="ClientID" value="{{cl.ClientID}}">
+                                                                        <input type="submit" class="btn btn-danger" value="Reject">
+                                                                    </form>
                                                                 </td>
                                                             </td>
                                                          </tr>

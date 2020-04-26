@@ -164,14 +164,14 @@
                                 <div class="card-content">
                                     <h4 class="card-title">Request For Payment</h4>
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/RequestPayment" method="POST">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawyer/RequestPayment" method="POST">
                                 
                                             
                                             
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Your Lawyer ID" name="LawyerID">
+                                                        <input class="form-control" type="number" placeholder="Enter Your Lawyer ID" name="LawyerID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,7 +179,7 @@
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Client ID" name="ClientID">
+                                                        <input class="form-control" type="number" placeholder="Enter Client ID" name="ClientID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,35 +187,24 @@
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter CNR Number" name="CNRno">
+                                                        <input class="form-control" type="number" placeholder="Enter CNR Number" name="CNRno">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Side" name="Side">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">  
-                                                        <input class="form-control" type="text" placeholder="Enter Fee" name="Fee">                                                       
+                                                        <input class="form-control" type="number" placeholder="Enter Fee" name="Fee">                                                       
                                                     </div>
                                                 </div>
                                             </div>
                                             
-
                                             <div class="col-sm-8">
                                                 <div class="row">
                                                     <button type="submit" class="btn btn-rose btn-fill">Send Request</button>
                                                 </div>
                                             </div>
-
-                                            
 
                                         </form>
                                     </div>
