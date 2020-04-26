@@ -185,7 +185,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8" hidden="true" id="acc-id">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
                                                         <input class="form-control" type="text" placeholder="Enter Accused ID (only in case of criminal)" name="AccusedID">
@@ -195,15 +195,19 @@
                                             
                                             <div class="col-sm-8">
                                                 <div class="row"> 
-                                                    <div class="form-group label-floating">  
-                                                        <input class="form-control" type="number" placeholder="Enter Type (0 for Civil/1 for Criminal )" name="Type">                                                       
+                                                    <div class="form-group label-floating">
+                                                        <div class="togglebutton">
+                                                            <label>
+                                                                <input type="checkbox" class="togglebutton" name="Type" id="case-type" unchecked> Civil or Criminal
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8" hidden="true" id="f-no">
                                                 <div class="row"> 
-                                                    <div class="form-group label-floating">  
+                                                    <div class="form-group label-floating">
                                                         <input class="form-control" type="number" placeholder="Enter Filing Number" name="FilingNo">                                                       
                                                     </div>
                                                 </div>
@@ -360,6 +364,25 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        let type=document.getElementById('case-type');
+        let acc_id=document.getElementById('acc-id');
+        let f_no=document.getElementById('f-no');
+
+        type.addEventListener('change',function(){
+            if(type.checked==true)    //criminal
+            {
+                acc_id.hidden=false;
+                f_no.hidden=false;
+            }
+            else    //civil
+            {
+                acc_id.hidden=true;
+                f_no.hidden=true;
+            }
+        });
+    </script>
     {%endif%}
 </body>
 <!--   Core JS Files   -->

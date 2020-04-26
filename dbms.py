@@ -121,19 +121,25 @@ def FileCase():
 		AccusedID = request.form.get('AccusedID')
 		if(AccusedID.isnumeric()):
 			AccusedID=int(AccusedID)
-		Type = request.form.get('Type')
+		Type = int(request.form.get('Type')=='on')
 		FilingNo = request.form.get('FilingNo')
 		if(FilingNo.isnumeric()):
 			FilingNo=int(FilingNo)
 		url=backend_url + "lawyer/updateStatus"
-		param={'LawyerID':int(LawyerID), 'ClientID':int(ClientID), 'Status': 1, 'AccusedID':AccusedID, 'Type':int(Type), 'FilingNo':FilingNo}
-		# print(param)
-		res = requests.post(url,json=param).json()
-		print(res)
-		if(res["res"] == "success"):
-			msg="SUCCESS"
+		if(Type==0):
+			AccusedID=""
+			FilingNo=""
 		else:
-			msg="FAILED"
+			if AccusedID!="":
+				FilingNo=""
+		param={'LawyerID':int(LawyerID), 'ClientID':int(ClientID), 'Status': 1, 'AccusedID':AccusedID, 'Type':Type, 'FilingNo':FilingNo}
+		print(param)
+		# res = requests.post(url,json=param).json()
+		#print(res)
+		#if(res["res"] == "success"):
+		#	msg="SUCCESS"
+		#else:
+		#	msg="FAILED"
 
 	return render_template('Lawyer/FileCase.html',di=di, message=msg)
 
