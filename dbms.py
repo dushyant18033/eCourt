@@ -107,7 +107,7 @@ def Home():
 
 # Lawyer Routes
 
-@app.route('/FileCase',methods=["GET","POST"])
+@app.route('/Lawyer/FileCase',methods=["GET","POST"])
 def FileCase():
 	global di
 	if request.method=="POST":
@@ -125,18 +125,18 @@ def FileCase():
 		is_Verified
 	"""
 
-	return render_template('FileCase.html',di=di)
+	return render_template('Lawyer/FileCase.html',di=di)
 
 
-@app.route('/CaseHistory',methods=["GET","POST"])
+@app.route('/Lawyer/CaseHistory',methods=["GET","POST"])
 def CaseHistory():
 	hrs="" # [{"Date":"12345", "CNRno":'54321', "Prev_Date":'24141',"Purpose":'Just for fun'}]
 	if request.method=="POST":
 		cnr = request.form.get('CNRno')
 		# process find hearings using cnrNn and put into hrs.
-	return render_template('CaseHistory.html',di=di,hearings=hrs)
+	return render_template('Lawyer/CaseHistory.html',di=di,hearings=hrs)
 
-@app.route('/ClientRequests')
+@app.route('/Lawyer/ClientRequests')
 def ClientRequests():
 		global di 
 		#lawyerrequests need to be passed
@@ -147,23 +147,23 @@ def ClientRequests():
 		# <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success">Accept</a>
 		# <a href="/ClientRequests?reject&{{cl}}" class="btn btn-danger">Reject</a>
 
-		return render_template('ClientRequests.html',di=di, clients=clientList, clientRequests=newClientsList)
+		return render_template('Lawyer/ClientRequests.html',di=di, clients=clientList, clientRequests=newClientsList)
 
 
-@app.route('/ActivePending')
+@app.route('/Lawyer/ActivePending')
 def ActivePending():
 		global di 
 		active=[]	#List of jsons containing all columns from table ActiveCases
 		pending=[]	#List of jsons containing all columns from table PendingCases
-		return render_template('ActivePending.html',di=di,active=active,pending=pending)
+		return render_template('Lawyer/ActivePending.html',di=di,active=active,pending=pending)
 
-@app.route('/Schedule')
+@app.route('/Lawyer/Schedule')
 def Schedule():
 	schedule=[] #List of jsons containing all cols of active cases
-	return render_template('Schedule.html',di=di,schedule=schedule)
+	return render_template('Lawyer/Schedule.html',di=di,schedule=schedule)
 
 
-@app.route('/RequestPayment', methods=["POST","GET"])
+@app.route('/Lawyer/RequestPayment', methods=["POST","GET"])
 def RequestPayment():
 	if request.method == "POST":
 		pass	#Process the payment entry to add to the table
@@ -174,57 +174,57 @@ def RequestPayment():
 	Side
 	Fee
 	"""
-	return render_template('RequestPayment.html',di=di)
+	return render_template('Lawyer/RequestPayment.html',di=di)
 
 
 
 # Client Routes
 
-@app.route('/FindLawyer')
+@app.route('/Clients/FindLawyer')
 def FindLawyer():
 		global di 
 		#lawyerrequests need to be passed
-		return render_template('FindLawyer.html',di=di)
+		return render_template('Clients/FindLawyer.html',di=di)
 
 
-@app.route('/FindFirm')
+@app.route('/Clients/FindFirm')
 def FindFirm():
 		global di 
 		#lawyerrequests need to be passed
-		return render_template('FindFirm.html',di=di)
+		return render_template('Clients/FindFirm.html',di=di)
 
-@app.route('/CheckStatus')
+@app.route('/Clients/CheckStatus')
 def CheckStatus():
 	#Acases to be added as argument for active cases
 	#Pcases to be added as argument for pending cases
-	return render_template('Checkstatus.html',di=di)
+	return render_template('Clients/Checkstatus.html',di=di)
 
 
-@app.route('/HearingTime')
+@app.route('/Clients/HearingTime')
 def HearingTime():
-		return render_template('Hearingtime.html',di=di)
+		return render_template('Clients/Hearingtime.html',di=di)
 
 
-@app.route('/Documents')
+@app.route('/Clients/Documents')
 def Documents():
-		return render_template('Documents.html',di=di)
+		return render_template('Clients/Documents.html',di=di)
 
-@app.route('/Withdrawal')
+@app.route('/Clients/Withdrawal')
 def Withdrawal():
 	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
 
-		return render_template('Withdrawal.html',di=di)
+		return render_template('Clients/Withdrawal.html',di=di)
 
 
-@app.route('/Payment')
+@app.route('/Clients/Payment')
 def Payment():
-		return render_template('Payment.html',di=di)
+		return render_template('Clients/Payment.html',di=di)
 
 
 
 #judges Routes
 
-@app.route('/JudgePreviousJudgements',methods=['GET','POST'])
+@app.route('/Judge/PreviousJudgements',methods=['GET','POST'])
 def PreviousJudgements():
 		global di 
 		#lawyerrequests need to be passed
@@ -236,23 +236,17 @@ def PreviousJudgements():
 			print(option)
 			print('hello')
 			redirect(url_for('Result'))
-			return render_template('result.html',di=di)
-		return render_template('PreviousJudgements.html',di=di)
+			return render_template('Judge/result.html',di=di)
+		return render_template('Judge/PreviousJudgements.html',di=di)
 
 
-@app.route('/JudgeSchedule')
+@app.route('/Judge/Schedule')
 def JudgeSchedule():
 		global di 
-		#lawyerrequests need to be passed
-		return render_template('JudgeSchedule.html',di=di)
+		return render_template('Judge/Schedule.html',di=di)
 
-@app.route('/TrackLawyer')
-def TrackLawyer():
-	#Acases to be added as argument for active cases
-	#Pcases to be added as argument for pending cases
-	return render_template('TrackLawyer.html',di=di)
 
-@app.route('/Records',methods=['GET','POST'])
+@app.route('/Judge/Records',methods=['GET','POST'])
 def Records():
 	if request.method=='POST':
 			result=request.form
@@ -263,37 +257,28 @@ def Records():
 			print('hello')
 			redirect(url_for('Result'))
 			global civilia
-			return render_template('Track.html',di=di,civilian=civilian)
+			return render_template('Judge/Track.html',di=di,civilian=civilian)
 
-	return render_template('Records.html',di=di)
+	return render_template('Judge/Records.html',di=di)
 
 
-@app.route('/Track')
+@app.route('/Judge/Track')
 def Track():
-		return render_template('Track.html',di=di)
+		return render_template('Judge/Track.html',di=di)
 
-
-@app.route('/FinalVerdict')
-def FinalVerdict():
-		return render_template('FinalVerdict.html',di=di)
-
-@app.route('/Setnexthearing')
+@app.route('/Judge/nexthearing')
 def Setnexthearing():
 	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
 	CASE=[{"CNRno":1111,"FilingDate":11111,"FirstHearing":2222,"NextHearing":3333,"PrevHearing":444,"Stage":5,"CourtNo":6,"VictimID":8,"VictimStmnt":"balnk","AccusedID":10,"AccusedStmnt":"killed","Acts":111}]
-	return render_template('nexthearing.html',di=di,Acases=CASE)
+	return render_template('Judge/nexthearing.html',di=di,Acases=CASE)
 
-@app.route('/ApproveCases')
-def ApproveCases():
-	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
 
-		return render_template('ApproveCases.html',di=di)
 
-@app.route('/Cases')
+@app.route('/Judge/Cases')
 def Cases():
 	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
 
-		return render_template('Cases.html',di=di)
+		return render_template('Judge/Cases.html',di=di)
 
 
 @app.route('/Result')
@@ -306,52 +291,52 @@ def Result():
 
 # Law Firm Routes
 
-@app.route('/ClientRequestsLawFirm')
+@app.route('/Lawfirm/ClientRequestsLawFirm')
 def ClientRequestsLawFirm():
 	global di 
 	existingClients=[{"ID":123, "Name":"helloworld123", "DOB":"11-11-1111"}]
 	newClients=[{"ID":12345, "Name":"helloworld321", "DOB":"11-11-2000"}]
 	
-	return render_template('ClientRequestsLawFirm.html',di=di, clients=existingClients, clientRequests=newClients)
+	return render_template('Lawfirm/ClientRequestsLawFirm.html',di=di, clients=existingClients, clientRequests=newClients)
 
-@app.route('/ClientRequestsLawFirm/accept', methods=["POST","GET"])
+@app.route('/Lawfirm/ClientRequestsLawFirm/accept', methods=["POST","GET"])
 def ClientRequestsLawFirm_accept():	#In case accepted
 	if request.method=="POST":
 		print(request.form.get('clientID'),request.form.get('lawyerID'))
 	return ClientRequestsLawFirm()
 
-@app.route('/ClientRequestsLawFirm/reject', methods=["POST","GET"])
+@app.route('/Lawfirm/ClientRequestsLawFirm/reject', methods=["POST","GET"])
 def ClientRequestsLawFirm_reject():	#In case rejected
 	if request.method=="POST":
 		print(request.form.get('clientID'))
 	return ClientRequestsLawFirm()
 
-@app.route('/LawyerPerf')
+@app.route('/Lawfirm/LawyerPerf')
 def LawyerPerf():
 	global di 
 	lawyerPerf=[{'ID':123,'Name':'hello','Wins':10,'Loses':2}]
-	return render_template('LawyerPerf.html',di=di,lawyerPerf=lawyerPerf)
+	return render_template('Lawfirm/LawyerPerf.html',di=di,lawyerPerf=lawyerPerf)
 
-@app.route('/FirmEarn', methods=["POST","GET"])
+@app.route('/Lawfirm/FirmEarn', methods=["POST","GET"])
 def FirmEarn():
 	client_wise=[]
 	lawyer_wise=[]
 	if request.method=="POST":
 		print(request.form.get('StartDate'))	#Take the input StartDate
 		# process queries
-	return render_template('FirmEarn.html',di=di,client_wise=client_wise,lawyer_wise=lawyer_wise)
+	return render_template('Lawfirm/FirmEarn.html',di=di,client_wise=client_wise,lawyer_wise=lawyer_wise)
 
 
-@app.route('/WinLose')
+@app.route('/Lawfirm/WinLose')
 def WinLose():
 	wins_loses=[{'ID':123,'Name':'hello','Wins':10,'Loses':2}]
-	return render_template('WinLose.html',di=di, wins_loses=wins_loses)
+	return render_template('Lawfirm/WinLose.html',di=di, wins_loses=wins_loses)
 
 
 
 # Officer Routes
 
-@app.route('/FileFIR',methods=["GET","POST"])
+@app.route('/Officer/FileFIR',methods=["GET","POST"])
 def FileFIR():
 	global di
 	if request.method=="POST":
@@ -361,9 +346,9 @@ def FileFIR():
 		InspectorName
 		Description
 	"""
-	return render_template('FileFIR.html',di=di)
+	return render_template('Officer/FileFIR.html',di=di)
 
-@app.route('/SetHearing',methods=["GET","POST"])
+@app.route('/Officer/SetHearing',methods=["GET","POST"])
 def SetHearing():
 	global di
 	if request.method=="POST":
@@ -373,17 +358,17 @@ def SetHearing():
 		Prev_Date
 		Purpose
 	"""
-	return render_template('SetHearing.html',di=di)
+	return render_template('Officer/SetHearing.html',di=di)
 
 
-@app.route('/ScheduleOfficer')
+@app.route('/Officer/Schedule')
 def ScheduleOfficer():
 	global di
 	schedule=[] # all cols of active cases
-	return render_template('ScheduleOfficer.html',di=di,schedule=schedule)
+	return render_template('Officer/ScheduleOfficer.html',di=di,schedule=schedule)
 
 
-@app.route('/DocUploadStatus',methods=["GET","POST"])
+@app.route('/Officer/DocUploadStatus',methods=["GET","POST"])
 def DocUploadStatus():
 	global di
 	if request.method=="POST":
@@ -393,12 +378,12 @@ def DocUploadStatus():
 	"""
 	status="notverify"
 	DocID={"ClientID":"12233","FilingNo":300000,"Document":"33333333","DocID":1222}
-	return render_template('DocUploadStatus.html', di=di,DOCS=DocID,status=status)
+	return render_template('Officer/DocUploadStatus.html', di=di,DOCS=DocID,status=status)
 
-@app.route('/VerifyUploadedDocs')
+@app.route('/Officer/VerifyUploadedDocs')
 def VerifyUploadedDocs():
 	global di
-	return render_template('VerifyUploadedDocs.html', di=di)
+	return render_template('Officer/VerifyUploadedDocs.html', di=di)
 
 
 

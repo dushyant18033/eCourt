@@ -70,6 +70,7 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
+                           
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
@@ -97,7 +98,6 @@
                     <a href="#">Settings</a>
                                 </li>
                 </ul>
-                
             </div>
         </div>
         <div class="main-panel">
@@ -120,14 +120,14 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a  href="{{url_for('FindLawyer')}}" >
-                                  Lawyer Requests
+                           <li>
+                                <a href="{{url_for('FindLawyer')}}" >
+                                  Hire a Lawyer
                                                                    </a>
                             </li>
-                             <li >
+                            <li >
                                 <a  href="{{url_for('FindFirm')}}" >
-                                  Firm Requests
+                                  Hire a Firm
                                                                    </a>
                             </li>
                              <li>
@@ -140,16 +140,13 @@
                                   Hearing Time
                                                                    </a>
                             </li>                            
+                                                    
                             <li>
-                                <a href="{{url_for('Appeal')}}" >
-                                  Appeal to Higher Court
+                                <a href="{{url_for('Documents')}}" >
+                                  Upload Documents
                                                                    </a>
-                            </li>                           
-                             <li>
-                                <a href="{{url_for('Withdrawal')}}" >
-                                  Withdrawal
-                                                                   </a>
-                            </li>
+                            </li>                         
+                                    
                              <li>
                                 <a href="{{url_for('Payment')}}" >
                                   Make Payement
@@ -171,276 +168,309 @@
                 </div>
             </nav>
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
+               <div class="container-fluid">
+                {%if Firmcurrent is not defined %}
+                <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="green">
-                                    <i class="material-icons">language</i>
-                                </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">
-                                    {%if Acases is defined%}
-                                    Active Cases currently involved in
-                                    {%else%}
-                                    No Active case currently involved in
-                                    {%endif%}
-                                    </h4>
-                                    {%if Acases is defined%}
-                                    
+                                    <h4 class="card-title">No Current Firms </h4>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                {%else%}
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">Current Firms</h4>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-10">
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
                                                     <tbody>
                                                         <tr>
-                                                            <td>
-                                                                CNR Number
+                                                           
+                                                            <td>Firm ID</td>
+                                                            <td >
+                                                                CNRno
                                                             </td>
-                                                            <td>
-                                                                Filing Number
+                                                            <td >
+                                                                Side
                                                             </td>
-                                                            <td>
-                                                                Filing Date
+                                                             <td >
+                                                                Fee
                                                             </td>
-                                                            <td>
-                                                                First Hearing
+                                                            <td >
+                                                                Paid
                                                             </td>
-                                                            <td>
-                                                                Next Hearing
+                                                            <td >
+                                                                Requested
                                                             </td>
-                                                            <td>
-                                                                Previous 
-                                                            </td>
-                                                            <td>
-                                                               Stage
-                                                            </td>
-                                                            <td>
-                                                                Court Number
-                                                            </td>
-                                                            <td>
-                                                               Judge ID
-                                                            </td>
-                                                            <td>
-                                                                Victim ID
-                                                            </td>
-                                                            <td>
-                                                               Victim Statement
-                                                            </td>
-                                                            <td>
-                                                               Accused ID
-                                                            </td>
-                                                            <td>
-                                                               Accused Statement
-                                                            </td>
-                                                            <td>
-                                                                Acts
+                                                            <td >
+                                                                Date paid
                                                             </td>
                                                         </tr>
-                                                        {% for case in Acases %}
-                                                            <tr>
-                                                                <td>
-                                                                    {{case.CNRno}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.FilingNo}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.FilingDate}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.FirstHearing}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.NextHearing}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.PrevHearing}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.Stage}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.CourtNo}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.JudgeID}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.VictimID}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.VictimStmnt}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.AccusedID}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.AccusedStmnt}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.Acts}}
-                                                                </td>
-                                                            </tr>
+                                                        {% for lr in Firmcurrent %}
+                                                        <tr>
+                                                            <td>lr.FirmID</td>
+                                                            <td >
+                                                                lr.CNRno
+                                                            </td>
+                                                            <td >
+                                                                lr.Side
+                                                            </td>
+                                                             <td >
+                                                                lr.Fee
+                                                            </td>
+                                                            <td >
+                                                                lr.Paid
+                                                            </td>
+                                                            <td >
+                                                                lr.Requested
+                                                            </td>
+                                                            <td >
+                                                                lr.Date paid
+                                                            </td>
+                                                        </tr>
                                                         {%endfor%}
+
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
-                                    {%endif%}
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="rose" data-header-animation="true">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Website Views</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="green" data-header-animation="true">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="blue" data-header-animation="true">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <!-- <div id="worldMap" class="map"></div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {%endif%}
+                     {%if Firmrequest is not defined %}
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="card-title">No Current Firms Requested Currenlty </h4>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                {%else%}
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">Firms Currently Requested</h4>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                           
+                                                            <td>Firm ID</td>
+                                                            <td >
+                                                                Client Note
+                                                            </td>
+                                                            <td >
+                                                                Filling Number
+                                                            </td>
+                                                             <td >
+                                                                Quotation
+                                                            </td>
+                                                            <td >
+                                                                Status
+                                                            </td>
+                                                            <td >
+                                                                Requested
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        {% for lr in Firmrequest %}
+                                                        <tr>
+                                                            <td>lr.FirmID</td>
+                                                            <td >
+                                                                lr.Client_Note
+                                                            </td>
+                                                            <td >
+                                                                lr.FillingNo
+                                                            </td>
+                                                             <td >
+                                                                lr.Quotation
+                                                            </td>
+                                                            <td >
+                                                                lr.Status
+                                                            </td>
+                                                              <td >
+                                                                {%if 'True'==lr.Status %}
+                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request">
+                                                                {%else%}
+
+                                                                <input type="button" id={{lr.FIrmID}} value="Cancel Request" disabled>
+                                                                {%endif%}
+                                                            </td>
+                                                        </tr>
+                                                        {%endfor%}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <!-- <div id="worldMap" class="map"></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%if FirmSearch is defined %}
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">Search Results</h4>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                           
+                                                            <td>Firm ID</td>
+                                                            <td >
+                                                                Client Note
+                                                            </td>
+                                                            <td >
+                                                                Filling Number
+                                                            </td>
+                                                             <td >
+                                                                Quotation
+                                                            </td>
+                                                            <td >
+                                                                Status
+                                                            </td>
+                                                            <td >
+                                                                Requested
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        {% for lr in FirmSearch %}
+                                                        <tr>
+                                                            <td>lr.FirmID</td>
+                                                            <td >
+                                                                lr.Client_Note
+                                                            </td>
+                                                            <td >
+                                                                lr.FillingNo
+                                                            </td>
+                                                             <td >
+                                                                lr.Quotation
+                                                            </td>
+                                                            <td >
+                                                                lr.Status
+                                                            </td>
+                                                              <td >
+                                                                {%if 'True'==lr.Status %}
+                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request">
+                                                                {%else%}
+
+                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request" disabled>
+                                                                {%endif%}
+                                                            </td>
+                                                        </tr>
+                                                        {%endfor%}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <!-- <div id="worldMap" class="map"></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+               
+               
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">weekend</i>
-                                </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                
                                 <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="#pablo">Get More Space...</a>
+                                    <h4 class="card-title">Search for Firms</h4>
+                                    <div class="row">
+                                         <form id="TypeValidation" class="form-horizontal" action="#" method="">
+                                
+                                        <div class="col-md-6">
+                                            </div>
+                                        </div>
+                                        <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox" name="civil" checked> Cvil
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox" name="criminal" checked> criminal
+                                                </label>
+                                            </div>
+                                        <div class="col-sm-8">
+                                            <div class="row"> 
+                                                <div class="form-group label-floating">
+                                                        <label class="control-label">Firm Name</label>
+                                                        <input class="form-control" type="text" name="email" email="true" />
+                                                    </div>
+                                                </div>
+                                        </div>
+                                      <div class="col-sm-8">
+                                    <div class="row">
+                                                                                  
+                                      <div class="col-sm-4">
+                                         <div class="form-group label-floating">
+                                                    <label class="control-label">Range</label>
+                                                    <input class="form-control" type="text" name="email" email="true" />
+                                                </div>
+                                            </div>
+                                        
+                                        <div class="col-sm-4">
+                                      
+
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Range</label>
+                                                    <input class="form-control" type="text" name="email" email="true" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="col-sm-8">
+
+                                        <div class="row">
+
+                                    
+                                        <button type="submit" class="btn btn-rose btn-fill">Search for Firms</button>
+                                    
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="rose">
-                                    <i class="material-icons">equalizer</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">store</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">$34,245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="fa fa-twitter"></i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
-                                    </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -483,7 +513,7 @@
             </footer>
         </div>
     </div>
-    <div class="fixed-plugin">
+     <div class="fixed-plugin">
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
                 <i class="fa fa-cog fa-2x"> </i>

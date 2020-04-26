@@ -47,7 +47,7 @@
 </head>
 
 <body>
-        {%if 'client'==di['mode'] %}
+        {%if 'judge'==di['mode'] %}
 
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li>
+                	<li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -119,45 +119,41 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="{{url_for('FindLawyer')}}" >
-                                  Find a Lawyer
-                                                                   </a>
-                            </li>
+                       <ul class="nav navbar-nav navbar-right">
                             <li >
-                                <a  href="{{url_for('FindFirm')}}" >
-                                  Firm Requests
+                                <a  href="{{url_for('PreviousJudgements')}}" >
+                                  Previous Judgements
+                                                                   </a>
+                            </li>
+                             <li >
+                                <a  href="{{url_for('JudgeSchedule')}}" >
+                                  Schedule 
                                                                    </a>
                             </li>
                              <li>
-                                <a href="{{url_for('CheckStatus')}}" >
-                                  Check Status
+                                <a href="{{url_for('Records')}}" >
+                                    Records
                                                                    </a>
                             </li>                            
-                            <li>
-                                <a href="{{url_for('HearingTime')}}" >
-                                  Hearing Time
-                                                                   </a>
-                            </li>                            
-                            <li>
-                                <a href="{{url_for('Appeal')}}" >
-                                  Appeal to Higher Court
-                                                                   </a>
-                            </li>                           
+                                                    
+                                                    
+                            
                              <li>
-                                <a href="{{url_for('Withdrawal')}}" >
-                                  Withdrawal
-                                                                   </a>
+                                <a href="{{url_for('Setnexthearing')}}" >
+                            Set the date for next hearing
+                                                                 </a>
                             </li>
-                             <li>
-                                <a href="{{url_for('Payment')}}" >
-                                  Make Payement
-                                                                   </a>
+                         
+                            <li>
+                                <a href="{{url_for('Cases')}}" >
+
+                                
+                                View Active/Pending Cases                                                                  
+                                 </a>
                             </li>
                             
                         </ul>
-                        <!-- <form class="navbar-form navbar-right" role="search">
+                         <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group form-search is-empty">
                                 <input type="text" class="form-control" placeholder="Search">
                                 <span class="material-input"></span>
@@ -171,320 +167,201 @@
                 </div>
             </nav>
             <div class="content">
-               <div class="container-fluid">
-                {%if Firmcurrent is not defined %}
-                <div class="row">
+                <div class="container-fluid">
+                   <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <h4 class="card-title">No Current Firms </h4>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                {%else%}
-
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Current Firms</h4>
+                                    <h4 class="card-title">Case details</h4>
                                     <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Firm ID</td>
-                                                            <td >
-                                                                CNRno
-                                                            </td>
-                                                            <td >
-                                                                Side
-                                                            </td>
-                                                             <td >
-                                                                Fee
-                                                            </td>
-                                                            <td >
-                                                                Paid
-                                                            </td>
-                                                            <td >
-                                                                Requested
-                                                            </td>
-                                                            <td >
-                                                                Date paid
-                                                            </td>
-                                                        </tr>
-                                                        {% for lr in Firmcurrent %}
-                                                        <tr>
-                                                            <td>lr.FirmID</td>
-                                                            <td >
-                                                                lr.CNRno
-                                                            </td>
-                                                            <td >
-                                                                lr.Side
-                                                            </td>
-                                                             <td >
-                                                                lr.Fee
-                                                            </td>
-                                                            <td >
-                                                                lr.Paid
-                                                            </td>
-                                                            <td >
-                                                                lr.Requested
-                                                            </td>
-                                                            <td >
-                                                                lr.Date paid
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-                     {%if Firmrequest is not defined %}
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <h4 class="card-title">No Current Firms Requested Currenlty </h4>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                {%else%}
-
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
+                                        <form id="TypeValidation" class="form-horizontal" action="" method="POST">
                                 
-                                <div class="card-content">
-                                    <h4 class="card-title">Firms Currently Requested</h4>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Firm ID</td>
-                                                            <td >
-                                                                Client Note
-                                                            </td>
-                                                            <td >
-                                                                Filling Number
-                                                            </td>
-                                                             <td >
-                                                                Quotation
-                                                            </td>
-                                                            <td >
-                                                                Status
-                                                            </td>
-                                                            <td >
-                                                                Requested
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        {% for lr in Firmrequest %}
-                                                        <tr>
-                                                            <td>lr.FirmID</td>
-                                                            <td >
-                                                                lr.Client_Note
-                                                            </td>
-                                                            <td >
-                                                                lr.FillingNo
-                                                            </td>
-                                                             <td >
-                                                                lr.Quotation
-                                                            </td>
-                                                            <td >
-                                                                lr.Status
-                                                            </td>
-                                                              <td >
-                                                                {%if 'True'==lr.Status %}
-                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request">
-                                                                {%else%}
-
-                                                                <input type="button" id={{lr.FIrmID}} value="Cancel Request" disabled>
-                                                                {%endif%}
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-                    {%if FirmSearch is defined %}
-
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Search Results</h4>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Firm ID</td>
-                                                            <td >
-                                                                Client Note
-                                                            </td>
-                                                            <td >
-                                                                Filling Number
-                                                            </td>
-                                                             <td >
-                                                                Quotation
-                                                            </td>
-                                                            <td >
-                                                                Status
-                                                            </td>
-                                                            <td >
-                                                                Requested
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        {% for lr in FirmSearch %}
-                                                        <tr>
-                                                            <td>lr.FirmID</td>
-                                                            <td >
-                                                                lr.Client_Note
-                                                            </td>
-                                                            <td >
-                                                                lr.FillingNo
-                                                            </td>
-                                                             <td >
-                                                                lr.Quotation
-                                                            </td>
-                                                            <td >
-                                                                lr.Status
-                                                            </td>
-                                                              <td >
-                                                                {%if 'True'==lr.Status %}
-                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request">
-                                                                {%else%}
-
-                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request" disabled>
-                                                                {%endif%}
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-               
-               
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Search for Firms</h4>
-                                    <div class="row">
-                                         <form id="TypeValidation" class="form-horizontal" action="#" method="">
-                                
-                                        <div class="col-md-6">
-                                            </div>
-                                        </div>
-                                        <div class="togglebutton">
-                                                <label>
-                                                    <input type="checkbox" name="civil" checked> Cvil
-                                                </label>
-                                            </div>
-                                            <div class="togglebutton">
-                                                <label>
-                                                    <input type="checkbox" name="criminal" checked> criminal
-                                                </label>
-                                            </div>
-                                        <div class="col-sm-8">
-                                            <div class="row"> 
-                                                <div class="form-group label-floating">
-                                                        <label class="control-label">Firm Name</label>
-                                                        <input class="form-control" type="text" name="email" email="true" />
+                                            
+                                            
+                                            <div class="col-sm-8">
+                                                <div class="row"> 
+                                                    <div class="form-group label-floating">    
+                                                        <input class="form-control" type="text" placeholder="Enter CNR Number" name="CNRno">
                                                     </div>
                                                 </div>
-                                        </div>
-                                      <div class="col-sm-8">
-                                    <div class="row">
-                                                                                  
-                                      <div class="col-sm-4">
-                                         <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
+                                            </div>
+
+
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
                                                 </div>
                                             </div>
-                                        
-                                        <div class="col-sm-4">
-                                      
 
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                          
+                                            
+
+                                        </form>
                                     </div>
-                                    <div class="col-sm-8">
-
-                                        <div class="row">
-
-                                    
-                                        <button type="submit" class="btn btn-rose btn-fill">Search for Firms</button>
-                                    
-                                    </div>
-                                </div>
-                                </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
+                 {%if Acases is not defined or Acases == "" %}
+                 <div class="row">
+                         <div class="col-md-12">
+                             <div class="card">
+                                 <div class="card-content">
+                                     <h4 class="card-title">Enter CNR Number To Continue</h4>
+                                 </div>
+                             </div>
+                         </div>
+                 </div>
+                 {%elif Acases == "empty" %}
+                 <div class="row">
+                         <div class="col-md-12">
+                             <div class="card">
+                                 <div class="card-content">
+                                     <h4 class="card-title"> Invalid CNR Number entered</h4>
+                                 </div>
+                             </div>
+                         </div>
+                 </div>
+                 {%else%}
+ 
+                 <div class="row">
+                         <div class="col-md-12">
+                             <div class="card">
+                                 
+                                 <div class="card-content">
+                                     <h4 class="card-title">Document</h4>
+                                     <div class="row">
+                                         <div class="col-md-12">
+                                             <div class="table-responsive table-sales">
+                                                 <table class="table">
+                                                     <tbody class="text-center">
+                                                             <tr>
+                                                            <td>
+                                                                CNR Number
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                Filing Date
+                                                            </td>
+                                                            <td>
+                                                                First Hearing
+                                                            </td>
+                                                            <td>
+                                                                Next Hearing
+                                                            </td>
+                                                            <td>
+                                                                Previous Hearing
+                                                            </td>
+                                                            <td>
+                                                               Stage
+                                                            </td>
+                                                            <td>
+                                                                Court Number
+                                                            </td>
+                                                        
+                                                            <td>
+                                                                Victim ID
+                                                            </td>
+                                                            <td>
+                                                               Victim Statement
+                                                            </td>
+                                                            <td>
+                                                               Accused ID
+                                                            </td>
+                                                            <td>
+                                                               Accused Statement
+                                                            </td>
+                                                            <td>
+                                                                Acts
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        {% for case in Acases %}
+                                                            <tr>
+                                                                <td>
+                                                                    {{case.CNRno}}
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    {{case.FilingDate}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.FirstHearing}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.NextHearing}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.PrevHearing}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.Stage}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.CourtNo}}
+                                                                </td>
+                                                              
+                                                                <td>
+                                                                    {{case.VictimID}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.VictimStmnt}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.AccusedID}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.AccusedStmnt}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.Acts}}
+                                                                </td>
+                                                            <td>
+                                                            
+                                                        <div class="form-group">
+                                                            <div class='input-group date' id='datetimepicker1'>
+                                                                <input type='text' class="form-control" />
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+    </div>
+</div>
+                                                            </td>
+                                                            </tr>
+                                                        {%endfor%}
+                                                     </tbody>
+
+
+                                                 </table>
+                                                   
+                                                            <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success" disabled >Set</a>
+                                                           
+                                             </div>
+                                         </div>
+ 
+                                         <div class="col-md-6 col-md-offset-1">
+                                             <!-- <div id="worldMap" class="map"></div> -->
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     {%endif%}
+                
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">
                         <ul>
-                            <li>
-                                <a href="#">
+                            <li>             <a href="#">
                                     Home
                                 </a>
                             </li>
@@ -516,7 +393,7 @@
             </footer>
         </div>
     </div>
-     <div class="fixed-plugin">
+    <div class="fixed-plugin">
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
                 <i class="fa fa-cog fa-2x"> </i>
@@ -647,6 +524,12 @@
 <script src="/static/static2/assets/js/jquery.tagsinput.js"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="/static/static2/assets/js/material-dashboard.js"></script>
+<script type="text/javascript" src="/path/to/jquery.js"></script>
+<script type="text/javascript" src="/path/to/moment.js"></script>
+<script type="text/javascript" src="/path/to/bootstrap/js/transition.js"></script>
+<script type="text/javascript" src="/path/to/bootstrap/js/collapse.js"></script>
+<script type="text/javascript" src="/path/to/bootstrap/dist/bootstrap.min.js"></script>
+<script type="text/javascript" src="/path/to/bootstrap-datetimepicker.min.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="/static/static2/assets/js/demo.js"></script>
 <script type="text/javascript">

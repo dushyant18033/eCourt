@@ -47,7 +47,8 @@
 </head>
 
 <body>
-	{%if 'judge'==di['mode'] %}
+        {%if 'client'==di['mode'] %}
+
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
@@ -69,6 +70,7 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
+                           
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
@@ -86,7 +88,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                	<li>
+                    <li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -96,7 +98,6 @@
                     <a href="#">Settings</a>
                                 </li>
                 </ul>
-                
             </div>
         </div>
         <div class="main-panel">
@@ -118,122 +119,149 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                         <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a  href="{{url_for('PreviousJudgements')}}" >
-                                  Previous Judgements
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{{url_for('FindLawyer')}}" >
+                                  Hire a Lawyer
                                                                    </a>
                             </li>
-                             <li >
-                                <a  href="{{url_for('JudgeSchedule')}}" >
-                                  Schedule 
+                            <li >
+                                <a  href="{{url_for('FindFirm')}}" >
+                                  Hire a Firm
                                                                    </a>
                             </li>
                              <li>
-                                <a href="{{url_for('TrackLawyer')}}" >
-                                    Records
+                                <a href="{{url_for('CheckStatus')}}" >
+                                  Check Status
                                                                    </a>
                             </li>                            
-                                                    
-                                                    
+                            <li>
+                                <a href="{{url_for('HearingTime')}}" >
+                                  Hearing Time
+                                                                   </a>
+                            </li>                            
+                             <li>
+                                <a href="{{url_for('Documents')}}" >
+                                  Upload Documents
+                                                                   </a>
+                            </li>                         
                             
                              <li>
-                                <a href="{{url_for('Setnexthearing')}}" >
-                            Set the date for next hearing
-                                                                 </a>
-                            </li>
-                           
-                            <li>
-                                <a href="{{url_for('Cases')}}" >
-
-                                
-                                View Active/Pending Cases                                                                  
-                                 </a>
+                                <a href="{{url_for('Payment')}}" >
+                                  Make Payement
+                                                                   </a>
                             </li>
                             
                         </ul>
-                      
+                        <!-- <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group form-search is-empty">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="material-input"></span>
+                            </div>
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </form> -->
                     </div>
                 </div>
             </nav>
-
-            
             <div class="content">
-                <div class="container-fluid">
-                 {%if schedule is not defined %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">Nothing to do today. Have Fun !</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">Schedule for Today</h4>
-                                     <div class="row">
-                                         <div class="col-md-10">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                        <tr>
-                                                            <td>CNR No.</td>
-                                                            <td>Filing No.</td>
-                                                            <td>Filing Date</td>
-                                                            <td>First Hearing</td>
-                                                            <td>Next Hearing</td>
-                                                            <td>Prev Hearing</td>
-                                                            <td>Stage</td>
-                                                            <td>Court No</td>
-                                                            <td>Judge ID</td>
-                                                            <td>Victim ID</td>
-                                                            <td>Victim Statement</td>
-                                                            <td>Accused ID</td>
-                                                            <td>Accused Statement</td>
-                                                            <td>Acts</td>
-                                                         </tr>
-                                                         {% for case in schedule %}
-                                                         <tr>
-                                                            <td>{{case.CNRno}}</td>
-                                                            <td>{{case.FilingNo}}</td>
-                                                            <td>{{case.FilingDate}}</td>
-                                                            <td>{{case.FirstHearing}}</td>
-                                                            <td>{{case.NextHearing}}</td>
-                                                            <td>{{case.PrevHearing}}</td>
-                                                            <td>{{case.Stage}}</td>
-                                                            <td>{{case.CourtNo}}</td>
-                                                            <td>{{case.JudgeID}}</td>
-                                                            <td>{{case.VictimID}}</td>
-                                                            <td>{{case.VictimStmnt}}</td>
-                                                            <td>{{case.AccusedID}}</td>
-                                                            <td>{{case.AccusedStmnt}}</td>
-                                                            <td>{{case.Acts}}</td>
-                                                         </tr>
-                                                         {% endfor %}
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-                
-                
+               <div class="container-fluid">
+                {%if Lawyercurrent is not defined %}
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="card-title">No Current Lawyers </h4>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                {%else%}
 
-            <footer class="footer">
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">Current Lawyers</h4>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                           
+                                                            <td>Lawyer ID</td>
+                                                            <td >
+                                                                CNRno
+                                                            </td>
+                                                            <td >
+                                                                Side
+                                                            </td>
+                                                             <td >
+                                                                Fee
+                                                            </td>
+                                                            <td >
+                                                                Paid
+                                                            </td>
+                                                            <td >
+                                                                Requested
+                                                            </td>
+                                                            <td >
+                                                                Date paid
+                                                            </td>
+                                                        </tr>
+                                                        {% for lr in Lawyercurrent %}
+                                                        <tr>
+                                                            <td>lr.LawyerID</td>
+                                                            <td >
+                                                                lr.CNRno
+                                                            </td>
+                                                            <td >
+                                                                lr.Side
+                                                            </td>
+                                                             <td >
+                                                                lr.Fee
+                                                            </td>
+                                                            <td >
+                                                                lr.Paid
+                                                            </td>
+                                                            {%if lr.Paid=='False'%}
+                                                            <td >
+
+                                                                 {%if 'True'==lr.Requested %}
+                                                                <input type="button" nethod ='post' id={{lr.LawyerID}} value="Pay">
+                                                                {%else%}
+
+                                                                <input type="button" id={{lr.LawyerID}} value="Pay" disabled>
+                                                                {%endif%}
+                                                             
+                                                            </td>
+                                                            {%else%}
+                                                            <td >
+                                                                lr.Date paid
+                                                            </td>
+                                                            {%endif%}
+                                                        </tr>
+                                                        {%endfor%}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <!-- <div id="worldMap" class="map"></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                              <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">
                         <ul>
@@ -270,7 +298,7 @@
             </footer>
         </div>
     </div>
-    <div class="fixed-plugin">
+     <div class="fixed-plugin">
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
                 <i class="fa fa-cog fa-2x"> </i>

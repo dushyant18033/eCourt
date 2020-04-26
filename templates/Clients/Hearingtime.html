@@ -47,7 +47,7 @@
 </head>
 
 <body>
-        {%if 'judge'==di['mode'] %}
+        {%if 'client'==di['mode'] %}
 
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
@@ -70,7 +70,6 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
-                           
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
@@ -88,7 +87,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                	<li>
+                    <li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -98,6 +97,7 @@
                     <a href="#">Settings</a>
                                 </li>
                 </ul>
+                
             </div>
         </div>
         <div class="main-panel">
@@ -119,41 +119,41 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                       <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a  href="{{url_for('PreviousJudgements')}}" >
-                                  Previous Judgements
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{{url_for('FindLawyer')}}" >
+                                  Hire a Lawyer
                                                                    </a>
                             </li>
-                             <li >
-                                <a  href="{{url_for('JudgeSchedule')}}" >
-                                  Schedule 
+                            <li >
+                                <a  href="{{url_for('FindFirm')}}" >
+                                  Hire a Firm
                                                                    </a>
                             </li>
                              <li>
-                                <a href="{{url_for('TrackLawyer')}}" >
-                                    Records
+                                <a href="{{url_for('CheckStatus')}}" >
+                                  Check Status
                                                                    </a>
                             </li>                            
-                                                    
-                                                    
+                            <li>
+                                <a href="{{url_for('HearingTime')}}" >
+                                  Hearing Time
+                                                                   </a>
+                            </li>                            
+                             <li>
+                                <a href="{{url_for('Documents')}}" >
+                                  Upload Documents
+                                                                   </a>
+                            </li>                           
                             
                              <li>
-                                <a href="{{url_for('Setnexthearing')}}" >
-                            Set the date for next hearing
-                                                                 </a>
-                            </li>
-                         
-                            <li>
-                                <a href="{{url_for('Cases')}}" >
-
-                                
-                                View Active/Pending Cases                                                                  
-                                 </a>
+                                <a href="{{url_for('Payment')}}" >
+                                  Make Payement
+                                                                   </a>
                             </li>
                             
                         </ul>
-                         <!-- <form class="navbar-form navbar-right" role="search">
+                       <!--  <form class="navbar-form navbar-right" role="search">
                             <div class="form-group form-search is-empty">
                                 <input type="text" class="form-control" placeholder="Search">
                                 <span class="material-input"></span>
@@ -168,113 +168,43 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                   <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <h4 class="card-title">Case details</h4>
+                                    <h4 class="card-title">
+                                    {%if Acases is defined%}
+                                    Next Hearing Time for cases 
+                                    {%else%}
+                                    Currently no Hearing scheduled
+                                    {%endif%}
+                                    </h4>
+                                   {%if Acases is defined%}
+
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="" method="POST">
-                                
-                                            
-                                            
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter CNR Number" name="CNRno">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-sm-8">
-                                                <div class="row">
-                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
-                                                </div>
-                                            </div>
-
-                                            
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                 {%if Acases is not defined or Acases == "" %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">Enter CNR Number To Continue</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%elif Acases == "empty" %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title"> Invalid CNR Number entered</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
- 
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">Document</h4>
-                                     <div class="row">
-                                         <div class="col-md-12">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                             <tr>
+                                        <div class="col-md-5">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
                                                             <td>
-                                                                CNR Number
+                                                                CNR number
                                                             </td>
-                                                            
                                                             <td>
                                                                 Filing Date
                                                             </td>
                                                             <td>
-                                                                First Hearing
+                                                                Next Hearing Date
                                                             </td>
                                                             <td>
-                                                                Next Hearing
+                                                                Prev Hearing Date
                                                             </td>
                                                             <td>
-                                                                Previous Hearing
-                                                            </td>
-                                                            <td>
-                                                               Stage
-                                                            </td>
-                                                            <td>
-                                                                Court Number
-                                                            </td>
-                                                        
-                                                            <td>
-                                                                Victim ID
-                                                            </td>
-                                                            <td>
-                                                               Victim Statement
-                                                            </td>
-                                                            <td>
-                                                               Accused ID
-                                                            </td>
-                                                            <td>
-                                                               Accused Statement
+                                                                Side
                                                             </td>
                                                             <td>
                                                                 Acts
                                                             </td>
-                                                            
                                                         </tr>
                                                         {% for case in Acases %}
                                                             <tr>
@@ -285,83 +215,109 @@
                                                                 <td>
                                                                     {{case.FilingDate}}
                                                                 </td>
-                                                                <td>
-                                                                    {{case.FirstHearing}}
-                                                                </td>
+                                                                
                                                                 <td>
                                                                     {{case.NextHearing}}
                                                                 </td>
                                                                 <td>
                                                                     {{case.PrevHearing}}
                                                                 </td>
-                                                                <td>
-                                                                    {{case.Stage}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.CourtNo}}
-                                                                </td>
-                                                              
-                                                                <td>
-                                                                    {{case.VictimID}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.VictimStmnt}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.AccusedID}}
-                                                                </td>
-                                                                <td>
-                                                                    {{case.AccusedStmnt}}
-                                                                </td>
+                                                                {%if di.ID==case.VictimID%}
+                                                                Victim
+                                                                {%else%}
+                                                                Accused
+                                                                {%endif%}
                                                                 <td>
                                                                     {{case.Acts}}
                                                                 </td>
-                                                            <td>
-                                                            
-                                                        <div class="form-group">
-                                                            <div class='input-group date' id='datetimepicker1'>
-                                                                <input type='text' class="form-control" />
-                                                                <span class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
-    </div>
-</div>
-                                                            </td>
                                                             </tr>
                                                         {%endfor%}
-                                                     </tbody>
 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  {%endif%}
 
-                                                 </table>
-                                                   
-                                                            <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success" disabled >Set</a>
-                                                           
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="material-icons">weekend</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Bookings</p>
+                                    <h3 class="card-title">184</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-danger">warning</i>
+                                        <a href="#pablo">Get More Space...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="rose">
+                                    <i class="material-icons">equalizer</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Website Visits</p>
+                                    <h3 class="card-title">75.521</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">store</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Revenue</p>
+                                    <h3 class="card-title">$34,245</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i> Last 24 Hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <i class="fa fa-twitter"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Followers</p>
+                                    <h3 class="card-title">+245</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">
                         <ul>
-                            <li>             <a href="#">
+                            <li>
+                                <a href="#">
                                     Home
                                 </a>
                             </li>
@@ -524,12 +480,6 @@
 <script src="/static/static2/assets/js/jquery.tagsinput.js"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="/static/static2/assets/js/material-dashboard.js"></script>
-<script type="text/javascript" src="/path/to/jquery.js"></script>
-<script type="text/javascript" src="/path/to/moment.js"></script>
-<script type="text/javascript" src="/path/to/bootstrap/js/transition.js"></script>
-<script type="text/javascript" src="/path/to/bootstrap/js/collapse.js"></script>
-<script type="text/javascript" src="/path/to/bootstrap/dist/bootstrap.min.js"></script>
-<script type="text/javascript" src="/path/to/bootstrap-datetimepicker.min.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="/static/static2/assets/js/demo.js"></script>
 <script type="text/javascript">
