@@ -2,8 +2,11 @@ from flask import Flask,render_template,redirect,url_for,request
 from flask_bootstrap import Bootstrap
 import Home
 import os
+import requests
+
+backend_url = "http://dbff8e30.ngrok.io/"
 USERNAME=""
-di={"mode":"officer","username":"dushyant"}
+di={"mode":"lawyer","username":"dushyant"}
 app=Flask(__name__,static_folder='static')
 
 Bootstrap(app)
@@ -136,26 +139,59 @@ def CaseHistory():
 		# process find hearings using cnrNn and put into hrs.
 	return render_template('Lawyer/CaseHistory.html',di=di,hearings=hrs)
 
-@app.route('/Lawyer/ClientRequests')
+
+
+@app.route('/ClientRequests', methods=["POST","GET"])
 def ClientRequests():
 		global di 
 		#lawyerrequests need to be passed
-		clientList=[{"ID":123, "Name":"helloworld123", "DOB":"11-11-1111"}]
-		newClientsList=[{"ID":12345, "Name":"helloworld321", "DOB":"11-11-2000"}]
-		
+		clients=[]
 		# print(request.args)
 		# <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success">Accept</a>
 		# <a href="/ClientRequests?reject&{{cl}}" class="btn btn-danger">Reject</a>
 
-		return render_template('Lawyer/ClientRequests.html',di=di, clients=clientList, clientRequests=newClientsList)
+		if request.method=="POST":
+			LawyerID = request.form.get('LawyerID')
+			url=backend_url + "lawyer/getRequests"
+			param={'LawyerID':LawyerID}
+			clients = requests.post(url,param).json()
+			if clients["res"]=="ok":
+				clients=clients["arr"]
+			else:
+				clients=[]
+
+		return render_template('lawyer/ClientRequests.html',di=di, clientRequests=clients)
 
 
-@app.route('/Lawyer/ActivePending')
+@app.route('/ActivePending', methods=["POST","GET"])
 def ActivePending():
-		global di 
-		active=[]	#List of jsons containing all columns from table ActiveCases
-		pending=[]	#List of jsons containing all columns from table PendingCases
-		return render_template('Lawyer/ActivePending.html',di=di,active=active,pending=pending)
+	global di, backend_url
+	active=[]	#List of jsons containing all columns from table ActiveCases
+	pending=[]	#List of jsons containing all columns from table PendingCases
+	
+	if request.method=="POST":
+		LawyerID = request.form.get('LawyerID')
+		
+		url=backend_url + "lawyer/getActiveCases"
+		param={'LawyerID':LawyerID}
+		active = requests.post(url,param).json()
+		if active["res"]=="ok":
+			active=active["arr"]
+		else:
+			active=[]
+
+		url=backend_url + "lawyer/getPendingCases"
+		param={'LawyerID':LawyerID}
+		pending = requests.post(url,param).json()
+		if pending["res"]=="ok":
+			pending=pending["arr"]
+		else:
+			pending=[]
+
+	return render_template('lawyer/ActivePending.html',di=di,active=active,pending=pending)
+
+
+
 
 @app.route('/Lawyer/Schedule')
 def Schedule():

@@ -159,56 +159,42 @@
             
             <div class="content">
                 <div class="container-fluid">
-                 {%if clients==[] %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">No Current Clients </h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
- 
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">Current Clients</h4>
-                                     <div class="row">
-                                         <div class="col-md-10">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                         <tr>
-                                                             <td>Client ID</td>
-                                                             <td>Name</td>
-                                                             <td>DOB</td>
-                                                         </tr>
-                                                         {% for cl in clients %}
-                                                         <tr>
-                                                             <td>{{cl.ID}}</td>
-                                                             <td>{{cl.Name}}</td>
-                                                             <td>{{cl.DOB}}</td>
-                                                         </tr>
-                                                         {%endfor%}
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-                      {%if clientRequests == [] %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="card-title">Enter Lawyer ID To Search</h4>
+                                    <div class="row">
+                                        <form id="TypeValidation" class="form-horizontal" action="/ClientRequests" method="POST">
+                                
+                                            
+                                            <div class="col-sm-8">
+                                                <div class="row"> 
+                                                    <div class="form-group label-floating">    
+                                                        <input class="form-control" type="number" placeholder="Enter Lawyer ID" name="LawyerID">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                 
+                 {%if clientRequests == [] %}
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
@@ -233,15 +219,21 @@
                                                      <tbody class="text-center">
                                                             <tr>
                                                                 <td>Client ID</td>
-                                                                <td>Name</td>
-                                                                <td>DOB</td>
+                                                                <td>Lawyer ID</td>
+                                                                <td>Filing No</td>
+                                                                <td>Client Note</td>
+                                                                <td>Quotation</td>
+                                                                <td>Status</td>
                                                                 <td>Accept/Reject</td>
                                                             </tr>
                                                             {% for cl in clientRequests %}
                                                             <tr>
-                                                                <td>{{cl.ID}}</td>
-                                                                <td>{{cl.Name}}</td>
-                                                                <td>{{cl.DOB}}</td>                                                            
+                                                                <td>{{cl.ClientID}}</td>
+                                                                <td>{{cl.LawyerID}}</td>
+                                                                <td>{{cl.FilingNo}}</td>
+                                                                <td>{{cl.Client_Note}}</td>
+                                                                <td>{{cl.Quotation}}</td>
+                                                                <td>{{cl.Status}}</td>
                                                                 <td>
                                                                     <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success">Accept</a>
                                                                     <a href="/ClientRequests?reject&{{cl}}" class="btn btn-danger">Reject</a>
