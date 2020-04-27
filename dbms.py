@@ -5,9 +5,9 @@ import os
 import requests
 
 
-backend_url = "http://8c3fb3ef.ngrok.io/"
+backend_url = "http://608e5c00.ngrok.io/"
 USERNAME=""
-di={"mode":"lawyer","username":"dushyant"}
+di={"mode":"law firm","username":"dushyant"}
 app=Flask(__name__,static_folder='static')
 
 Bootstrap(app)
@@ -133,13 +133,13 @@ def FileCase():
 			if AccusedID!="":
 				FilingNo=""
 		param={'LawyerID':int(LawyerID), 'ClientID':int(ClientID), 'Status': 1, 'AccusedID':AccusedID, 'Type':Type, 'FilingNo':FilingNo}
-		print(param)
-		# res = requests.post(url,json=param).json()
+		#print(param)
+		res = requests.post(url,json=param).json()
 		#print(res)
-		#if(res["res"] == "success"):
-		#	msg="SUCCESS"
-		#else:
-		#	msg="FAILED"
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
 
 	return render_template('Lawyer/FileCase.html',di=di, message=msg)
 
@@ -368,46 +368,150 @@ def Result():
 
 # Law Firm Routes
 
-@app.route('/Lawfirm/ClientRequestsLawFirm')
-def ClientRequestsLawFirm():
+@app.route('/Lawfirm/FirmLawyers', methods=["POST","GET"])
+def FirmLawyers():
+	global di
+	lawyers=[]
+	if request.method=="POST":
+		FirmID=request.form.get('FirmID')
+		
+		url=backend_url + "firm/getLawyers"
+		param={"FirmID":FirmID}
+		print(param)
+		lawyers = requests.post(url,json=param).json()
+		print(lawyers)
+		if lawyers["res"]=="ok":
+			lawyers=lawyers["arr"]
+		else:
+			lawyers=[]
+	return render_template('Lawfirm/FirmLawyers.html',di=di, lawyers=lawyers)
+
+@app.route('/Lawfirm/ClientRequestsLawFirm', methods=["POST","GET"])
+def ClientRequestsLawFirm(msg="	"):
 	global di 
-	existingClients=[{"ID":123, "Name":"helloworld123", "DOB":"11-11-1111"}]
-	newClients=[{"ID":12345, "Name":"helloworld321", "DOB":"11-11-2000"}]
-	
-	return render_template('Lawfirm/ClientRequestsLawFirm.html',di=di, clients=existingClients, clientRequests=newClients)
+	clients=[]
+	reqs=[]
+	if request.method=="POST":
+		FirmID=request.form.get('FirmID')
+		
+		url1=backend_url + "firm/searchClients"
+		url2=backend_url + "firm/getRequests"
+		param={"FirmID":FirmID}
+		print(param)
+		clients = requests.post(url1,json=param).json()
+		if clients["res"]=="ok":
+			clients=clients["arr"]
+		else:
+			clients=[]
+		
+		reqs = requests.post(url2,json=param).json()
+		if reqs["res"]=="ok":
+			reqs=reqs["arr"]
+		else:
+			reqs=[]
+
+	return render_template('Lawfirm/ClientRequestsLawFirm.html',di=di, clients=clients, clientRequests=reqs,message=msg)
 
 @app.route('/Lawfirm/ClientRequestsLawFirm/accept', methods=["POST","GET"])
 def ClientRequestsLawFirm_accept():	#In case accepted
 	if request.method=="POST":
-		print(request.form.get('clientID'),request.form.get('lawyerID'))
-	return ClientRequestsLawFirm()
+		ClientID=request.form.get('ClientID')
+		FirmID=request.form.get('FirmID')
+		LawyerID=request.form.get('LawyerID')
+
+		url=backend_url + "firm/appointLawyer"
+		param={"FirmID":FirmID,"Status":1,"ClientID":ClientID,"LawyerID":LawyerID}
+		print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
+		
+	return ClientRequestsLawFirm(msg)
 
 @app.route('/Lawfirm/ClientRequestsLawFirm/reject', methods=["POST","GET"])
 def ClientRequestsLawFirm_reject():	#In case rejected
 	if request.method=="POST":
-		print(request.form.get('clientID'))
-	return ClientRequestsLawFirm()
+		ClientID=request.form.get('ClientID')
+		FirmID=request.form.get('FirmID')
+		
+		url=backend_url + "firm/appointLawyer"
+		param={"FirmID":FirmID,"Status":2,"ClientID":ClientID,"LawyerID":""}
+		print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
 
-@app.route('/Lawfirm/LawyerPerf')
+	return ClientRequestsLawFirm(msg)
+
+@app.route('/Lawfirm/LawyerPerf',methods=["POST","GET"])
 def LawyerPerf():
 	global di 
-	lawyerPerf=[{'ID':123,'Name':'hello','Wins':10,'Loses':2}]
-	return render_template('Lawfirm/LawyerPerf.html',di=di,lawyerPerf=lawyerPerf)
+	lawyerPerf=[[]]
+	if request.method=="POST":
+		LawyerID=request.form.get('LawyerID')
+		
+		url=backend_url + "firm/lawyerPerformance"
+		param={"LawyerID":LawyerID}
+		print(param)
+		lawyerPerf = requests.post(url,json=param).json()
+		print(lawyerPerf)
+		if lawyerPerf["res"]=="ok":
+			lawyerPerf=lawyerPerf["arr"]
+		else:
+			lawyerPerf=[[]]
+		
+	return render_template('Lawfirm/LawyerPerf.html',di=di,lp=lawyerPerf[0])
 
 @app.route('/Lawfirm/FirmEarn', methods=["POST","GET"])
 def FirmEarn():
-	client_wise=[]
-	lawyer_wise=[]
+	cw=[]
+	lw=[]
 	if request.method=="POST":
-		print(request.form.get('StartDate'))	#Take the input StartDate
-		# process queries
-	return render_template('Lawfirm/FirmEarn.html',di=di,client_wise=client_wise,lawyer_wise=lawyer_wise)
+		datePaid=request.form.get('StartDate')
+		FirmID=request.form.get('FirmID')
+		
+		url1=backend_url + "firm/earningByClients"
+		url2=backend_url + "firm/earningByLawyers"
+		param={"FirmID":FirmID, "datePaid": datePaid}
+		print(param)
+		cw = requests.post(url1,json=param).json()
+		if cw["res"]=="ok":
+			cw=cw["arr"]
+		else:
+			cw=[]
+		
+		lw = requests.post(url2,json=param).json()
+		if lw["res"]=="ok":
+			lw=lw["arr"]
+		else:
+			lw=[]
+
+	return render_template('Lawfirm/FirmEarn.html',di=di,client_wise=cw,lawyer_wise=lw)
 
 
-@app.route('/Lawfirm/WinLose')
+@app.route('/Lawfirm/WinLose',methods=["POST","GET"])
 def WinLose():
-	wins_loses=[{'ID':123,'Name':'hello','Wins':10,'Loses':2}]
-	return render_template('Lawfirm/WinLose.html',di=di, wins_loses=wins_loses)
+	wins_loses=[[]]
+	if request.method=="POST":
+		FirmID=request.form.get('FirmID')
+		
+		url=backend_url + "firm/winsLoses"
+		param={"FirmID":FirmID}
+		print(param)
+		wins_loses = requests.post(url,json=param).json()
+		print(wins_loses)
+		if wins_loses["res"]=="ok":
+			wins_loses=wins_loses["arr"]
+		else:
+			wins_loses=[[]]
+
+	return render_template('Lawfirm/WinLose.html',di=di, wins_loses=wins_loses[0])
 
 
 

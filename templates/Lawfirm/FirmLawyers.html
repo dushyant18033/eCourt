@@ -153,28 +153,17 @@
             
             <div class="content">
                 <div class="container-fluid">
-                
-
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <h4 class="card-title">Get Earnings Grouped By Client/Lawyer ID</h4>
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/Lawfirm/FirmEarn" method="POST">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawfirm/FirmLawyers" method="POST">
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
                                                         <input class="form-control" type="number" placeholder="Enter Firm ID" name="FirmID">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="date" placeholder="Enter Start Date" name="StartDate">
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,12 +182,12 @@
                     </div>
 
 
-                 {%if client_wise==[] %}
+                 {%if lawyers==[] %}
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
                                  <div class="card-content">
-                                     <h4 class="card-title">Enter Required Info To Continue</h4>
+                                     <h4 class="card-title">Enter FirmID to continue</h4>
                                  </div>
                              </div>
                          </div>
@@ -210,20 +199,34 @@
                              <div class="card">
                                  
                                  <div class="card-content">
-                                     <h4 class="card-title">Client Wise Data</h4>
+                                     <h4 class="card-title">Currently Associated Lawyers</h4>
                                      <div class="row">
                                          <div class="col-md-10">
                                              <div class="table-responsive table-sales">
                                                  <table class="table">
                                                      <tbody class="text-center">
                                                          <tr>
-                                                             <td>Client ID</td>
-                                                             <td>Earnings</td>
+                                                             <td>Lawyer ID</td>
+                                                             <td>Name</td>
+                                                             <td>Educational Profile</td>
+                                                             <td>Specialization Area</td>
+                                                             <td>AIBE</td>
+                                                             <td>License Status</td>
+                                                             <td>Firm ID</td>
+                                                             <td>Rating</td>
+                                                             <td>Fees Range</td>
                                                          </tr>
-                                                         {% for cl in client_wise %}
+                                                         {% for lw in lawyers %}
                                                          <tr>
-                                                             <td>{{cl.ID}}</td>
-                                                             <td>{{cl.Earnings}}</td>
+                                                            <td>{{lw.ID}}</td>
+                                                            <td>{{lw.Name}}</td>
+                                                            <td>{{lw.Ed_Profile}}</td>
+                                                            <td>{{lw.Spec_Area}}</td>
+                                                            <td>{{lw.AIBE}}</td>
+                                                            <td>{{lw.License_status}}</td>
+                                                            <td>{{lw.FirmID}}</td>
+                                                            <td>{{lw.Rating}}</td>
+                                                            <td>{{lw.Fees_range}}</td>
                                                          </tr>
                                                          {%endfor%}
                                                      </tbody>
@@ -241,57 +244,7 @@
                      </div>
                      {%endif%}
 
-                {%if lawyer_wise == [] %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">Enter Required Info To Continue</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
- 
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">Lawyer Wise Data</h4>
-                                     <div class="row">
-                                         <div class="col-md-10">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                            <tr>
-                                                                <td>Lawyer ID</td>
-                                                                <td>Earnings</td>
-                                                            </tr>
-                                                            {% for cl in lawyer_wise %}
-                                                            <tr>
-                                                                <td>{{cl.ID}}</td>
-                                                                <td>{{cl.Earnings}}</td>
-                                                            </tr>
-                                                            {%endfor%}
- 
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-                     
-                
-                
+
 
             <footer class="footer">
                 <div class="container-fluid">

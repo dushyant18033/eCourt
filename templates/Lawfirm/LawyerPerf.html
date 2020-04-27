@@ -120,6 +120,11 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li >
+                                <a  href="{{url_for('FirmLawyers')}}" >
+                                  Associated Lawyers
+                                                                   </a>
+                            </li>
+                            <li >
                                 <a  href="{{url_for('ClientRequestsLawFirm')}}" >
                                   Client Requests
                                                                    </a>
@@ -148,24 +153,53 @@
             
             <div class="content">
                 <div class="container-fluid">
-                 {%if lawyerPerf==[] %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawfirm/LawyerPerf" method="POST">
+                                            <div class="col-sm-8">
+                                                <div class="row"> 
+                                                    <div class="form-group label-floating">    
+                                                        <input class="form-control" type="number" placeholder="Enter Lawyer ID" name="LawyerID">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
+                                                </div>
+                                            </div>                                            
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                 {%if lp==[] %}
                  <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">No Data Available</h4>
-                                 </div>
-                             </div>
-                         </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="card-title">Enter Lawyer ID to continue</h4>
+                            </div>
+                        </div>
+                    </div>
                  </div>
+
                  {%else%}
- 
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
                                  
                                  <div class="card-content">
-                                     <h4 class="card-title">Currently Registered Lawyers in Your Law Firm</h4>
+                                     <h4 class="card-title">Found Data Record</h4>
                                      <div class="row">
                                          <div class="col-md-10">
                                              <div class="table-responsive table-sales">
@@ -173,18 +207,14 @@
                                                      <tbody class="text-center">
                                                          <tr>
                                                             <td>Lawyer ID</td>
-                                                            <td>Name</td>
                                                             <td>Wins</td>
                                                             <td>Loses</td>
                                                          </tr>
-                                                         {% for lp in lawyerPerf %}
                                                          <tr>
-                                                            <td>{{lp.ID}}</td>
-                                                            <td>{{lp.Name}}</td>
-                                                            <td>{{lp.Wins}}</td>
-                                                            <td>{{lp.Loses}}</td>
+                                                            <td>{{lp.LawyerID}}</td>
+                                                            <td>{{lp.wins}}</td>
+                                                            <td>{{lp.loses}}</td>
                                                          </tr>
-                                                         {%endfor%}
                                                      </tbody>
                                                  </table>
                                              </div>
