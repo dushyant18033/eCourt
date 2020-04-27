@@ -155,19 +155,12 @@
                                 <div class="card-content">
                                     <h4 class="card-title">File An FIR: Fill In The Details</h4>
                                     <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/FileFIR" method="POST">
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter FIR Number" name="FIRno">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <form id="TypeValidation" class="form-horizontal" action="/Officer/FileFIR" method="POST">
 
                                             <div class="col-sm-8">
                                                 <div class="row"> 
                                                     <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Filing Number" name="FilingNo">
+                                                        <input class="form-control" type="number" placeholder="Enter Filing Number" name="FilingNo">
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,6 +192,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <h3>{{message}}</h3>
                 </div>
             </div>
         

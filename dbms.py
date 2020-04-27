@@ -7,7 +7,7 @@ import requests
 
 backend_url = "http://608e5c00.ngrok.io/"
 USERNAME=""
-di={"mode":"law firm","username":"dushyant"}
+di={"mode":"officer","username":"dushyant"}
 app=Flask(__name__,static_folder='static')
 
 Bootstrap(app)
@@ -520,32 +520,58 @@ def WinLose():
 @app.route('/Officer/FileFIR',methods=["GET","POST"])
 def FileFIR():
 	global di
+	msg=""
 	if request.method=="POST":
-		pass 	#Read data here using request.form.get('name of entry')
-	"""	FIRno
-		FilingNo
-		InspectorName
-		Description
-	"""
-	return render_template('Officer/FileFIR.html',di=di)
+		url = backend_url + '/officer/fileFIR'
+		param = {
+			'FilingNo':int(request.form.get('FilingNo')),
+			'InspectorName':request.form.get('InspectorName'),
+			'Description':request.form.get('Description')
+		}
+		print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
+	return render_template('Officer/FileFIR.html',di=di,message=msg)
 
 @app.route('/Officer/SetHearing',methods=["GET","POST"])
 def SetHearing():
 	global di
+	msg=""
 	if request.method=="POST":
-		pass 	#Read data here using request.form.get('name of entry')
-	"""	Date
-		CNRno
-		Prev_Date
-		Purpose
-	"""
-	return render_template('Officer/SetHearing.html',di=di)
+		url = backend_url + '/officer/addHearing'
+		param = {
+			'CNR':int(request.form.get('CNRno')),
+			'PrevHearing':request.form.get('PrevDate'),
+			'NextHearing':request.form.get('Date'),
+			'Purpose':request.form.get('Purpose')
+		}
+		print(param)
+		res = requests.post(url,json=param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
+	return render_template('Officer/SetHearing.html',di=di,message=msg)
 
 
 @app.route('/Officer/Schedule')
 def ScheduleOfficer():
 	global di
-	schedule=[] # all cols of active cases
+	schedule=[]
+	url=backend_url + "officer/schedule"
+	param={}
+	print(param)
+	schedule = requests.post(url,json=param).json()
+	print(schedule)
+	if schedule["res"]=="ok":
+		schedule=schedule["arr"]
+	else:
+		schedule=[]
 	return render_template('Officer/ScheduleOfficer.html',di=di,schedule=schedule)
 
 
