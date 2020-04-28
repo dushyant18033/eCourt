@@ -47,7 +47,8 @@
 </head>
 
 <body>
-	{%if 'officer'==di['mode'] %}
+        {%if 'officer'==di['mode'] %}
+
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
@@ -69,6 +70,7 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
+                           
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
@@ -86,7 +88,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                	<li>
+                    <li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -96,7 +98,6 @@
                     <a href="#">Settings</a>
                                 </li>
                 </ul>
-                
             </div>
         </div>
         <div class="main-panel">
@@ -118,7 +119,7 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                      <ul class="nav navbar-nav navbar-right">
                             <li >
                                 <a  href="{{url_for('FileFIR')}}" >
                                   File FIR
@@ -139,280 +140,224 @@
                                   Document Upload Status
                                                                    </a>
                             </li>
-                             <li>
-                                <a href="{{url_for('VerifyUploadedDocs')}}" >
-                                  Verify Uploaded Documents
+                            <li>
+                                <a href="{{url_for('CaseStatements')}}" >
+                                 Update Case Statements
+                                                                   </a>
+                            </li>
+                            <li>
+                                <a href="{{url_for('ViewDocuments')}}" >
+                                     View Case Related Documents
                                                                    </a>
                             </li>
                             
+                            
                         </ul>
-                        
+                         
                     </div>
                 </div>
             </nav>
             <div class="content">
                 <div class="container-fluid">
+                     {%if message is defined%}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="green">
-                                    <i class="material-icons">language</i>
-                                </div>
+                                
                                 <div class="card-content">
-                                    <h4 class="card-title">Global Pending Cases by Top Countries (in Lakhs)</h4>
+                                   
+                                    <h4 class="card-title">{{message}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%if Docs is defined%}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <h4 class="card-title">
+                                            {%if Docs !=[]%}
+                                            Related Documents 
+                                            {%else%}
+                                            No Related Documents  
+                                            {%endif%}
+                                            </h4>
+                                            {%if Docs !=[] %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive table-sales">
+                                                        
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                     <td>
+                                                                       Filing Number
+                                                                    </td>
+                                                                    <td>
+                                                                        Client ID
+                                                                    </td>
+                                                                   
+                                                                   <td>
+                                                                        Document
+                                                                    </td>
+                                                                    <td>
+                                                                        Document ID
+                                                                    </td>
+                                                                   
+                                                                </tr>    
+                                                                {% for document in Docs %}
+                                                                    <tr>
+                                                                            <form method="post">
+
+                                                                        <td>
+                                                                            {{document.FilingNo}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{document.ClientID}}
+
+                                                                        </td>
+                                                                       <td>
+                                                                            {{document.Document}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{document.DocID}}
+
+                                                                        </td>
+                                                                       
+                                                                       
+                                                                    </tr>
+                                                                {%endfor%}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                             {%if Fir is defined%}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <h4 class="card-title">
+                                            {%if Fir !=[]%}
+                                            Related FIRs 
+                                            {%else%}
+                                            No Related FIRs  
+                                            {%endif%}
+                                            </h4>
+                                            {%if Fir !=[] %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive table-sales">
+                                                        
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        Filing Number
+                                                                    </td>
+                                                                     <td>
+                                                                       FIR Number
+                                                                    </td>
+                                                                    
+                                                                   
+                                                                   <td>
+                                                                        Inspector Name
+                                                                    </td>
+                                                                    <td>
+                                                                        Description
+                                                                    </td>
+                                                                   
+                                                                </tr>    
+                                                                {% for document in Fir %}
+                                                                    <tr>
+                                                                            <form method="post">
+
+                                                                        <td>
+                                                                            {{document.FilingNo}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{document.FIRno}}
+
+                                                                        </td>
+                                                                       <td>
+                                                                            {{document.InspectorName}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{document.Descrption}}
+
+                                                                        </td>
+                                                                       
+                                                                       
+                                                                    </tr>
+                                                                {%endfor%}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                   
+                            <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">View Case Documents</h4>
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/US.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>USA</td>
-                                                            <td class="text-right">
-                                                                2.920
-                                                            </td>
-                                                            <td class="text-right">
-                                                                53.23%
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/DE.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>Germany</td>
-                                                            <td class="text-right">
-                                                                1.300
-                                                            </td>
-                                                            <td class="text-right">
-                                                                20.43%
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/AU.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>Australia</td>
-                                                            <td class="text-right">
-                                                                760
-                                                            </td>
-                                                            <td class="text-right">
-                                                                10.35%
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/GB.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>United Kingdom</td>
-                                                            <td class="text-right">
-                                                                690
-                                                            </td>
-                                                            <td class="text-right">
-                                                                7.87%
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/RO.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>Romania</td>
-                                                            <td class="text-right">
-                                                                600
-                                                            </td>
-                                                            <td class="text-right">
-                                                                5.94%
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="flag">
-                                                                    <img src="/static/static2/assets/img/flags/BR.png">
-                                                                </div>
-                                                            </td>
-                                                            <td>Brasil</td>
-                                                            <td class="text-right">
-                                                                550
-                                                            </td>
-                                                            <td class="text-right">
-                                                                4.34%
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
+                                        
+                                        <div class="col-md-6">
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <div id="worldMap" class="map"></div>
+                                        <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="Type" value="0" checked> Cvil
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="Type" value="1" > Criminal
+                                                       </label>
+                                            </div>
+                                       
+                                       <div class='col-md-6'>
+                                      <input class="form-control" type="number"placeholder="Filing Number" name="FilingNo" required=""  />
                                         </div>
+                                       
+                                    <div class="col-md-12">
+
+                                        <div class="row text-center">
+
+                                    
+                                        <input type="submit"  class="btn btn-rose btn-fill"></button>
+                                    
                                     </div>
+                                </div>
+                                </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="rose" data-header-animation="true">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Website Views</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="green" data-header-animation="true">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="blue" data-header-animation="true">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">weekend</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="#pablo">Get More Space...</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="rose">
-                                    <i class="material-icons">equalizer</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">store</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">$34,245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="fa fa-twitter"></i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                </div>
+                </div>
+            
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">

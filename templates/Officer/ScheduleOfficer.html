@@ -118,7 +118,7 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                         <ul class="nav navbar-nav navbar-right">
                             <li >
                                 <a  href="{{url_for('FileFIR')}}" >
                                   File FIR
@@ -139,8 +139,20 @@
                                   Document Upload Status
                                                                    </a>
                             </li>
+                            <li>
+                                <a href="{{url_for('CaseStatements')}}" >
+                                 Update Case Statements
+                                                                   </a>
+                            </li>
+                            <li>
+                                <a href="{{url_for('ViewDocuments')}}" >
+                                     View Case Related Documents
+                                                                   </a>
+                            </li>
+                            
                             
                         </ul>
+                     
                     </div>
                 </div>
             </nav>

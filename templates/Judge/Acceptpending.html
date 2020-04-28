@@ -47,7 +47,8 @@
 </head>
 
 <body>
-	{%if 'judge'==di['mode'] %}
+        {%if 'judge'==di['mode'] %}
+
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
@@ -86,7 +87,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                	<li>
+                    <li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -118,143 +119,196 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a  href="{{url_for('PreviousJudgements')}}" >
-                                  Previous Judgements
-                                                                   </a>
-                            </li>
-                             <li >
-                                <a  href="{{url_for('JudgeSchedule')}}" >
-                                  Schedule 
-                                                                   </a>
-                            </li>
-                             <li>
-                                <a href="{{url_for('Records')}}" >
-                                  	Records
-                                                                   </a>
-                            </li>                            
-                                                    
-                                                    
-                            
-                            
-                            <li>
-                                <a href="{{url_for('Cases')}}" >
-
-								
-								View Active/Pending Cases                                                                  
-								 </a>
-                            </li>
-                            
-                        </ul>
-                        
+                            <ul class="nav navbar-nav navbar-right">
+                                    <li >
+                                        <a  href="{{url_for('PreviousJudgements')}}" >
+                                          Previous Judgements
+                                                                           </a>
+                                    </li>
+                                     <li >
+                                        <a  href="{{url_for('JudgeSchedule')}}" >
+                                          Schedule 
+                                                                           </a>
+                                    </li>
+                                     <li>
+                                        <a href="{{url_for('Records')}}" >
+                                            Records
+                                                                           </a>
+                                    </li>                            
+                                                            
+                                                            
+                                    
+                                    
+                                    
+                                    <li>
+                                        <a href="{{url_for('Cases')}}" >
+        
+                                        
+                                        View Active/Pending Cases                                                                  
+                                         </a>
+                                    </li>
+                                    
+                                </ul>
+                               
+                               <!--  <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group form-search is-empty">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="material-input"></span>
+                            </div>
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </form> -->
                     </div>
                 </div>
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                        <div class="row-sm-8">
+                     {%if message is defined%}
+                    <div class="row text-center" >
+                        <div class="col-md-12 text-center">
                             <div class="card">
-
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="col-sm-6">
-                                        <div class="card">
-                                          
-                                            <div class="card-content">
-                                                <h4 class="card-title">Search for details of Active Cases</h4>
-                                                <div class="row">
-                                                     <form id="TypeValidation" class="form-horizontal" action="" method="post">
-                                            
-                                                    <div class="col-md-6">
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    <div class="col-sm-5">
-                                                        <div class="row"> 
-                                                            <div class="form-group label-floating">
-                                                                    <label class="control-label">Enter CNR number</label>
-                                                                    <input class="form-control" type="text" name="CNRno"/>
-                                                                </div>
-                                                            </div>
-                                                    </div>
-                                                  
-                                                <div class="col-sm-8">
-            
-                                                    <div class="row">
-            
-                                                
-                                                    <button type="submit" class="btn btn-rose btn-fill">Search </button>
-                                                
-                                                </div>
-                                            </div>
-                                            </form>
-                                            
-                                        </div>
-                                        </div>
-</div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-content">
-                                    
-                                    <h4 class="card-title">Search for Previous Judgements</h4>
-                                    <div class="form-row">
-                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
                                 
-                                        
-                                        
-                                        <div class="checkbox-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="Option"  value="CNRno" checked>
-                                            Search Based on CNRno 
-                                            <span class="circle">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="Option" value="Acts" >
-                                            Search Based on Acts
-                                            <span class="circle">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                    </div>
-                                        <div class="col-sm-5">
-                                            <div class="row"> 
+                                <div class="card-content  ">
+                                   
+                                    <h4 style="text-align:center" class="card-title text-center ">{{message}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%if Pc is defined%}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title text-center">PENDING CASE TO ACTIVE CASE </h4>
+                                   
+                                    <div class="row">
+                                         <form id="TypeValidation" class="form-horizontal" action="#" method="post">
+                                
+                                       
+                                        </div>
+                                        <div class="row"> 
+                                        <div class="col-sm-4">
+                                            
                                                 <div class="form-group label-floating">
-                                                        <label class="control-label">Enter Details</label>
-                                                        <input class="form-control" type="text" name="Details"/>
+                                                 <input class="form-control" type="text" placeholder="Filling Number :{{Pc.FilingNo}}" readonly>
+                                                                <input class="form-control" type="hidden" name="FilingNo" value="{{Pc.FilingNo}}">
+
+                                                    </div>
+                                                </div>
+                                       
+
+                                         <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <input class="form-control" type="text"  placeholder="Filing Date:{{Pc.FilingDate}}"readonly>
+                                                                <input class="form-control" type="hidden" name="FilingDate" value="{{Pc.FilingDate}}">
+
+                                                    </div>
+                                                </div>
+                                        
+
+                                         <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                        <input class="form-control" type="Date"placeholder="First Hearing Date" name="FirstHearing" required=""  />
                                                     </div>
                                                 </div>
                                         </div>
-                                      
-                                    <div class="col-sm-8">
+                                        <div class="row"> 
 
-                                        <div class="row">
-                                            <button type="submit" class="btn btn-rose btn-fill">Search </button>
+                                         <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                        <input class="form-control" type="text" placeholder="Court Number" name="CourtNo" required="" />
+                                                    </div>
+                                                </div>
+                                        
 
+                                        <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                        <input class="form-control" type="text"  placeholder="Judge ID :{{di['ID']}}"readonly>
+                                                        <input class="form-control" type="hidden" name="JudgeID" value="{{di['ID']}}">                                                    
+                                                    </div>
+                                                </div>
+                                        
+
+                                                <div class="col-sm-4">
+                                                       <div class="form-group label-floating">
+                                                            <input class="form-control" type="text"  placeholder="Victim ID :{{Pc.VictimID}}"readonly>
+                                                            <input class="form-control" type="hidden" name="VictimID" value="{{Pc.VictimID}}">                                                    
+                                                        </div>
+                                                       </div>
+                                               </div>
+                                               <div class="row"> 
+
+                                                    <div class="col-sm-4">
+                                                           <div class="form-group label-floating">
+                                                                   <input class="form-control" type="text" placeholder="Victim Statement" name="VictimStmnt" required="" />
+                                                               </div>
+                                                           </div>
+                                                           
+
+                                                    <div class="col-sm-4">
+                                                           <div class="form-group label-floating">
+                                                                   <input class="form-control" type="text" placeholder="Acts" name="Acts" required="" />
+                                                               </div>
+                                                           </div>
+                                             </div>
+                                            {%if Pc.AccusedID !=None%}
+                                             <div class="row"> 
+
+                                                    <div class="col-sm-4">
+                                                           <div class="form-group label-floating">
+                                                                <input class="form-control" type="text"  placeholder="Accused ID :{{Pc.AccusedID}}"readonly>
+                                                                <input class="form-control" type="hidden" name="AccusedID" value="{{Pc.AccusedID}}">                                                                 </div>
+                                                           </div>
+                                             </div>
+                                             <div class="row"> 
+
+                                                    <div class="col-sm-4">
+                                                           <div class="form-group label-floating">
+                                                                   <input class="form-control" type="text" placeholder="Accused Statement" name="Accusedstmnt" required="" />
+                                                               </div>
+                                                           </div>
+                                             </div>
+                                      {%endif%}
+                                    <div class="col-sm-12">
+
+                                        <div class="row text-center">
+
+                                    
+                                        <button type="submit"  class="btn btn-rose btn-fill">Submit</button>
+                                    
                                     </div>
                                 </div>
-                              </form>
-
+                                </form>
+                                </div>
+                            </div>
+                         
+                             {%else%}
+                            
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title"> 
+                                       Success
+                                    </h4>
                                 </div>
                             </div>
                         </div>
-                            </div>
-                              </div>
-                        </div>
                     </div>
-                        </div>
-            
-                        
-                    </div>
-                    
-                </div>
 
-                
+                            {%endif%}
+                        </div>
+                    
+
+                   
+                    </div>
                     
             <footer class="footer">
                 <div class="container-fluid">

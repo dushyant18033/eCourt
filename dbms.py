@@ -5,9 +5,9 @@ import os
 import requests
 
 
-backend_url = "http://608e5c00.ngrok.io/"
+backend_url = "http://d17dca8f.ngrok.io/"
 USERNAME=""
-di={"mode":"officer","username":"dushyant"}
+di={"mode":"judge","username":"dushyant","ID":2}
 app=Flask(__name__,static_folder='static')
 
 Bootstrap(app)
@@ -257,45 +257,226 @@ def RequestPayment():
 
 # Client Routes
 
-@app.route('/Clients/FindLawyer')
+@app.route('/Clients/FindLawyer',methods=["POST","GET"])
 def FindLawyer():
 		global di 
-		#lawyerrequests need to be passed
-		return render_template('Clients/FindLawyer.html',di=di)
+		param={'ClientID':di['ID']}
+
+		URL=backend_url+"client/getActiveLawyerDetails"
+		Lawyercurrent=requests.post(URL,json=param).json()
+		# Lawyercurrent={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
+		print(Lawyercurrent)
+
+		if Lawyercurrent["res"]=="success":
+
+				Lawyercurrent=Lawyercurrent["arr"]
+		if request.method=="POST":
+			print(request)
+			M=request.form.get('Spec_Area')
+			
+			if request.form.get("Request")!=None:
+				m=request.form.get("Request")
+				return redirect(url_for('LawyerRequest',lawyerid=m))
+
+			param={'Spec_Area':M}
+			x="empty"
+			URL=backend_url+"client/showLawyers"
+			print(URL)
+			print(param)
+			# m={'spec_area':'civil'}
+			Lawyers=requests.post(URL,json=param).json()
+			# Lawyers={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
+
+			if Lawyers["res"]=="success":
+				Lawyers=Lawyers["arr"]
+			# print(x)
+			# print(x.json())
+			# print(x.json())
+			
+				
+			return render_template('Clients/FindLawyer.html',di=di,LawyerSearch=Lawyers,Lawyercurrent=Lawyercurrent)
+		return render_template('Clients/FindLawyer.html',di=di,Lawyercurrent=Lawyercurrent)
 
 
-@app.route('/Clients/FindFirm')
+@app.route('/Clients/FindFirm',methods=["POST","GET"])
 def FindFirm():
 		global di 
-		#lawyerrequests need to be passed
-		return render_template('Clients/FindFirm.html',di=di)
+		param={'ClientID':di['ID']}
+		URL=backend_url+"client/getActiveFirmDetails"
+		# Firmcurrent={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
+		Firmcurrent=requests.post(URL,json=param).json()
+		if Firmcurrent["res"]=="success":
+				Firmcurrent=Firmcurrent["arr"]
+		if request.method=="POST":
+			M=request.form.get('Spec_Area')
+			if request.form.get("Request")!=None:
+				m=request.form.get("Request")
+				return redirect(url_for('FirmRequest',Firmid=m))
+			param={'Spec_Area':M}
+			x="empty"
+			URL=backend_url+"client/showFirms"
+			
+			# m={'spec_area':'civil'}
+			Firms=requests.post(URL,json=param).json()
+			# Firms={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
+			print(Firms)
+			if Firms["res"]=="success":
+				Firms=Firms["arr"]
+			# print(x)
+			# print(x.json())
+			# print(x.json())
+			
+			return render_template('Clients/FindFirm.html',di=di,FirmSearch=Firms,Firmcurrent=Firmcurrent)
+		return render_template('Clients/FindFirm.html',di=di,Firmcurrent=Firmcurrent)
 
 @app.route('/Clients/CheckStatus')
 def CheckStatus():
 	#Acases to be added as argument for active cases
 	#Pcases to be added as argument for pending cases
-	return render_template('Clients/Checkstatus.html',di=di)
+
+	param={'ClientID':di['ID']}
+	x="empty"
+	URL=backend_url+"client/getActiveCases"
+	print(URL)
+	print(param)
+	
+	Acases=requests.post(URL,json=param).json()
+	URL=backend_url+"client/getPendindCases"
+	param={'User_ID':di['ID']}
+	print(Acases)
+	Pcases=requests.post(URL,json=param).json()
+	print(Pcases)
+	if Pcases["res"]=="success":
+		Pcases=Pcases["arr"]
+	if Acases["res"]=="success":
+		Acases=Acases["arr"]
+	print(Acases)
+	print(Pcases)
+	
+	if request.method=="POST":
+		m=request.form.to_dict()
+		print(m)
+		param={'Case_ID':request.form.get('Case_ID'),'VictimID':request.form.get('VictimID')}
+		URL=backend_url+"client/withdrawCase"
+		Value=requests.post(URL,json=param).json()
+		
+
+		
+		print(Value)
+
+
+	return render_template('Clients/Checkstatus.html',di=di,Acases=Acases,Pcases=Pcases)
 
 
 @app.route('/Clients/HearingTime')
 def HearingTime():
-		return render_template('Clients/Hearingtime.html',di=di)
+	param={'ClientID':di['ID']}
+
+	
+	URL=backend_url+"client/getActiveCases"
+
+	
+	Acases=requests.post(URL,json=param).json()
+	URL=backend_url+"client/getPendindCases"
+	param={'User_ID':40}
+	print(Acases)
+	
+	if Acases["res"]=="success":
+		Acases=Acases["arr"]
+	print(Acases)
+
+	return render_template('Clients/Hearingtime.html',di=di,Acases=Acases)
 
 
-@app.route('/Clients/Documents')
+@app.route('/Clients/Documents',methods=['GET','POST'])
 def Documents():
+		if request.method=='POST':
+			print(str(request.form))
+			param={'ClientID':request.form.get('ClientID'),'Doc':request.form.get('Doc'),'FilingNo':request.form.get('FilingNo')}
+			URL=backend_url+"client/addDocument"
+			Value=requests.post(URL,json=param).json()
+			print(Value)
+			if 'failed'!=Value['res']:	
+				return render_template('Clients/Documents.html',di=di,message="Success")
+			else:
+				return render_template('Clients/Documents.html',di=di,message="Invalid Fields")
+
+
+		#Val=requests.post(URL,json=param).json()
 		return render_template('Clients/Documents.html',di=di)
 
-@app.route('/Clients/Withdrawal')
-def Withdrawal():
-	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+@app.route('/Clients/LawyerRequest',methods=["POST","GET"])
+def LawyerRequest():
+	
 
-		return render_template('Clients/Withdrawal.html',di=di)
+	LawyerID = request.args.get('lawyerid',None)
+	message='try'
+	if request.method == 'POST':
+		param={"ClientID":request.form.get("ClientID"),"LawyerID":request.form.get("LawyerID"),"Client_Note":request.form.get("Client_Note"),"Quotation":request.form.get("Quotation"),"FilingNo":request.form.get("FilingNo")}
+		URL=backend_url+"client/lawyerRequest"
+		Value=requests.post(URL,json=param).json()
+
+		print(Value)
+		if 'failed'!=Value['res']:	
+			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="pass")
+		else:
+			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="fail")
+
+	else:
+		return render_template('Clients/LawyerRequest.html',di=di,lawyerid=LawyerID,message=message)
 
 
-@app.route('/Clients/Payment')
+@app.route('/Clients/FirmRequest',methods=["POST","GET"])
+def FirmRequest():
+	
+	FirmID = request.args.get('Firmid',None)
+	message='try'
+	if request.method == 'POST':
+		param={"ClientID":request.form.get("ClientID"),"FirmID":request.form.get("FirmID"),"Client_Note":request.form.get("Client_Note"),"Quotation":request.form.get("Quotation"),"FilingNo":request.form.get("FilingNo")}
+		URL=backend_url+"client/firmRequest"
+		Value=requests.post(URL,json=param).json()
+		print(Value)
+		print(param)
+
+		if 'failed'!=Value['res']:	
+			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="pass")
+		else:
+			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="fail")
+
+	else:
+		return render_template('Clients/FirmRequest.html',di=di,Firmid=FirmID,message=message)
+
+
+
+
+
+
+
+@app.route('/Clients/Payment',methods=["POST","GET"])
 def Payment():
-		return render_template('Clients/Payment.html',di=di)
+	global di 
+	param={'ClientID':di['ID']}
+
+	URL=backend_url+"client/viewPaymentRequests"
+	Lawyercurrent=requests.post(URL,json=param).json()
+	# Lawyercurrent={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
+	print(Lawyercurrent)
+
+	if Lawyercurrent["res"]=="success":
+
+			Lawyercurrent=Lawyercurrent["arr"]
+	if request.method=='POST':
+		print(str(request.form))
+		param={'ClientID':request.form.get('ClientID'),'LawyerID':request.form.get('LawyerID'),'CNRno':request.form.get('CNRNo')}
+		URL=backend_url+"client/makePayment"
+		#Val=requests.post(URL,json=param).json()
+			
+		return render_template('Clients/Payment.html',di=di,Lawyercurrent=Lawyercurrent,message="success")
+	return render_template('Clients/Payment.html',di=di,Lawyercurrent=Lawyercurrent)
+
+
+
+
 
 
 
@@ -305,22 +486,35 @@ def Payment():
 def PreviousJudgements():
 		global di 
 		#lawyerrequests need to be passed
+		URL=backend_url+"client/viewPaymentRequests"
 		if request.method=='POST':
-			result=request.form
-			print(result.items())
+			result=request.form.to_dict()
+			print(result)
 			option=request.form.get('Option')
 			details=request.form.get('Details')
+			CNRno=request.form.get('CNRno')
+			if CNRno!=None:
+				return redirect(url_for('Result',CNRnumber=CNRno))
+
 			print(option)
 			print('hello')
-			redirect(url_for('Result'))
-			return render_template('Judge/result.html',di=di)
+			
+			return redirect(url_for('Result',data=details,option=option))
+			# return render_template('Judge/result.html',di=di)
 		return render_template('Judge/PreviousJudgements.html',di=di)
 
 
 @app.route('/Judge/Schedule')
 def JudgeSchedule():
-		global di 
-		return render_template('Judge/Schedule.html',di=di)
+		global di
+		param={"JudgeID":di['ID']}
+		URL=backend_url+"judge/schedule"
+		schedule=requests.post(URL,json=param).json()
+		print(schedule)
+		if schedule["res"]=="success":
+			schedule=schedule["arr"]
+
+		return render_template('Judge/Schedule.html',di=di,schedule=schedule)
 
 
 @app.route('/Judge/Records',methods=['GET','POST'])
@@ -330,39 +524,209 @@ def Records():
 			print(result.items())
 			option=request.form.get('Option')
 			details=request.form.get('Details')
-			print(option)
-			print('hello')
-			redirect(url_for('Result'))
-			global civilia
-			return render_template('Judge/Track.html',di=di,civilian=civilian)
+			print
+			return redirect(url_for('SearchRecords',data=details,option=option))
 
 	return render_template('Judge/Records.html',di=di)
 
 
-@app.route('/Judge/Track')
-def Track():
-		return render_template('Judge/Track.html',di=di)
+@app.route('/Judge/SearchRecords')
+def SearchRecords():
+	detail=request.args['data']
+	option=request.args['option']
+	if option =='Lawyer':
+		URL=backend_url+"judge/lawyerTrackRecord"
+		param={"LawyerID":str(detail)}
 
-@app.route('/Judge/nexthearing')
-def Setnexthearing():
-	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
-	CASE=[{"CNRno":1111,"FilingDate":11111,"FirstHearing":2222,"NextHearing":3333,"PrevHearing":444,"Stage":5,"CourtNo":6,"VictimID":8,"VictimStmnt":"balnk","AccusedID":10,"AccusedStmnt":"killed","Acts":111}]
-	return render_template('Judge/nexthearing.html',di=di,Acases=CASE)
+	else:
+		URL=backend_url+"judge/clientTrackRecord"
+		param={"ClientID":str(detail)}
+	
+	Ccases=requests.post(URL,json=param).json()
+	print(Ccases)
+	if Ccases["res"]=="success":
+		Ccases=Ccases["arr"]
+
+
+	return render_template('Judge/SearchRecords.html',di=di,Ccases=Ccases)
 
 
 
-@app.route('/Judge/Cases')
+
+
+
+@app.route('/Judge/Cases',methods=['GET','POST'])
 def Cases():
 	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+	
+	if request.method=="POST":
+			print(str(request.form.to_dict()))
+			if request.form.get("Request")!=None:
+				return redirect(url_for('AcceptPendingCase',FilingNo=request.form.get("Request")))
+			if request.form.get("Hearing")!=None:
 
-		return render_template('Judge/Cases.html',di=di)
+				return redirect(url_for('SetNextHearing',CNRno=request.form.get("Hearing")))
+			if request.form.get("Final")!=None:
 
+				return redirect(url_for('AnnounceVerdict',CNRno=request.form.get("Final")))
+	param={'JudgeID':di['ID']}
+	URL=backend_url+"judge/viewActiveCases"
+	print(URL)
+	print(param)
+	
+	Acases=requests.post(URL,json=param).json()
 
-@app.route('/Result')
+	URL=backend_url+"judge/viewPendingCases"
+	# print(Acases)
+	Pcases=requests.post(URL).json()
+	print(Pcases)
+	if Pcases["res"]=="success":
+		Pcases=Pcases["arr"]
+	if Acases["res"]=="success":
+		Acases=Acases["arr"]
+	print(Pcases)
+
+	return render_template('Judge/Cases.html',di=di,Acases=Acases,Pcases=Pcases)
+
+@app.route('/Judge/AcceptPendingCase',methods=['GET','POST'])
+def AcceptPendingCase():
+	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+	FilingNo = request.args.get('FilingNo',None)
+	URL=backend_url+"judge/viewPendingCases"
+	Pcases=requests.post(URL).json()
+	# Pcases={'res': 'success', 'arr': [{'FilingNo': 5, 'FilingDate': '2020-04-26', 'VictimID': 15, 'Victim_LawyerID': 6, 'AccusedID': None, 'Accused_LawyerID': None, 'Type': 0, 'Fir_Uploaded': 0, 'Doc_Uploaded_Victim': 1, 'Doc_Uploaded_Accused': 0, 'is_Verified': 1}]}
+
+	# print(Pcases)
+	if Pcases["res"]=="success":
+		Pcases=Pcases["arr"]
+	Pc={}
+	print(Pcases)
+	print(type(Pcases))
+	for i in Pcases:
+		print(i)
+		if str(i['FilingNo'])==str(FilingNo):
+			Pc=i
+			break
+
+	if request.method=="POST":
+			m=request.form.to_dict()
+			print(m)
+			param={'FilingNo':request.form.get('FilingNo'),'FirstHearing':request.form.get('FirstHearing'),'CourtNo':request.form.get('CourtNo'),'JudgeID':request.form.get('JudgeID')}
+			URL=backend_url+"judge/acceptCase"
+			Value=requests.post(URL,json=param).json()
+			if 'failed'!=Value['res']:
+				return render_template('Judge/Acceptpending.html',message='Success',di=di)
+			else:
+				return render_template('Judge/Acceptpending.html',message='Failed',di=di)
+
+	return render_template('Judge/Acceptpending.html',Pc=Pc,di=di)
+
+@app.route('/Judge/SetNextHearing',methods=['GET','POST'])
+def SetNextHearing():
+	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+	CNRno = request.args.get('CNRno',None)
+	URL=backend_url+"judge/viewActiveCases"
+	param={'JudgeID':di['ID']}
+
+	Pcases=requests.post(URL,json=param).json()
+	# Pcases={'res': 'success', 'arr': [{'CNRno':10,'FilingNo': 5, 'FilingDate': '2020-04-26', 'VictimID': 15, 'Victim_LawyerID': 6, 'AccusedID': None, 'Accused_LawyerID': None, 'Type': 0, 'Fir_Uploaded': 0, 'Doc_Uploaded_Victim': 1, 'Doc_Uploaded_Accused': 0, 'is_Verified': 1}]}
+
+	# print(Pcases)
+	if Pcases["res"]=="success":
+		Pcases=Pcases["arr"]
+	Pc={}
+	for i in Pcases:
+		if str(i['CNRno'])==str(CNRno):
+			Pc=i
+			break
+	if request.method=="POST":
+			
+			m=request.form.to_dict()
+
+			print(m)
+			param={'CNRno':request.form.get('CNRno'),'PrevHearing':request.form.get('PrevHearing'),'NextHearing':request.form.get('NextHearing'),'Purpose':request.form.get('Purpose')}
+			URL=backend_url+"judge/setHearing"
+			Value=requests.post(URL,json=param).json()
+			print(Value)
+			if 'failed'!=Value['res']:
+				return render_template('Judge/SetNextHearing.html',message='Success',di=di)
+			else:
+				return render_template('Judge/SetNextHearing.html',message='Failed',di=di)
+	
+	return render_template('Judge/SetNextHearing.html',Pc=Pc,di=di)
+
+@app.route('/Judge/AnnounceVerdict',methods=['GET','POST'])
+def AnnounceVerdict():
+	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+	CNRno = request.args.get('CNRno',None)
+	URL=backend_url+"judge/viewActiveCases"
+	param={'JudgeID':di['ID']}
+
+	Pcases=requests.post(URL,json=param).json()
+	
+	if Pcases["res"]=="success":
+		Pcases=Pcases["arr"]
+	Pc={}
+	for i in Pcases:
+		if str(i['CNRno'])==str(CNRno):
+			Pc=i
+			break
+	print(Pc)
+	if request.method=="POST":
+			
+			
+
+			param={'CNRno':request.form.get('CNRno'),'CaseStmnt':request.form.get('CasesStmnt'),'Victim_LawyerID':request.form.get('Victim_LawyerID'),'FinalVerdict':request.form.get('FinalVerdict'),'WonID_Client':request.form.get('WonID_Client'),'WonID_Lawyer':request.form.get('WonID_Lawyer'),'Accused_LawyerID':request.form.get('Accused_LawyerID')}
+			URL=backend_url+"judge/announceVerdict"
+			Value=requests.post(URL,json=param).json()
+			print(Value)
+			if 'failed' == Value['res']:
+				return render_template('Judge/AnnounceVerdict.html',message='Failed :Invalid Inputs !!!',di=di)
+			else:
+				return render_template('Judge/AnnounceVerdict.html',message='Success',di=di)
+	return render_template('Judge/AnnounceVerdict.html',Pc=Pc,di=di)
+
+	
+
+				
+				
+@app.route('/Judge/Result')
 def Result():
 	#change the victim statement to withdrawal requested and then judge would see it and then only transfer it.
+		if 'CNRnumber' in str(request):
+			detail=request.args['CNRnumber']
+			URL=backend_url+"judge/viewCase"
 
-		return render_template('result.html',di=di)
+			param={"CNRno":detail}
+			print(param)
+			Acases=requests.post(URL,json=param).json()
+			print(Acases)
+			if Acases["res"]=="success":
+				Acases=Acases["arr"]
+
+			print(Acases)
+
+			return render_template('Judge/result.html',di=di,Acases=Acases)
+		detail=request.args['data']
+		option=request.args['option']
+		if option =='CNRno':
+			URL=backend_url+"judge/prevCasesCNRno"
+			param={"CNRno":str(detail)}
+
+		else:
+			URL=backend_url+"judge/prevCasesAct"
+			param={"Acts":str(detail)}
+		
+		Ccases=requests.post(URL,json=param).json()
+		print(Ccases)
+		if Ccases["res"]=="success":
+			Ccases=Ccases["arr"]
+
+		print(Ccases)
+
+		return render_template('Judge/result.html',di=di,Ccases=Ccases)
+
+
 
 
 
@@ -574,24 +938,75 @@ def ScheduleOfficer():
 		schedule=[]
 	return render_template('Officer/ScheduleOfficer.html',di=di,schedule=schedule)
 
-
 @app.route('/Officer/DocUploadStatus',methods=["GET","POST"])
 def DocUploadStatus():
 	global di
-	if request.method=="POST":
-		DocID="empty"
-		pass 	#Read data here using request.form.get('name of entry')
-	"""DocID
-	"""
-	status="notverify"
-	DocID={"ClientID":"12233","FilingNo":300000,"Document":"33333333","DocID":1222}
-	return render_template('Officer/DocUploadStatus.html', di=di,DOCS=DocID,status=status)
+	if request.method=="POST" and request.form.get('request')!='final':
+		M=request.form.get('Spec_Area')
+		param={'Type':int(M)}
+		
+		URL=backend_url+"officer/checkDocStatus"
+	
+		print(param)
+		# m={'spec_area':'civil'}
+		Pcases=requests.post(URL,json=param).json()
+		print(Pcases)
+		Pcases=Pcases['arr']
+		return render_template('Officer/DocUploadStatus.html', di=di,Pcases=Pcases)
 
-@app.route('/Officer/VerifyUploadedDocs')
-def VerifyUploadedDocs():
+	if request.method=="POST" and request.method.get('request')=='final':
+		param={'FilingNo':request.form.get('FilingNo'),'Type':int(request.form.get('Type'))}
+		URL=backend_url+"officer/verifyDoc"
+		Value=requests.post(URL,json=param).json()
+		print(Value)
+		if 'failed' == Value['res']:
+			return render_template('Officer/DocUploadStatus.html',message='Failed :Invalid Inputs !!!',di=di)
+		else:
+			return render_template('Officer/DocUploadStatus.html',message='Success',di=di)
+
+	return render_template('Officer/DocUploadStatus.html', di=di)
+
+
+
+@app.route('/Officer/CaseStatements',methods=['GET','POST'])
+def CaseStatements():
 	global di
-	return render_template('Officer/VerifyUploadedDocs.html', di=di)
+	if request.method=="POST":
+		param={'CNRno':request.form.get('CNRno'),'VictimStmnt':request.form.get('VictimStmnt'),'AccusedStmnt':request.form.get('AccusedStmnt'),'Acts':request.form.get('Acts')}
+		URL=backend_url+"officer/updateCaseStatements"
+		Value=requests.post(URL,json=param).json()
+		print(Value)
+		if 'failed' == Value['res']:
+			return render_template('Officer/CaseStatements.html',message='Failed :Invalid Inputs !!!',di=di)
+		else:
+			return render_template('Officer/CaseStatements.html',message='Success',di=di)
 
+	return render_template('Officer/CaseStatements.html', di=di)
+
+@app.route('/Officer/ViewDocuments',methods=['GET','POST'])
+def ViewDocuments():
+	global di
+	if request.method=="POST":
+		param={'FilingNo':request.form.get('FilingNo'),'Type':int(request.form.get('Type'))}
+		Type=int(request.form.get('Type'))
+		print(request.form.to_dict())
+		print(param)
+		URL=backend_url+"officer/viewRelatedDocuments"
+		Value=requests.post(URL,json=param).json()
+		print(Value)
+		if 'failed' == Value['res']:
+			return render_template('Officer/ViewDocuments.html',message='Failed :Invalid Inputs !!!',di=di)
+		else:
+			if 	Type==0:
+				Docs=Value["arr"]
+				return render_template('Officer/ViewDocuments.html', di=di,Docs=Docs)
+
+			else:
+				Docs=Value["doc"]
+				Fir=Value['fir']
+				return render_template('Officer/ViewDocuments.html', di=di,Docs=Docs,Fir=Fir)
+
+	return render_template('Officer/ViewDocuments.html', di=di)
 
 
 if __name__ == '__main__':

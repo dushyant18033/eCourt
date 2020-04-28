@@ -145,7 +145,8 @@
                                   Upload Documents
                                                                    </a>
                             </li>                         
-                                                        <li>
+                             
+                            <li>
                                 <a href="{{url_for('Payment')}}" >
                                   Make Payement
                                                                    </a>
@@ -167,7 +168,7 @@
             </nav>
             <div class="content">
                <div class="container-fluid">
-                {%if Lawyercurrent is not defined %}
+                {%if Lawyercurrent ==[] %}
                 <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -194,46 +195,54 @@
                                                            
                                                             <td>Lawyer ID</td>
                                                             <td >
-                                                                CNRno
+                                                                Lawyer Name
                                                             </td>
                                                             <td >
-                                                                Side
+                                                                    Education Profile 
                                                             </td>
                                                              <td >
-                                                                Fee
+                                                                Specialisation Area
                                                             </td>
                                                             <td >
-                                                                Paid
+                                                                AIBE
                                                             </td>
                                                             <td >
-                                                                Requested
+                                                                License Status
                                                             </td>
+                                                             <td >
+                                                                Firm ID
+                                                            </td> 
                                                             <td >
-                                                                Date paid
+                                                                    Rating
                                                             </td>
+                                                             <td >
+                                                               Fees Range
+                                                            </td>
+                                                           
+                                                            
                                                         </tr>
-                                                        {% for lr in Lawyercurrent %}
+                                                        {% for lawyer in Lawyercurrent %}
                                                         <tr>
-                                                            <td>lr.LawyerID</td>
-                                                            <td >
-                                                                lr.CNRno
-                                                            </td>
-                                                            <td >
-                                                                lr.Side
-                                                            </td>
-                                                             <td >
-                                                                lr.Fee
-                                                            </td>
-                                                            <td >
-                                                                lr.Paid
-                                                            </td>
-                                                            <td >
-                                                                lr.Requested
-                                                            </td>
-                                                            <td >
-                                                                lr.Date paid
-                                                            </td>
+                                                             <td>{{lawyer.ID}}</td>
+                                                                    <td>{{lawyer.Name}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Ed_Profile}}
+                                                                    </td>
+                                                                     <td style="text-align:center">{{lawyer.Spec_Area}}
+                                                                    </td>
+                                                                     <td>{{lawyer.AIBE}}
+                                                                    </td>
+                                                                     <td style="text-align:center">{{lawyer.License_status}}
+                                                                    </td>
+                                                                     <td>{{lawyer.FirmID}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Rating}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Fees_range}}
+                                                                    </td>
+                                                            
                                                         </tr>
+                                                        
                                                         {%endfor%}
 
                                                     </tbody>
@@ -250,25 +259,21 @@
                         </div>
                     </div>
                     {%endif%}
-                     {%if Lawyerrequest is not defined %}
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <h4 class="card-title">No Current Lawyers Requested Currenlty </h4>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                {%else%}
-
-                <div class="row">
+                    {%if LawyerSearch is  defined%}
+                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 
                                 <div class="card-content">
-                                    <h4 class="card-title">Lawyers Currently Requested</h4>
+                                    <h4 class="card-title"> {%if LawyerSearch ==[]%}
+                                   Invalid Search Inputs
+                                    {%else%}
+                                    Search Results
+                                    {%endif%}
+                                    </h4>
+                                    {%if LawyerSearch !=[]%}
                                     <div class="row">
+                                        <form method="post" >
                                         <div class="col-md-10">
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
@@ -277,43 +282,58 @@
                                                            
                                                             <td>Lawyer ID</td>
                                                             <td >
-                                                                Client Note
+                                                                Lawyer Name
                                                             </td>
                                                             <td >
-                                                                Filling Number
+                                                                    Education Profile 
                                                             </td>
                                                              <td >
-                                                                Quotation
+                                                                Specialisation Area
                                                             </td>
                                                             <td >
-                                                                Status
+                                                                AIBE
                                                             </td>
                                                             <td >
-                                                                Requested
+                                                                License Status
+                                                            </td>
+                                                             <td >
+                                                                Firm ID
+                                                            </td> 
+                                                            <td >
+                                                                    Rating
+                                                            </td>
+                                                             <td >
+                                                               Fees Range
+                                                            </td>
+                                                             <td >
+                                                               Request
                                                             </td>
                                                             
                                                         </tr>
-                                                        {% for lr in Lawyerrequest %}
+                                                        {% for lawyer in LawyerSearch %}
                                                         <tr>
-                                                            <td>lr.LawyerID</td>
-                                                            <td >
-                                                                lr.Client_Note
-                                                            </td>
-                                                            <td >
-                                                                lr.FillingNo
-                                                            </td>
-                                                             <td >
-                                                                lr.Quotation
-                                                            </td>
-                                                            <td >
-                                                                lr.Status
-                                                            </td>
+                                                             <td>{{lawyer.ID}}</td>
+                                                                    <td>{{lawyer.Name}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Ed_Profile}}
+                                                                    </td>
+                                                                     <td style="text-align:center">{{lawyer.Spec_Area}}
+                                                                    </td>
+                                                                     <td>{{lawyer.AIBE}}
+                                                                    </td>
+                                                                     <td style="text-align:center">{{lawyer.License_status}}
+                                                                    </td>
+                                                                     <td>{{lawyer.FirmID}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Rating}}
+                                                                    </td>
+                                                                     <td>{{lawyer.Fees_range}}
+                                                                    </td>
+                                                            
                                                               <td >
-                                                                {%if 'True'==lr.Status %}
-                                                                <input type="button" nethod ='post' id={{lr.LawyerID}} value="Cancel Request">
-                                                                {%else%}
-
-                                                                <input type="button" id={{lr.LawyerID}} value="Cancel Request" disabled>
+                                                                {%if 'active'==lawyer.License_status %}
+                                                                <button  class="btn btn-success" type="submit" value={{lawyer.ID}}  name="Request" ></button>
+                                                               
                                                                 {%endif%}
                                                             </td>
                                                         </tr>
@@ -321,6 +341,7 @@
 
                                                     </tbody>
                                                 </table>
+                                            </form>
                                             </div>
                                         </div>
 
@@ -328,143 +349,43 @@
                                             <!-- <div id="worldMap" class="map"></div> -->
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-                    {%if LawyerSearch is defined %}
+                                                        {%endif%}
+                                                                                                                {%endif%}
 
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Search Results</h4>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Lawyer ID</td>
-                                                            <td >
-                                                                Client Note
-                                                            </td>
-                                                            <td >
-                                                                Filling Number
-                                                            </td>
-                                                             <td >
-                                                                Quotation
-                                                            </td>
-                                                            <td >
-                                                                Status
-                                                            </td>
-                                                            <td >
-                                                                Requested
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        {% for lr in LawyerSearch %}
-                                                        <tr>
-                                                            <td>lr.LawyerID</td>
-                                                            <td >
-                                                                lr.Client_Note
-                                                            </td>
-                                                            <td >
-                                                                lr.FillingNo
-                                                            </td>
-                                                             <td >
-                                                                lr.Quotation
-                                                            </td>
-                                                            <td >
-                                                                lr.Status
-                                                            </td>
-                                                              <td >
-                                                                {%if 'True'==lr.Status %}
-                                                                <input type="button" id={{lr.LawyerID}} value="Cancel Request">
-                                                                {%else%}
 
-                                                                <input type="button" id={{lr.LawyerID}} value="Cancel Request" disabled>
-                                                                {%endif%}
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
+                
                
                
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="card">
                                 
                                 <div class="card-content">
                                     <h4 class="card-title">Search for Lawyers</h4>
                                     <div class="row">
-                                         <form id="TypeValidation" class="form-horizontal" action="#" method="">
+                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
                                 
                                         <div class="col-md-6">
                                             </div>
                                         </div>
-                                        <div class="togglebutton">
+                                        <div class="radio">
                                                 <label>
-                                                    <input type="checkbox" name="civil" checked> Cvil
+                                                    <input type="radio" name="Spec_Area" value="civil" checked> Cvil
                                                 </label>
                                             </div>
-                                            <div class="togglebutton">
+                                            <div class="radio">
                                                 <label>
-                                                    <input type="checkbox" name="criminal" checked> criminal
-                                                </label>
+                                                    <input type="radio" name="Spec_Area" value="crime" > Criminal
+                                                       </label>
                                             </div>
-                                        <div class="col-sm-8">
-                                            <div class="row"> 
-                                                <div class="form-group label-floating">
-                                                        <label class="control-label">Lawyer Name</label>
-                                                        <input class="form-control" type="text" name="email" email="true" />
-                                                    </div>
-                                                </div>
-                                        </div>
-                                      <div class="col-sm-8">
-                                    <div class="row">
-                                                                                  
-                                      <div class="col-sm-4">
-                                         <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
-                                                </div>
-                                            </div>
-                                        
-                                        <div class="col-sm-4">
-                                      
-
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                          
-                                    </div>
+                                       
+                                       
                                     <div class="col-sm-8">
 
                                         <div class="row">
 
                                     
-                                        <button type="submit" class="btn btn-rose btn-fill">Search for Lawyers</button>
+                                        <input type="submit" class="btn btn-rose btn-fill"></button>
                                     
                                     </div>
                                 </div>

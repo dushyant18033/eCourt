@@ -146,7 +146,7 @@
                                   Upload Documents
                                                                    </a>
                             </li>                         
-                                    
+                               
                              <li>
                                 <a href="{{url_for('Payment')}}" >
                                   Make Payement
@@ -169,7 +169,7 @@
             </nav>
             <div class="content">
                <div class="container-fluid">
-                {%if Firmcurrent is not defined %}
+                {%if Firmcurrent==[] %}
                 <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -191,206 +191,61 @@
                                         <div class="col-md-10">
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
-                                                    <tbody>
-                                                        <tr>
+                                                    <tbody><tr>
                                                            
                                                             <td>Firm ID</td>
                                                             <td >
-                                                                CNRno
+                                                                Firm ID
                                                             </td>
                                                             <td >
-                                                                Side
+                                                                Name
                                                             </td>
                                                              <td >
-                                                                Fee
+                                                               Established in
                                                             </td>
                                                             <td >
-                                                                Paid
+                                                            Area of specialisation
                                                             </td>
                                                             <td >
-                                                                Requested
+                                                                License Status
                                                             </td>
                                                             <td >
-                                                                Date paid
-                                                            </td>
-                                                        </tr>
-                                                        {% for lr in Firmcurrent %}
-                                                        <tr>
-                                                            <td>lr.FirmID</td>
-                                                            <td >
-                                                                lr.CNRno
+                                                                Rating
                                                             </td>
                                                             <td >
-                                                                lr.Side
-                                                            </td>
-                                                             <td >
-                                                                lr.Fee
-                                                            </td>
-                                                            <td >
-                                                                lr.Paid
-                                                            </td>
-                                                            <td >
-                                                                lr.Requested
-                                                            </td>
-                                                            <td >
-                                                                lr.Date paid
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-                     {%if Firmrequest is not defined %}
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <h4 class="card-title">No Current Firms Requested Currenlty </h4>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                {%else%}
-
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Firms Currently Requested</h4>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Firm ID</td>
-                                                            <td >
-                                                                Client Note
-                                                            </td>
-                                                            <td >
-                                                                Filling Number
-                                                            </td>
-                                                             <td >
-                                                                Quotation
-                                                            </td>
-                                                            <td >
-                                                                Status
-                                                            </td>
-                                                            <td >
-                                                                Requested
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        {% for lr in Firmrequest %}
-                                                        <tr>
-                                                            <td>lr.FirmID</td>
-                                                            <td >
-                                                                lr.Client_Note
-                                                            </td>
-                                                            <td >
-                                                                lr.FillingNo
-                                                            </td>
-                                                             <td >
-                                                                lr.Quotation
-                                                            </td>
-                                                            <td >
-                                                                lr.Status
-                                                            </td>
-                                                              <td >
-                                                                {%if 'True'==lr.Status %}
-                                                                <input type="button" id={{lr.FirmID}} value="Cancel Request">
-                                                                {%else%}
-
-                                                                <input type="button" id={{lr.FIrmID}} value="Cancel Request" disabled>
-                                                                {%endif%}
-                                                            </td>
-                                                        </tr>
-                                                        {%endfor%}
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <!-- <div id="worldMap" class="map"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
-                    {%if FirmSearch is defined %}
-
-                <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title">Search Results</h4>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td>Firm ID</td>
-                                                            <td >
-                                                                Client Note
-                                                            </td>
-                                                            <td >
-                                                                Filling Number
-                                                            </td>
-                                                             <td >
-                                                                Quotation
-                                                            </td>
-                                                            <td >
-                                                                Status
-                                                            </td>
-                                                            <td >
-                                                                Requested
+                                                               Fees Range
                                                             </td>
                                                             
                                                         </tr>
                                                         {% for lr in FirmSearch %}
                                                         <tr>
-                                                            <td>lr.FirmID</td>
+                                                            <td>{{lr.ID}}</td>
                                                             <td >
-                                                                lr.Client_Note
+                                                                {{lr.Name}}
                                                             </td>
                                                             <td >
-                                                                lr.FillingNo
+                                                                {{lr.Est}}
+                                                            </td>
+                                                             <td style="text-align:center">
+                                                                {{lr.Spec_Area}}
+                                                            </td>
+                                                            <td style="text-align:center" >
+                                                                {{lr.License_Status}}
                                                             </td>
                                                              <td >
-                                                                lr.Quotation
+                                                                {{lr.Rating}}
                                                             </td>
                                                             <td >
-                                                                lr.Status
+                                                                {{lr.Fees_range}}
                                                             </td>
-                                                              <td >
+                                                              <!-- <td >
                                                                 {%if 'True'==lr.Status %}
                                                                 <input type="button" id={{lr.FirmID}} value="Cancel Request">
                                                                 {%else%}
 
                                                                 <input type="button" id={{lr.FirmID}} value="Cancel Request" disabled>
                                                                 {%endif%}
-                                                            </td>
+                                                            </td> -->
                                                         </tr>
                                                         {%endfor%}
 
@@ -408,65 +263,131 @@
                         </div>
                     </div>
                     {%endif%}
-               
-               
-                    <div class="row">
+                     
+                    {%if FirmSearch is defined %}
+
+                <div class="row">
                         <div class="col-md-12">
+                            <div class="card">
+                                
+                                 <div class="card-content">
+                                    <h4 class="card-title"> {%if FirmSearch ==[]%}
+                                   Invalid Search Inputs
+                                    {%else%}
+                                    Search Results
+                                    {%endif%}
+                                    </h4>
+                                    {%if FirmSearch !=[]%}
+                                    <div class="row">
+                                        <form method="post" >
+                                        <div class="col-md-10">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                           
+                                                            <td>Firm ID</td>
+                                                           
+                                                            <td >
+                                                                Name
+                                                            </td>
+                                                             <td >
+                                                               Established in
+                                                            </td>
+                                                            <td >
+                                                            Area of specialisation
+                                                            </td>
+                                                            <td >
+                                                                License Status
+                                                            </td>
+                                                            <td >
+                                                                Rating
+                                                            </td>
+                                                            <td >
+                                                               Fees Range
+                                                            </td>
+                                                            <td >
+                                                                Request
+                                                            </td>
+                                                        </tr>
+                                                        {% for lr in FirmSearch %}
+                                                        <tr>
+                                                            <td>{{lr.ID}}</td>
+                                                            <td >
+                                                                {{lr.Name}}
+                                                            </td>
+                                                            <td >
+                                                                {{lr.Est}}
+                                                            </td>
+                                                             <td style="text-align:center">
+                                                                {{lr.Spec_Area}}
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                {{lr.License_Status}}
+                                                            </td>
+                                                             <td >
+                                                                {{lr.Rating}}
+                                                            </td>
+                                                            <td >
+                                                                {{lr.Fees_Range}}
+                                                            </td>
+                                                              <td >
+                                                                {%if 'active'==lr.License_Status %}
+                                                                <button  class="btn btn-success" type="submit" value={{lr.ID}}  name="Request" ></button>
+                                                               
+                                                                {%endif%}
+                                                            </td>
+                                                        </tr>
+                                                        {%endfor%}
+
+                                                    </tbody>
+                                                </table>
+                                            </form>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <!-- <div id="worldMap" class="map"></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                                   {%endif%}
+
+                <div class="row">
+                        <div class="col-md-8">
                             <div class="card">
                                 
                                 <div class="card-content">
                                     <h4 class="card-title">Search for Firms</h4>
                                     <div class="row">
-                                         <form id="TypeValidation" class="form-horizontal" action="#" method="">
+                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
                                 
                                         <div class="col-md-6">
                                             </div>
                                         </div>
-                                        <div class="togglebutton">
+                                        <div class="radio">
                                                 <label>
-                                                    <input type="checkbox" name="civil" checked> Cvil
+                                                    <input type="radio" name="Spec_Area" value="civil" checked> Cvil
                                                 </label>
                                             </div>
-                                            <div class="togglebutton">
+                                            <div class="radio">
                                                 <label>
-                                                    <input type="checkbox" name="criminal" checked> criminal
-                                                </label>
+                                                    <input type="radio" name="Spec_Area" value="crime" > Criminal
+                                                       </label>
                                             </div>
-                                        <div class="col-sm-8">
-                                            <div class="row"> 
-                                                <div class="form-group label-floating">
-                                                        <label class="control-label">Firm Name</label>
-                                                        <input class="form-control" type="text" name="email" email="true" />
-                                                    </div>
-                                                </div>
-                                        </div>
-                                      <div class="col-sm-8">
-                                    <div class="row">
-                                                                                  
-                                      <div class="col-sm-4">
-                                         <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
-                                                </div>
-                                            </div>
-                                        
-                                        <div class="col-sm-4">
-                                      
-
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Range</label>
-                                                    <input class="form-control" type="text" name="email" email="true" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                          
-                                    </div>
+                                       
+                                       
                                     <div class="col-sm-8">
 
                                         <div class="row">
 
                                     
-                                        <button type="submit" class="btn btn-rose btn-fill">Search for Firms</button>
+                                        <input type="submit" class="btn btn-rose btn-fill"></button>
                                     
                                     </div>
                                 </div>
@@ -475,6 +396,8 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                </div>
                     
             <footer class="footer">
                 <div class="container-fluid">

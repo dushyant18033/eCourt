@@ -124,7 +124,7 @@
                                   Previous Judgements
                                                                    </a>
                             </li>
-                             <li >
+                             <li class='nav-link active' >
                                 <a  href="{{url_for('JudgeSchedule')}}" >
                                   Schedule 
                                                                    </a>
@@ -137,11 +137,7 @@
                                                     
                                                     
                             
-                             <li>
-                                <a href="{{url_for('Setnexthearing')}}" >
-                            Set the date for next hearing
-                                                                 </a>
-                            </li>
+                            
                            
                             <li>
                                 <a href="{{url_for('Cases')}}" >
@@ -160,7 +156,7 @@
             
             <div class="content">
                 <div class="container-fluid">
-                 {%if schedule is not defined %}
+                 {%if schedule ==[] %}
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
@@ -229,10 +225,12 @@
                              </div>
                          </div>
                      </div>
+                     
                      {%endif%}
                 
                 
-
+                    </div>
+                </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">

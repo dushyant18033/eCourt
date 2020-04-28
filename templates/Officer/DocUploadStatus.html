@@ -47,7 +47,8 @@
 </head>
 
 <body>
-	{%if 'officer'==di['mode'] %}
+        {%if 'officer'==di['mode'] %}
+
     <div class="wrapper">
         <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
@@ -69,6 +70,7 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
+                           
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
@@ -86,7 +88,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                	<li>
+                    <li>
                         <a href="#">My Profile</a>
                     </li>
                     <li>
@@ -96,7 +98,6 @@
                     <a href="#">Settings</a>
                                 </li>
                 </ul>
-                
             </div>
         </div>
         <div class="main-panel">
@@ -118,7 +119,7 @@
                         <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                      <ul class="nav navbar-nav navbar-right">
                             <li >
                                 <a  href="{{url_for('FileFIR')}}" >
                                   File FIR
@@ -139,123 +140,207 @@
                                   Document Upload Status
                                                                    </a>
                             </li>
+                            <li>
+                                <a href="{{url_for('CaseStatements')}}" >
+                                 Update Case Statements
+                                                                   </a>
+                            </li>
+                            <li>
+                                <a href="{{url_for('ViewDocuments')}}" >
+                                     View Case Related Documents
+                                                                   </a>
+                            </li>
                             
                             
                         </ul>
-                        
+                         
                     </div>
                 </div>
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                 <div class="row">
+                     {%if message is defined%}
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-content">
-                                    <h4 class="card-title">Document Status</h4>
-                                    <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="" method="POST">
                                 
-                                            
-                                            
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="text" placeholder="Enter Document ID" name="DocID">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-sm-8">
-                                                <div class="row">
-                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
-                                                </div>
-                                            </div>
-
-                                            
-
-                                        </form>
-                                    </div>
+                                <div class="card-content">
+                                   
+                                    <h4 class="card-title">{{message}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                 {%if DOCS is not defined or DOCS == "" %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">Enter Document ID To Continue</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%elif DOCS == "empty" %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title"> Document ID does not exist</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
- 
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">Document</h4>
-                                     <div class="row">
-                                         <div class="col-md-10">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                         <tr>
-                                                             <td>Client ID</td>
-                                                             <td>Filing Number</td>
-                                                             <td>Document </td>
-                                                             <td>Document ID</td>
-                                                            <td>Verify status</td>
-
-                                                         </tr>
+                    {%endif%}
+                    {%if Pcases is defined%}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <h4 class="card-title">
+                                            {%if Pcases !=[]%}
+                                            Pending Cases currently available 
+                                            {%else%}
+                                            No Pending case currently available 
+                                            {%endif%}
+                                            </h4>
+                                            {%if Pcases !=[] %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive table-sales">
                                                         
-                                                         <tr>
-                                                             <td>{{DOCS.ClientID}}</td>
-                                                             <td>{{DOCS.FilingNo}}</td>
-                                                             <td>{{DOCS.Document}}</td>
-                                                             <td>{{DOCS.DocID}}</td>
-                                                              <td>
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        Filing Number
+                                                                    </td>
+                                                                    <td>
+                                                                        Filing Date
+                                                                    </td>
+                                                                   <td>
+                                                                        Victim ID
+                                                                    </td>
+                                                                    <td>
+                                                                        Victim Lawyer ID
+                                                                    </td>
+                                                                    <td>
+                                                                        Accused ID
+                                                                    </td>
+                                                                    <td>
+                                                                        Accused Lawyer ID
+                                                                    </td>
+                                                                    <td>
+                                                                        Type
+                                                                    </td>
+                                                                    <td>
+                                                                        FIR Number
+                                                                    </td>
+                                                                    <td>
+                                                                        Document Uploaded by Victim
+                                                                    </td>
+                                                                    <td>
+                                                                        Document Uploaded by Accused
+                                                                    </td>
+                                                                    <td>
+                                                                        Document Verified
+                                                                    </td>
+                                                                    <td>
+                                                                   Verify Document
+                                                                    </td>
+                                                                </tr>    
+                                                                {% for case in Pcases %}
+                                                                    <tr>
+                                                                            <form method="post">
 
-                                                                    {{status}}
-                                                                </td>
-                                                         </tr>
-                                                        
-                                                     </tbody>
+                                                                        <td>
+                                                                            {{case.FilingNo}}
+                                                                            <input  type="hidden" name="FilingNo" value="{{case.FilingNo}}">
 
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FilingDate}}
 
-                                                 </table>
-                                                   {%if status=='Verified'%}
-                                                            <a href="/ClientRequests?accept&{{cl}}" class="btn btn-success" disabled >Accept</a>
-                                                            {%endif%}
-                                                            <a  class="btn btn-success">Verify</a>
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-                
+                                                                        </td>
+                                                                       <td>
+                                                                            {{case.VictimID}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Victim_LawyerID}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.AccusedID}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Accused_LawyerID}}
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Type}}
+                                                                            {%if case.Type=='civil'%}
+                                                                            <input  type="hidden" name="Type" value="0">
+                                                                            {%else%}
+                                                                             <input  type="hidden" name="Type" value="1">
+                                                                            {%endif%}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FIRno}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Doc_Uploaded_Victim}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Doc_Uploaded_Accused}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.isVerified}}
+                                                                        </td >
+                                                                            <td>
+
+                                                                                    <button  class="btn btn-success" name="Request" value="final" type="submit"  >
+                                                                                    </button>
+                                                                                   </form>
+                                                                                
+                                                                       
+                                                                     
+                                                                    </td>
+                                                                    </tr>
+                                                                {%endfor%}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title">Search for Unverified Pending Cases</h4>
+                                    <div class="row">
+                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
+                                
+                                        <div class="col-md-6">
+                                            </div>
+                                        </div>
+                                        <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="Spec_Area" value="0" checked> Cvil
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="Spec_Area" value="1" > Criminal
+                                                       </label>
+                                            </div>
+                                       
+                                       
+                                    <div class="col-sm-8">
+
+                                        <div class="row">
+
+                                    
+                                        <input type="submit" class="btn btn-rose btn-fill"></button>
+                                    
+                                    </div>
+                                </div>
+                                </form>
+                                </div>
+                            </div>
+                </div>
+                </div>
+            </div>
+        </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">

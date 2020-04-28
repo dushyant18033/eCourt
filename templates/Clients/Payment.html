@@ -145,7 +145,7 @@
                                   Upload Documents
                                                                    </a>
                             </li>                         
-                            
+                             
                              <li>
                                 <a href="{{url_for('Payment')}}" >
                                   Make Payement
@@ -168,12 +168,28 @@
             </nav>
             <div class="content">
                <div class="container-fluid">
-                {%if Lawyercurrent is not defined %}
+                {%if message=='success'%}
+                            
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title"> 
+                                       Success
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                            {%endif%}
+                {%if Lawyercurrent ==[] %}
                 <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <h4 class="card-title">No Current Lawyers </h4>
+                                    <h4 class="card-title">No Current Lawyers  to be paid</h4>
                                 </div>
                             </div>
                         </div>
@@ -226,24 +242,25 @@
                                                                 lr.Fee
                                                             </td>
                                                             <td >
-                                                                lr.Paid
+                                                                lr.isPaid
                                                             </td>
-                                                            {%if lr.Paid=='False'%}
+                                                                                                                            <form method="post">
+
                                                             <td >
+                                                                <input  type="hidden" name="ClientID" value="{{lr.ClientID}}">
 
-                                                                 {%if 'True'==lr.Requested %}
-                                                                <input type="button" nethod ='post' id={{lr.LawyerID}} value="Pay">
-                                                                {%else%}
+                                                                 <button  class="btn btn-success" type="submit"   >Make Payment</button>
+                                                                <input  type="hidden" name="LawyerID" value="{{lr.LawyerID}}">
+                                                                <input  type="hidden" name="CNRno" value="{{lr.CNRno}}">
 
-                                                                <input type="button" id={{lr.LawyerID}} value="Pay" disabled>
-                                                                {%endif%}
                                                              
                                                             </td>
-                                                            {%else%}
+                                                            </form>
+
                                                             <td >
-                                                                lr.Date paid
+                                                                lr.datePaid
                                                             </td>
-                                                            {%endif%}
+                                                         
                                                         </tr>
                                                         {%endfor%}
 

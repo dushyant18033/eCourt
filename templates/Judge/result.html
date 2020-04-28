@@ -138,11 +138,7 @@
                                                     
                                                     
                             
-                             <li>
-                                <a href="{{url_for('Setnexthearing')}}" >
-                            Set the date for next hearing
-                                                                 </a>
-                            </li>
+                            
                             
                             <li>
                                 <a href="{{url_for('Cases')}}" >
@@ -169,19 +165,20 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                    
+                        {%if Ccases is defined%}
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
                                     <h4 class="card-title">
-                                    {%if Ccases is not defined%}
-                                   Invalid Search Inputs
+                                    {%if Ccases==[]%}
+                                   No Entry Found!!!!
                                     {%else%}
                                     Search Results
                                     {%endif%}
                                     </h4>
-                                    {%if Ccases is defined%}
+                                    {%if Ccases !=[]%}
                                     
                                     <div class="row">
                                         <div class="col-md-12">
@@ -225,7 +222,13 @@
                                                             <td>
                                                                 Verdict Date
                                                             </td>
-                                                           
+                                                            <td>
+                                                                Winning Client ID
+                                                            </td>
+                                                            <td>
+                                                                Winning Lawyer ID
+                                                            </td>
+                                                        
                                                         </tr>
                                                         {% for case in Ccases %}
                                                             <tr>
@@ -265,6 +268,12 @@
                                                                 <td>
                                                                     {{case.Verdict_Date}}
                                                                 </td>
+                                                                <td>
+                                                                    {{case.WonID_Client}}
+                                                                </td>
+                                                                <td>
+                                                                    {{case.WonID_Lawyer}}
+                                                                </td>
                                                             </tr>
                                                         {%endfor%}
                                                     </tbody>
@@ -278,94 +287,136 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
+                    {%endif%}
 
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="rose" data-header-animation="true">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                    {%if Acases is defined%}
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <h4 class="card-title">
+                                        
+                                        {%if Acases==[]%}
+                                       No Entry Found!!!!
+                                        {%else%}
+                                        Search Results
+                                        {%endif%}
+                                        </h4>
+                                        {%if Acases !=[]%}
+                                    
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive table-sales">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        CNR Number
+                                                                    </td>
+                                                                    <td>
+                                                                        Filing Number
+                                                                    </td>
+                                                                    <td>
+                                                                        Filing Date
+                                                                    </td>
+                                                                    <td>
+                                                                        First Hearing
+                                                                    </td>
+                                                                    <td>
+                                                                        Next Hearing
+                                                                    </td>
+                                                                    <td>
+                                                                        Previous 
+                                                                    </td>
+                                                                    <td>
+                                                                       Stage
+                                                                    </td>
+                                                                    <td>
+                                                                        Court Number
+                                                                    </td>
+                                                                    <td>
+                                                                       Judge ID
+                                                                    </td>
+                                                                    <td>
+                                                                        Victim ID
+                                                                    </td>
+                                                                    <td>
+                                                                       Victim Statement
+                                                                    </td>
+                                                                    <td>
+                                                                       Accused ID
+                                                                    </td>
+                                                                    <td>
+                                                                       Accused Statement
+                                                                    </td>
+                                                                    <td>
+                                                                        Acts
+                                                                    </td>
+                                                                  
+                                                                </tr>
+                                                                {% for case in Acases %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{case.CNRno}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FilingNo}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FilingDate}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FirstHearing}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.NextHearing}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.PrevHearing}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Stage}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.CourtNo}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.JudgeID}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.VictimID}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.VictimStmnt}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.AccusedID}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.AccusedStmnt}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Acts}}
+                                                                        </td>
+                                                                      
+                                                                        
+                                                                    </tr>
+                                                                {%endfor%}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%endif%}
+
+                                        </div>
                                     </div>
-                                    <h4 class="card-title">Website Views</h4>
-                                    <p class="category">Last Campaign Performance</p>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="green" data-header-animation="true">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="blue" data-header-animation="true">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </div>  
+                            {%endif%}
+  
                     </div>
-                    
-                    
+                </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">
