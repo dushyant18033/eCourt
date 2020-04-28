@@ -153,7 +153,7 @@ def CaseHistory():
 		url=backend_url + "lawyer/getPrevHearings"
 		param={'CNRno':cnr}
 		res = requests.post(url,json=param).json()
-		if res["res"] == "ok":
+		if res["res"] == "success":
 			hrs = res["arr"]
 		else:
 			hrs = []
@@ -171,7 +171,7 @@ def ClientRequests():
 		url=backend_url + "lawyer/getRequests"
 		param={'LawyerID':LawyerID}
 		clients = requests.post(url,json=param).json()
-		if clients["res"]=="ok":
+		if clients["res"]=="success":
 			clients=clients["arr"]
 		else:
 			clients=[]
@@ -214,7 +214,7 @@ def ActivePending():
 		url=backend_url + "lawyer/getPendingCases"
 		param={'LawyerID':LawyerID}
 		pending = requests.post(url,json=param).json()
-		if pending["res"]=="ok":
+		if pending["res"]=="success":
 			pending=pending["arr"]
 		else:
 			pending=[]
@@ -232,7 +232,7 @@ def Schedule():
 		url=backend_url + "lawyer/todaySchedule"
 		param={'LawyerID':LawyerID}
 		res = requests.post(url,json=param).json()
-		if res["res"]=='ok':
+		if res["res"]=='success':
 			res=res["arr"]
 		else:
 			res=[]
@@ -380,7 +380,7 @@ def FirmLawyers():
 		print(param)
 		lawyers = requests.post(url,json=param).json()
 		print(lawyers)
-		if lawyers["res"]=="ok":
+		if lawyers["res"]=="success":
 			lawyers=lawyers["arr"]
 		else:
 			lawyers=[]
@@ -399,13 +399,13 @@ def ClientRequestsLawFirm(msg="	"):
 		param={"FirmID":FirmID}
 		print(param)
 		clients = requests.post(url1,json=param).json()
-		if clients["res"]=="ok":
+		if clients["res"]=="success":
 			clients=clients["arr"]
 		else:
 			clients=[]
 		
 		reqs = requests.post(url2,json=param).json()
-		if reqs["res"]=="ok":
+		if reqs["res"]=="success":
 			reqs=reqs["arr"]
 		else:
 			reqs=[]
@@ -461,7 +461,7 @@ def LawyerPerf():
 		print(param)
 		lawyerPerf = requests.post(url,json=param).json()
 		print(lawyerPerf)
-		if lawyerPerf["res"]=="ok":
+		if lawyerPerf["res"]=="success":
 			lawyerPerf=lawyerPerf["arr"]
 		else:
 			lawyerPerf=[[]]
@@ -481,13 +481,13 @@ def FirmEarn():
 		param={"FirmID":FirmID, "datePaid": datePaid}
 		print(param)
 		cw = requests.post(url1,json=param).json()
-		if cw["res"]=="ok":
+		if cw["res"]=="success":
 			cw=cw["arr"]
 		else:
 			cw=[]
 		
 		lw = requests.post(url2,json=param).json()
-		if lw["res"]=="ok":
+		if lw["res"]=="success":
 			lw=lw["arr"]
 		else:
 			lw=[]
@@ -506,7 +506,7 @@ def WinLose():
 		print(param)
 		wins_loses = requests.post(url,json=param).json()
 		print(wins_loses)
-		if wins_loses["res"]=="ok":
+		if wins_loses["res"]=="success":
 			wins_loses=wins_loses["arr"]
 		else:
 			wins_loses=[[]]
@@ -568,7 +568,7 @@ def ScheduleOfficer():
 	print(param)
 	schedule = requests.post(url,json=param).json()
 	print(schedule)
-	if schedule["res"]=="ok":
+	if schedule["res"]=="success":
 		schedule=schedule["arr"]
 	else:
 		schedule=[]
