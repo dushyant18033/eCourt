@@ -45,6 +45,7 @@ def getUser(current_user):
 		di['mode']='law firm'
 		di['ID']=current_user.FirmID
 	di['username']=current_user.Username
+	di['mode']='client'#########INJECTING USER TYPE#########
 	return di
 
 
@@ -275,9 +276,17 @@ def Home():
 	# print(current_user.Username, current_user.id, current_user.ClientID, current_user.LawyerID)	#di gets updated from sql table
 	di=getUser(current_user) 
 	
-	return render_template('Home.html', di=di)
-	# elif request.form['submit'] == 'judges':
-	# 	return redirect(url_for('index'))
+	if di['mode']=='client':
+		return redirect(url_for('FindLawyer'))
+	elif di['mode']=='lawyer':
+		return redirect(url_for('ClientRequests'))
+	elif di['mode']=='judge':
+		return redirect(url_for('Cases.html'))
+	elif di['mode']=='law firm':
+		return redirect(url_for('ClientRequestsLawFirm'))
+	else:
+		return redirect(url_for('ScheduleOfficer'))
+
 	 
 
 
@@ -598,13 +607,13 @@ def Documents():
 			Value=requests.post(URL,json=param).json()
 			print(Value)
 			if 'failed'!=Value['res']:	
-				return render_template('Clients/Documents.html',di=di,message="Success")
+				return render_template('Clients/Documents.html',di=di,message="SUCCESS")
 			else:
 				return render_template('Clients/Documents.html',di=di,message="Invalid Fields")
 
 
 		#Val=requests.post(URL,json=param).json()
-		return render_template('Clients/Documents.html',di=di)
+		return render_template('Clients/Documents.html',di=di,message="")
 
 @app.route('/Clients/LawyerRequest',methods=["POST","GET"])
 def LawyerRequest():
@@ -620,7 +629,7 @@ def LawyerRequest():
 
 		print(Value)
 		if 'failed'!=Value['res']:	
-			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="pass")
+			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="SUCCESS")
 		else:
 			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="fail")
 
@@ -642,7 +651,7 @@ def FirmRequest():
 		print(param)
 
 		if 'failed'!=Value['res']:	
-			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="pass")
+			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="SUCCESS")
 		else:
 			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="fail")
 
@@ -686,7 +695,7 @@ def Payment():
 		if Lawyercurrent["res"]=="success":
 			Lawyercurrent=Lawyercurrent["arr"]
 		
-		return render_template('Clients/Payment.html',di=di,Lawyercurrent=Lawyercurrent,message="success")
+		return render_template('Clients/Payment.html',di=di,Lawyercurrent=Lawyercurrent,message="SUCCESS")
 	return render_template('Clients/Payment.html',di=di,Lawyercurrent=Lawyercurrent)
 
 
