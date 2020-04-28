@@ -206,7 +206,7 @@ def ActivePending():
 		url=backend_url + "lawyer/getActiveCases"
 		param={'LawyerID':LawyerID}
 		active = requests.post(url,json=param).json()
-		if active["res"]=="ok":
+		if active["res"]=="success":
 			active=active["arr"]
 		else:
 			active=[]
@@ -214,6 +214,7 @@ def ActivePending():
 		url=backend_url + "lawyer/getPendingCases"
 		param={'LawyerID':LawyerID}
 		pending = requests.post(url,json=param).json()
+		print(pending)
 		if pending["res"]=="success":
 			pending=pending["arr"]
 		else:
@@ -232,6 +233,7 @@ def Schedule():
 		url=backend_url + "lawyer/todaySchedule"
 		param={'LawyerID':LawyerID}
 		res = requests.post(url,json=param).json()
+		print(res)
 		if res["res"]=='success':
 			res=res["arr"]
 		else:
