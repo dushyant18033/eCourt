@@ -117,7 +117,7 @@ def Home():
 @app.route('/Lawyer/FileCase',methods=["GET","POST"])
 def FileCase():
 	global di
-	msg="SUCCESS"
+	msg=""
 	if request.method=="POST":
 		LawyerID = request.form.get('LawyerID')
 		ClientID = request.form.get('ClientID')
