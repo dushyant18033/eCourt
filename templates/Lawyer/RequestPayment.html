@@ -44,6 +44,23 @@
     <!--     Fonts and icons     -->
     <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var myVar = setInterval(myTimer, 1000);
+
+        function myTimer() 
+        {
+            var d=document.getElementById('success-msg');
+            //console.log(d);
+            if (d!=null)
+            {
+                swal({ title:"Good job!", text: "Successful!", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-success"});
+                clearInterval(myVar);
+            }
+        }
+    </script>
+    
 </head>
 
 <body>
@@ -158,6 +175,67 @@
             
             <div class="content">
                 <div class="container-fluid">
+
+                {%if payable==[] %}
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="card-title">No Client To Pay!</h4>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 {%else%}
+                 <div class="row">
+                         <div class="col-md-12">
+                             <div class="card">
+                                 
+                                 <div class="card-content">
+                                     <h4 class="card-title">Clients Eligible For Payment Request</h4>
+                                     <div class="row">
+                                         <div class="col-md-12">
+                                             <div class="table-responsive table-sales">
+                                                 <table class="table">
+                                                     <tbody class="text-center">
+                                                        <tr>
+                                                            <td>Lawyer ID</td>
+                                                            <td>Client ID</td>
+                                                            <td>CNR Number</td>
+                                                            <td>Side</td>
+                                                            <td>Fee</td>
+                                                            <td>Is Fees Paid</td>
+                                                            <td>Is Fees Requested</td>
+                                                            <td>Date Paid</td>
+                                                         </tr>
+                                                         {% for en in payable %}
+                                                         <tr>
+                                                            <td>{{en.LawyerID}}</td>
+                                                            <td>{{en.ClientID}}</td>
+                                                            <td>{{en.CNRno}}</td>
+                                                            <td>{{en.Side}}</td>
+                                                            <td>{{en.Fee}}</td>
+                                                            <td>{{en.isPaid}}</td>
+                                                            <td>{{en.isRequested}}</td>
+                                                            <td>{{en.datePaid}}</td>
+                                                         </tr>
+                                                         {% endfor %}
+                                                     </tbody>
+                                                 </table>
+                                             </div>
+                                         </div>
+ 
+                                         <div class="col-md-6 col-md-offset-1">
+                                             <!-- <div id="worldMap" class="map"></div> -->
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     {%endif%}
+
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -212,6 +290,10 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if message=="SUCCESS" %}
+                    <div id="success-msg"></div>
+                    {% endif %}
                 
 
             <footer class="footer">

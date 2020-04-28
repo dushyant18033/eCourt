@@ -44,6 +44,22 @@
     <!--     Fonts and icons     -->
     <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var myVar = setInterval(myTimer, 1000);
+
+        function myTimer() 
+        {
+            var d=document.getElementById('success-msg');
+            //console.log(d);
+            if (d!=null)
+            {
+                swal({ title:"Good job!", text: "Successful!", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-success"});
+                clearInterval(myVar);
+            }
+        }
+    </script>
+    
 </head>
 
 <body>
@@ -252,7 +268,7 @@
                                  <div class="card-content">
                                      <h4 class="card-title">New Client Requests</h4>
                                      <div class="row">
-                                         <div class="col-md-10">
+                                         <div class="col-md-12">
                                              <div class="table-responsive table-sales">
                                                  <table class="table">
                                                      <tbody class="text-center">
@@ -262,7 +278,6 @@
                                                                 <td>Client Note</td>
                                                                 <td>Filing Number</td>
                                                                 <td>Quotation</td>
-                                                                <td>Status</td>
                                                                 <td>Accept</td>
                                                                 <td>Reject</td>
                                                             </tr>
@@ -273,7 +288,6 @@
                                                                 <td>{{cl.Client_Note}}</td>
                                                                 <td>{{cl.FilingNo}}</td>
                                                                 <td>{{cl.Quotation}}</td>
-                                                                <td>{{cl.Status}}</td> 
                                                                 <td>
                                                                     <form action="/Lawfirm/ClientRequestsLawFirm/accept" method="POST">
                                                                         <input type="hidden" value="{{cl.FirmID}}" name="FirmID">
@@ -307,7 +321,9 @@
                      </div>
                      {%endif%}
                      
-                     <h3>{{message}}</h3>
+                     {% if message=="SUCCESS" %}
+                     <div id="success-msg"></div>
+                     {% endif %}
                 
 
             <footer class="footer">

@@ -44,6 +44,22 @@
     <!--     Fonts and icons     -->
     <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var myVar = setInterval(myTimer, 1000);
+
+        function myTimer() 
+        {
+            var d=document.getElementById('success-msg');
+            //console.log(d);
+            if (d!=null)
+            {
+                swal({ title:"Good job!", text: "Successful!", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-success"});
+                clearInterval(myVar);
+            }
+        }
+    </script>
+    
 </head>
 
 <body>
@@ -215,7 +231,9 @@
                         </div>
                     </div>
 
-                    <h3>{{message}}</h3>
+                    {% if message=="SUCCESS" %}
+                    <div id="success-msg"></div>
+                    {% endif %}
                 </div>
             </div>
         

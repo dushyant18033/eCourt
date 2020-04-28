@@ -109,12 +109,15 @@ def Home():
 	 
 
 
+
+
+
 # Lawyer Routes
 
 @app.route('/Lawyer/FileCase',methods=["GET","POST"])
 def FileCase():
 	global di
-	msg=""
+	msg="SUCCESS"
 	if request.method=="POST":
 		LawyerID = request.form.get('LawyerID')
 		ClientID = request.form.get('ClientID')
@@ -153,6 +156,7 @@ def CaseHistory():
 		url=backend_url + "lawyer/getPrevHearings"
 		param={'CNRno':cnr}
 		res = requests.post(url,json=param).json()
+		print(res)
 		if res["res"] == "success":
 			hrs = res["arr"]
 		else:
@@ -162,7 +166,7 @@ def CaseHistory():
 
 
 @app.route('/Lawyer/ClientRequests', methods=["POST","GET"])
-def ClientRequests():
+def ClientRequests(msg=""):
 	global di 
 	clients=[]
 
@@ -176,11 +180,12 @@ def ClientRequests():
 		else:
 			clients=[]
 
-	return render_template('Lawyer/ClientRequests.html',di=di, clientRequests=clients)
+	return render_template('Lawyer/ClientRequests.html',di=di, clientRequests=clients,message=msg)
 
 
 @app.route('/Lawyer/RejectCase', methods=["POST","GET"])
 def RejectCase():
+	msg=""
 	if request.method=="POST":
 		LawyerID = request.form.get('LawyerID')
 		ClientID = request.form.get('ClientID')
@@ -190,8 +195,12 @@ def RejectCase():
 		print(param)
 		res = requests.post(url,json=param).json()
 		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
 	
-	return redirect(url_for('ClientRequests'))
+	return ClientRequests(msg=msg)
 
 
 @app.route('/Lawyer/ActivePending', methods=["POST","GET"])
@@ -206,7 +215,7 @@ def ActivePending():
 		url=backend_url + "lawyer/getActiveCases"
 		param={'LawyerID':LawyerID}
 		active = requests.post(url,json=param).json()
-		if active["res"]=="success":
+		if active["res"]=="ok":
 			active=active["arr"]
 		else:
 			active=[]
@@ -214,7 +223,6 @@ def ActivePending():
 		url=backend_url + "lawyer/getPendingCases"
 		param={'LawyerID':LawyerID}
 		pending = requests.post(url,json=param).json()
-		print(pending)
 		if pending["res"]=="success":
 			pending=pending["arr"]
 		else:
@@ -233,7 +241,6 @@ def Schedule():
 		url=backend_url + "lawyer/todaySchedule"
 		param={'LawyerID':LawyerID}
 		res = requests.post(url,json=param).json()
-		print(res)
 		if res["res"]=='success':
 			res=res["arr"]
 		else:
@@ -243,6 +250,7 @@ def Schedule():
 
 @app.route('/Lawyer/RequestPayment', methods=["POST","GET"])
 def RequestPayment():
+	msg=""
 	if request.method == "POST":
 		LawyerID = request.form.get('LawyerID')
 		ClientID = request.form.get('ClientID')
@@ -250,10 +258,18 @@ def RequestPayment():
 		Fee = request.form.get('Fee')
 		
 		url=backend_url + "lawyer/createPaymentRequest"
-		param={'LawyerID':LawyerID, 'ClientID':ClientID, 'CNRno':CNRno, 'Fee':Fee}
-		res = requests.post(url,param)
+		param={'LawyerID':int(LawyerID), 'ClientID':int(ClientID), 'CNRno':int(CNRno), 'Fee':int(Fee)}
+		print(param)
+		res = requests.post(url,param).json()
+		print(res)
+		if(res["res"] == "success"):
+			msg="SUCCESS"
+		else:
+			msg="FAILED"
 
-	return render_template('Lawyer/RequestPayment.html',di=di)
+	return render_template('Lawyer/RequestPayment.html',di=di,payable=[],message=msg)
+
+
 
 
 
@@ -732,6 +748,7 @@ def Result():
 
 
 
+
 # Law Firm Routes
 
 @app.route('/Lawfirm/FirmLawyers', methods=["POST","GET"])
@@ -753,7 +770,7 @@ def FirmLawyers():
 	return render_template('Lawfirm/FirmLawyers.html',di=di, lawyers=lawyers)
 
 @app.route('/Lawfirm/ClientRequestsLawFirm', methods=["POST","GET"])
-def ClientRequestsLawFirm(msg="	"):
+def ClientRequestsLawFirm(msg=""):
 	global di 
 	clients=[]
 	reqs=[]
@@ -847,12 +864,14 @@ def FirmEarn():
 		param={"FirmID":FirmID, "datePaid": datePaid}
 		print(param)
 		cw = requests.post(url1,json=param).json()
+		print(cw)
 		if cw["res"]=="success":
 			cw=cw["arr"]
 		else:
 			cw=[]
 		
 		lw = requests.post(url2,json=param).json()
+		print(lw)
 		if lw["res"]=="success":
 			lw=lw["arr"]
 		else:
