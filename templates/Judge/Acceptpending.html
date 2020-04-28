@@ -196,7 +196,8 @@
                                         <div class="col-sm-4">
                                             
                                                 <div class="form-group label-floating">
-                                                 <input class="form-control" type="text" placeholder="Filling Number :{{Pc.FilingNo}}" readonly>
+                                                    <label>Filing Number</label>
+                                                 <input class="form-control" type="text" placeholder="{{Pc.FilingNo}}" readonly>
                                                                 <input class="form-control" type="hidden" name="FilingNo" value="{{Pc.FilingNo}}">
 
                                                     </div>
@@ -205,7 +206,9 @@
 
                                          <div class="col-sm-4">
                                                 <div class="form-group label-floating">
-                                                    <input class="form-control" type="text"  placeholder="Filing Date:{{Pc.FilingDate}}"readonly>
+                                                     <label>Filing Date</label>
+
+                                                    <input class="form-control" type="text"  placeholder="{{Pc.FilingDate}}"readonly>
                                                                 <input class="form-control" type="hidden" name="FilingDate" value="{{Pc.FilingDate}}">
 
                                                     </div>
@@ -214,7 +217,9 @@
 
                                          <div class="col-sm-4">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="Date"placeholder="First Hearing Date" name="FirstHearing" required=""  />
+                                                   <label>First Hearing Date</label>
+
+                                                        <input class="form-control" type="Date"name="FirstHearing" required=""  />
                                                     </div>
                                                 </div>
                                         </div>
@@ -222,14 +227,18 @@
 
                                          <div class="col-sm-4">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text" placeholder="Court Number" name="CourtNo" required="" />
+                                                   <label>Court Number</label>
+
+                                                        <input class="form-control" type="text"  name="CourtNo" required="" />
                                                     </div>
                                                 </div>
                                         
 
                                         <div class="col-sm-4">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text"  placeholder="Judge ID :{{di['ID']}}"readonly>
+                                                   <label>Judge ID</label>
+
+                                                        <input class="form-control" type="text"  placeholder="{{di['ID']}}"readonly>
                                                         <input class="form-control" type="hidden" name="JudgeID" value="{{di['ID']}}">                                                    
                                                     </div>
                                                 </div>
@@ -237,44 +246,38 @@
 
                                                 <div class="col-sm-4">
                                                        <div class="form-group label-floating">
-                                                            <input class="form-control" type="text"  placeholder="Victim ID :{{Pc.VictimID}}"readonly>
+                                                                    <label>Victim ID</label>
+
+                                                            <input class="form-control" type="text"  placeholder="{{Pc.VictimID}}"readonly>
                                                             <input class="form-control" type="hidden" name="VictimID" value="{{Pc.VictimID}}">                                                    
                                                         </div>
                                                        </div>
                                                </div>
                                                <div class="row"> 
 
-                                                    <div class="col-sm-4">
+                                                    <!-- <div class="col-sm-4">
                                                            <div class="form-group label-floating">
-                                                                   <input class="form-control" type="text" placeholder="Victim Statement" name="VictimStmnt" required="" />
+                                                                 <label>Victim Statement</label>
+                                                                   <input class="form-control" type="text" name="VictimStmnt" required="" />
                                                                </div>
-                                                           </div>
+                                                           </div> -->
                                                            
 
-                                                    <div class="col-sm-4">
-                                                           <div class="form-group label-floating">
-                                                                   <input class="form-control" type="text" placeholder="Acts" name="Acts" required="" />
-                                                               </div>
-                                                           </div>
-                                             </div>
+                                                    
                                             {%if Pc.AccusedID !=None%}
-                                             <div class="row"> 
 
                                                     <div class="col-sm-4">
                                                            <div class="form-group label-floating">
-                                                                <input class="form-control" type="text"  placeholder="Accused ID :{{Pc.AccusedID}}"readonly>
+                                                         <label>Accused ID</label>
+
+                                                                <input class="form-control" type="text"  placeholder="{{Pc.AccusedID}}"readonly>
                                                                 <input class="form-control" type="hidden" name="AccusedID" value="{{Pc.AccusedID}}">                                                                 </div>
                                                            </div>
-                                             </div>
-                                             <div class="row"> 
-
-                                                    <div class="col-sm-4">
-                                                           <div class="form-group label-floating">
-                                                                   <input class="form-control" type="text" placeholder="Accused Statement" name="Accusedstmnt" required="" />
-                                                               </div>
-                                                           </div>
-                                             </div>
+                                            
+                                             
                                       {%endif%}
+                                                                                  </div>
+
                                     <div class="col-sm-12">
 
                                         <div class="row text-center">
@@ -288,20 +291,8 @@
                                 </div>
                             </div>
                          
-                             {%else%}
-                            
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title"> 
-                                       Success
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                             
+                    
 
                             {%endif%}
                         </div>
@@ -310,6 +301,9 @@
                    
                     </div>
                     
+                    </div>
+                </div>
+
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">

@@ -1,14 +1,55 @@
-from flask import Flask,render_template,redirect,url_for,request
+
 from flask_bootstrap import Bootstrap
 import Home
 import os
 import requests
+from flask import Flask, jsonify, request, redirect, url_for, session,render_template
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+
+from config import config
+
+from models import db as my_db, login_manager, User, Client, Lawyer, Firms, Judge
 
 
 backend_url = "http://d17dca8f.ngrok.io/"
 USERNAME=""
 di={"mode":"judge","username":"dushyant","ID":2}
 app=Flask(__name__,static_folder='static')
+
+
+
+app.config.from_object(config)
+
+my_db.init_app(app)
+my_db.session.configure()
+login_manager.init_app(app)
+
+
+
+def getUser(current_user):
+	di={}
+	if current_user.ClientID:
+		di['mode']='client'
+		di['ID']=current_user.ClientID
+
+	if current_user.LawyerID:
+		di['mode']='lawyer'
+		di['ID']=current_user.LawyerID
+
+	if current_user.JudgeID:
+		di['mode']='judge'
+		di['ID']=current_user.JudgeID
+	
+	if current_user.FirmID:
+		di['mode']='law firm'
+		di['ID']=current_user.FirmID
+	di['username']=current_user.Username
+	return di
+
+
+
+
 
 Bootstrap(app)
 @app.route('/',methods=['GET','POST'])
@@ -25,18 +66,36 @@ def Login():
 		username=request.form.get('username')
 		password=request.form.get('password')
 		print(username+" "+str(password))
-		if username =='dush' and password !='panch':
-			message='wrongpass'
-			redirect(url_for('Login'))
-			return render_template('Login.html',message=message)
-		else:
-			USERNAME=username
-			di["username"]=USERNAME
+		# if username =='dush' and password !='panch':
+		# 	message='wrongpass'
+		# 	redirect(url_for('Login'))
+		# 	return render_template('Login.html',message=message)
+		# else:
+		# 	USERNAME=username
+		# 	di["username"]=USERNAME
 
-			return redirect(url_for('Home'))
+		# 	return redirect(url_for('Home'))
+
+		user = User.query.filter_by(Username=username).first()
+		if(not user):
+			return redirect('/Signupas')
+
+		if(user.Password != password):
+			message='wrongpass'
+			return render_template('Login.html',message=message)
+
+		login_user(user)
+		return redirect(url_for('Home'))
+
 
 	return render_template('Login.html')
 
+@app.route('/Logout',methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    session.clear()
+    return redirect("/Login")
 
 @app.route('/Signupas',methods=['GET','POST'])
 
@@ -61,48 +120,111 @@ def Signupas():
 @app.route('/Signup/<message>',methods=['GET','POST'])
 
 def Signup(message):
-	if request.method=='GET':
-		pass
-	else:
+	
+	if request.method=='POST':
 
 		username=request.form.get('username')
 		password=request.form.get('password')
 		message=request.form.get('message')
-		result=request.form()
+	
+
+
+		new_user = User.query.filter_by(Username=username).first()
+
+		# Handle unique username
+		if (new_user):
+	
+			message1="Username Already Registered"
+			print( message1)
+			return render_template('Signup.html',message=message,message1=message1)
+		
+		new_user = User(
+			Username = username,
+			Password = password,
+			)
+			
 		if message=='Firm':
 			firmname=request.form.get('firmname')
 			est=request.form.get('est')
 			areaspe=request.form.get('areaspe')
 			ls=request.form.get('ls')
+			new_Firm = Firms(
+						Name = firmname,
+						License_status=ls,
+						Spec_Area=areaspe,
+						Est=est,
+						Rating=3,
+						Fees_Range=3
+					)
+			my_db.session.add(new_Firm)
+			my_db.session.commit()
+			new_user.FirmID = new_Firm.ID
+
+
 		else:
 			firstname=request.form.get('firstname')
 			lastname=request.form.get('lastname')
 			if message=='Client':
 				dob=request.form.get('dob')
+
+				new_client = Client(
+						Name = firstname+" "+lastname,
+						DOB = dob
+					)
+				my_db.session.add(new_client)
+				my_db.session.commit()
+				new_user.ClientID = new_client.ID
+
 			elif message=='Lawyer':
 				ed=request.form.get('ed')
 				specarea=request.form.get('specarea')
 				AIBE=request.form.get('AIBE')
-				lis=request.form.get('lis')
+				ls=request.form.get('lis')
+				new_lawyer = Lawyer(
+						Name = firstname+" "+lastname,
+					
+						AIBE=AIBE,
+						License_status=ls,
+						ED_Profile=ed,
+						Spec_Area=specarea,
+						Rating=3,
+						Fees_Range=3
+
+					)
+				my_db.session.add(new_lawyer)
+				my_db.session.commit()
+				new_user.LawyerID = new_lawyer.ID
 			else:
+				
 				src=request.form.get('src')	
 				doa=request.form.get('doa')
-			print(firstname +" "+lastname+" "+password+" "+username+" "+dob+" "+message )
-		if username =='k':
-			message1='enter again'
-			redirect(url_for('Signup'))
-			return render_template('Signup.html',message=message,message1=message1)
-		else:
-			return redirect(url_for('Home'))
+				new_judge = Judge(
+						Name = firstname+" "+lastname,
+						Recruit_Src=src,
+						Apptmnt_Date=doa
+					)
+				my_db.session.add(new_judge)
+				my_db.session.commit()
+				new_user.JudgeID = new_judge.ID
+		
+
+		my_db.session.add(new_user)
+		my_db.session.commit()
+		login_user(new_user)
+
+		return redirect(url_for('Home'))
+
 
 	return render_template('Signup.html',message=message)
 
 
 
 @app.route('/Home',methods=['GET','POST'])
+@login_required
 def Home():
-	#di gets updated from sql table
-	global di 
+	# print(current_user.Username, current_user.id, current_user.ClientID, current_user.LawyerID)	#di gets updated from sql table
+	di=getUser(current_user) 
+	
 	return render_template('Home.html', di=di)
 	# elif request.form['submit'] == 'judges':
 	# 	return redirect(url_for('index'))
@@ -110,13 +232,11 @@ def Home():
 
 
 
-
-
 # Lawyer Routes
 
 @app.route('/Lawyer/FileCase',methods=["GET","POST"])
 def FileCase():
-	global di
+	di=getUser(current_user) 
 	msg=""
 	if request.method=="POST":
 		LawyerID = request.form.get('LawyerID')
@@ -149,7 +269,7 @@ def FileCase():
 
 @app.route('/Lawyer/CaseHistory',methods=["GET","POST"])
 def CaseHistory():
-	global di
+	di=getUser(current_user) 
 	hrs=[] # [{"Date":"12345", "CNRno":'54321', "Prev_Date":'24141',"Purpose":'Just for fun'}]
 	if request.method=="POST":
 		cnr = request.form.get('CNRno')
@@ -167,7 +287,7 @@ def CaseHistory():
 
 @app.route('/Lawyer/ClientRequests', methods=["POST","GET"])
 def ClientRequests(msg=""):
-	global di 
+	di=getUser(current_user)  
 	clients=[]
 
 	if request.method=="POST":
@@ -205,7 +325,7 @@ def RejectCase():
 
 @app.route('/Lawyer/ActivePending', methods=["POST","GET"])
 def ActivePending():
-	global di, backend_url
+	di=getUser(current_user) , backend_url
 	active=[]	#List of jsons containing all columns from table ActiveCases
 	pending=[]	#List of jsons containing all columns from table PendingCases
 	
@@ -277,7 +397,7 @@ def RequestPayment():
 
 @app.route('/Clients/FindLawyer',methods=["POST","GET"])
 def FindLawyer():
-		global di 
+		di=getUser(current_user)  
 		param={'ClientID':di['ID']}
 
 		URL=backend_url+"client/getActiveLawyerDetails"
@@ -318,7 +438,7 @@ def FindLawyer():
 
 @app.route('/Clients/FindFirm',methods=["POST","GET"])
 def FindFirm():
-		global di 
+		di=getUser(current_user)  
 		param={'ClientID':di['ID']}
 		URL=backend_url+"client/getActiveFirmDetails"
 		# Firmcurrent={'res': 'ok', 'arr': [{'ID': 15, 'Name': 'Emily Monahan', 'Ed_Profile': "ME.' 'You!' said the last.", 'Spec_Area': 'civil', 'AIBE': 1985, 'License_status': 'active', 'FirmID': 15, 'Rating': 5, 'Fees_range': 1}, {'ID': 39, 'Name': 'Mckayla Torphy', 'Ed_Profile': 'Down, down, down. There was.', 'Spec_Area': 'civil', 'AIBE': 1974, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 2}, {'ID': 36, 'Name': 'Prof. Daron Halvorson II', 'Ed_Profile': "Alice. 'Why?' 'IT DOES THE.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 33, 'Name': 'Jewel Heathcote', 'Ed_Profile': 'Gryphon, lying fast asleep.', 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 3}, {'ID': 28, 'Name': 'Donny Wunsch I', 'Ed_Profile': 'Majesty must cross-examine.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': 'active', 'FirmID': None, 'Rating': 5, 'Fees_range': 4}, {'ID': 7, 'Name': 'Gerda Wiegand', 'Ed_Profile': 'Duchess said after a few.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': 'active', 'FirmID': 29, 'Rating': 4, 'Fees_range': 5}, {'ID': 38, 'Name': 'Mitchel Runolfsdottir', 'Ed_Profile': "I think.' And she opened it,.", 'Spec_Area': 'civil', 'AIBE': 2006, 'License_status': ' deactive', 'FirmID': None, 'Rating': 4, 'Fees_range': 5}, {'ID': 12, 'Name': 'Winifred Mertz', 'Ed_Profile': 'White Rabbit hurried by--the.', 'Spec_Area': 'civil', 'AIBE': 1998, 'License_status': 'active', 'FirmID': 11, 'Rating': 4, 'Fees_range': 5}, {'ID': 29, 'Name': 'Dr. Grace Bashirian', 'Ed_Profile': "Alice, and sighing. 'It IS.", 'Spec_Area': 'civil', 'AIBE': 2002, 'License_status': 'active', 'FirmID': 31, 'Rating': 3, 'Fees_range': 1}, {'ID': 6, 'Name': 'Kade Kerluke', 'Ed_Profile': 'While the Owl and the.', 'Spec_Area': 'civil', 'AIBE': 2018, 'License_status': 'active', 'FirmID': 9, 'Rating': 3, 'Fees_range': 2}, {'ID': 2, 'Name': 'Stephanie Wisozk', 'Ed_Profile': "But she went on. 'Or would.", 'Spec_Area': 'civil', 'AIBE': 1970, 'License_status': ' deactive', 'FirmID': 16, 'Rating': 3, 'Fees_range': 2}, {'ID': 4, 'Name': 'Dr. Brenden Emmerich', 'Ed_Profile': 'And will talk in.', 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 9, 'Rating': 3, 'Fees_range': 4}, {'ID': 17, 'Name': 'Estelle Wintheiser IV', 'Ed_Profile': "Dodo, 'the best way you.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': 'active', 'FirmID': 14, 'Rating': 3, 'Fees_range': 4}, {'ID': 30, 'Name': 'Prof. Verona Littel', 'Ed_Profile': "SHE,' said the Duchess: 'and.", 'Spec_Area': 'civil', 'AIBE': 1972, 'License_status': 'active', 'FirmID': 15, 'Rating': 2, 'Fees_range': 1}, {'ID': 26, 'Name': 'Mrs. Michelle Spencer Jr.', 'Ed_Profile': 'You see the Hatter grumbled:.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 37, 'Name': 'Branson Davis V', 'Ed_Profile': "I'LL soon make you grow.", 'Spec_Area': 'civil', 'AIBE': 1973, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 3}, {'ID': 21, 'Name': 'Cortez Okuneva', 'Ed_Profile': 'King triumphantly, pointing.', 'Spec_Area': 'civil', 'AIBE': 2014, 'License_status': ' deactive', 'FirmID': 32, 'Rating': 2, 'Fees_range': 3}, {'ID': 19, 'Name': 'Clementine Herman Sr.', 'Ed_Profile': "She'll get me executed, as.", 'Spec_Area': 'civil', 'AIBE': 1971, 'License_status': 'active', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 35, 'Name': 'Oleta Roberts', 'Ed_Profile': 'Duchess replied, in a great.', 'Spec_Area': 'civil', 'AIBE': 1996, 'License_status': ' deactive', 'FirmID': None, 'Rating': 2, 'Fees_range': 4}, {'ID': 9, 'Name': 'Ms. Mylene Breitenberg MD', 'Ed_Profile': "Pigeon. 'I can hardly.", 'Spec_Area': 'civil', 'AIBE': 1982, 'License_status': ' deactive', 'FirmID': 13, 'Rating': 2, 'Fees_range': 4}, {'ID': 16, 'Name': 'Clemmie Krajcik DVM', 'Ed_Profile': "Alice's, and they lived at.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': 14, 'Rating': 2, 'Fees_range': 5}, {'ID': 5, 'Name': 'Dr. Justice Roob', 'Ed_Profile': 'Where CAN I have done just.', 'Spec_Area': 'civil', 'AIBE': 1975, 'License_status': 'active', 'FirmID': 36, 'Rating': 2, 'Fees_range': 5}, {'ID': 23, 'Name': 'Alexane Mayer', 'Ed_Profile': 'CHAPTER V. Advice from a.', 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': 4, 'Rating': 1, 'Fees_range': 1}, {'ID': 45, 'Name': 'Nia Zemlak', 'Ed_Profile': "Gryphon only answered 'Come.", 'Spec_Area': 'civil', 'AIBE': 1991, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 1}, {'ID': 46, 'Name': 'Mr. Delbert Mitchell III', 'Ed_Profile': 'Alice. One of the.', 'Spec_Area': 'civil', 'AIBE': 1990, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 3}, {'ID': 27, 'Name': 'Prof. Shyann Vandervort', 'Ed_Profile': "March Hare. 'Exactly so,'.", 'Spec_Area': 'civil', 'AIBE': 1984, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 42, 'Name': 'Miss Darby Sauer', 'Ed_Profile': 'Nile On every golden scale!.', 'Spec_Area': 'civil', 'AIBE': 2009, 'License_status': 'active', 'FirmID': None, 'Rating': 1, 'Fees_range': 4}, {'ID': 31, 'Name': 'Khalil Kertzmann', 'Ed_Profile': "Alice again. 'No, I didn't,'.", 'Spec_Area': 'civil', 'AIBE': 2005, 'License_status': ' deactive', 'FirmID': 20, 'Rating': 1, 'Fees_range': 5}, {'ID': 14, 'Name': 'Dr. Keagan Emmerich III', 'Ed_Profile': 'Alice did not feel.', 'Spec_Area': 'civil', 'AIBE': 2019, 'License_status': ' deactive', 'FirmID': 34, 'Rating': 1, 'Fees_range': 5}]}
@@ -472,7 +592,7 @@ def FirmRequest():
 
 @app.route('/Clients/Payment',methods=["POST","GET"])
 def Payment():
-	global di 
+	di=getUser(current_user)  
 	param={'ClientID':di['ID']}
 
 	URL=backend_url+"client/viewPaymentRequests"
@@ -502,7 +622,7 @@ def Payment():
 
 @app.route('/Judge/PreviousJudgements',methods=['GET','POST'])
 def PreviousJudgements():
-		global di 
+		di=getUser(current_user)  
 		#lawyerrequests need to be passed
 		URL=backend_url+"client/viewPaymentRequests"
 		if request.method=='POST':
@@ -524,7 +644,7 @@ def PreviousJudgements():
 
 @app.route('/Judge/Schedule')
 def JudgeSchedule():
-		global di
+		di=getUser(current_user) 
 		param={"JudgeID":di['ID']}
 		URL=backend_url+"judge/schedule"
 		schedule=requests.post(URL,json=param).json()
@@ -753,7 +873,7 @@ def Result():
 
 @app.route('/Lawfirm/FirmLawyers', methods=["POST","GET"])
 def FirmLawyers():
-	global di
+	di=getUser(current_user) 
 	lawyers=[]
 	if request.method=="POST":
 		FirmID=request.form.get('FirmID')
@@ -771,7 +891,7 @@ def FirmLawyers():
 
 @app.route('/Lawfirm/ClientRequestsLawFirm', methods=["POST","GET"])
 def ClientRequestsLawFirm(msg=""):
-	global di 
+	di=getUser(current_user)  
 	clients=[]
 	reqs=[]
 	if request.method=="POST":
@@ -834,7 +954,7 @@ def ClientRequestsLawFirm_reject():	#In case rejected
 
 @app.route('/Lawfirm/LawyerPerf',methods=["POST","GET"])
 def LawyerPerf():
-	global di 
+	di=getUser(current_user)  
 	lawyerPerf=[[]]
 	if request.method=="POST":
 		LawyerID=request.form.get('LawyerID')
@@ -904,7 +1024,7 @@ def WinLose():
 
 @app.route('/Officer/FileFIR',methods=["GET","POST"])
 def FileFIR():
-	global di
+	di=getUser(current_user) 
 	msg=""
 	if request.method=="POST":
 		url = backend_url + '/officer/fileFIR'
@@ -924,7 +1044,7 @@ def FileFIR():
 
 @app.route('/Officer/SetHearing',methods=["GET","POST"])
 def SetHearing():
-	global di
+	di=getUser(current_user) 
 	msg=""
 	if request.method=="POST":
 		url = backend_url + '/officer/addHearing'
@@ -946,7 +1066,7 @@ def SetHearing():
 
 @app.route('/Officer/Schedule')
 def ScheduleOfficer():
-	global di
+	di=getUser(current_user) 
 	schedule=[]
 	url=backend_url + "officer/schedule"
 	param={}
@@ -961,7 +1081,7 @@ def ScheduleOfficer():
 
 @app.route('/Officer/DocUploadStatus',methods=["GET","POST"])
 def DocUploadStatus():
-	global di
+	di=getUser(current_user) 
 	if request.method=="POST" and request.form.get('request')!='final':
 		M=request.form.get('Spec_Area')
 		param={'Type':int(M)}
@@ -991,7 +1111,7 @@ def DocUploadStatus():
 
 @app.route('/Officer/CaseStatements',methods=['GET','POST'])
 def CaseStatements():
-	global di
+	di=getUser(current_user) 
 	if request.method=="POST":
 		param={'CNRno':request.form.get('CNRno'),'VictimStmnt':request.form.get('VictimStmnt'),'AccusedStmnt':request.form.get('AccusedStmnt'),'Acts':request.form.get('Acts')}
 		URL=backend_url+"officer/updateCaseStatements"
@@ -1006,7 +1126,7 @@ def CaseStatements():
 
 @app.route('/Officer/ViewDocuments',methods=['GET','POST'])
 def ViewDocuments():
-	global di
+	di=getUser(current_user) 
 	if request.method=="POST":
 		param={'FilingNo':request.form.get('FilingNo'),'Type':int(request.form.get('Type'))}
 		Type=int(request.form.get('Type'))

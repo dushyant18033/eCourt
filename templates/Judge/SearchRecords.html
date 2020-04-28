@@ -170,13 +170,13 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <h4 class="card-title">
+                                   <!--  <h4 class="card-title">
                                     {%if civilian is not defined and Lawyer is not defined%}
                                    Invalid Search Inputs
                                     {%else%}
                                     Search Results
                                     {%endif%}
-                                    </h4>
+                                    </h4> -->
                                     {%if civilian is defined%}
                                     
                                     <div class="row">
@@ -188,11 +188,33 @@
                                             </p>
                                         </div>
                                     </div>
+                                      {%elif lawyer is defined%}
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">{{lawyer.ID}}</h4>
+                                            <p class="category">Name:{{lawyer.Name}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.ED_profile}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.Spec_Area}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.AIBE}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.License_status}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.FirmID}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.Rating}}
+                                            </p>
+                                             <p class="category">DOB:{{lawyer.Fees_Range}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {%endif%}
                                           <div class="row">
 
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
+                        
                                     <h4 class="card-title">
                                     {%if Ccases!=[]%}
                                     Closed Cases  involved in
@@ -299,149 +321,12 @@
                                     </div>
                                     {%endif%}
 
+                                
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {%else%}
-                    {%if lawyer is defined%}
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">{{lawyer.ID}}</h4>
-                                            <p class="category">Name:{{lawyer.Name}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.ED_profile}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.Spec_Area}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.AIBE}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.License_status}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.FirmID}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.Rating}}
-                                            </p>
-                                             <p class="category">DOB:{{lawyer.Fees_Range}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                          <div class="row">
-                                    
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <h4 class="card-title">
-                                    {%if Ccases !=[]%}
-                                    Closed Cases  involved in
-                                    {%else%}
-                                    No Closed case  involved in
-                                    {%endif%}
-                                    </h4>
-                                    {%if CCases!=[]%}
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                            <tr>
-                                                                    <td>
-                                                                        CNR Number
-                                                                    </td>
-                                                                    <td>
-                                                                        Filing Number
-                                                                    </td>
-                                                                    <td>
-                                                                        Filing Date
-                                                                    </td>
-                                                                    <td>
-                                                                       Judge ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Victim ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Victim Lawyer ID
-                                                                    </td>
-                                                                    <td>
-                                                                       Accused ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Accused Lawyer ID
-                                                                    </td>
-                                                                    <td>
-                                                                       Case Statement
-                                                                    </td>
-                                                                    <td>
-                                                                        Acts
-                                                                    </td>
-                                                                    <td>
-                                                                        Final Verdict
-                                                                    </td>
-                                                                    <td>
-                                                                        Verdict Date
-                                                                    </td>
-                                                                   
-                                                                </tr>
-                                                                {% for case in Ccases %}
-                                                                    <tr>
-                                                                        <td>
-                                                                            {{case.CNRno}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.FilingNo}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.FilingDate}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.JudgeID}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.VictimID}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.Victim_LawyerID}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.AccusedID}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.Accused_LawyerID}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.CaseStmnt}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.Acts}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.FinalVerdict}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.Verdict_Date}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.WonID_Client}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.WonID_Lawyer}}
-                                                                        </td>
-                                                                    </tr>
-                                                                {%endfor%}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%endif%}
-                                    {%endif%}
-                                    {%endif%} 
-                                </div>
-                            </div>
-                        </div>
+                    
                     </div>
                                
                     </div>

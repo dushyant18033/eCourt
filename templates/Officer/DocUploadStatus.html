@@ -214,7 +214,7 @@
                                                                         Type
                                                                     </td>
                                                                     <td>
-                                                                        FIR Number
+                                                                        FIR Uploaded
                                                                     </td>
                                                                     <td>
                                                                         Document Uploaded by Victim
@@ -260,14 +260,14 @@
                                                                         </td>
                                                                         <td>
                                                                             {{case.Type}}
-                                                                            {%if case.Type=='civil'%}
+                                                                            {%if case.Type==0%}
                                                                             <input  type="hidden" name="Type" value="0">
                                                                             {%else%}
                                                                              <input  type="hidden" name="Type" value="1">
                                                                             {%endif%}
                                                                         </td>
                                                                         <td>
-                                                                            {{case.FIRno}}
+                                                                            {{case.Fir_Uploaded}}
                                                                         </td>
                                                                         <td>
                                                                             {{case.Doc_Uploaded_Victim}}
@@ -276,7 +276,7 @@
                                                                             {{case.Doc_Uploaded_Accused}}
                                                                         </td>
                                                                         <td>
-                                                                            {{case.isVerified}}
+                                                                            {{case.is_Verified}}
                                                                         </td >
                                                                             <td>
 
@@ -315,7 +315,7 @@
                                         </div>
                                         <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="Spec_Area" value="0" checked> Cvil
+                                                    <input type="radio" name="Spec_Area" value="0" checked> Civil
                                                 </label>
                                             </div>
                                             <div class="radio">

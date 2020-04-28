@@ -40,10 +40,10 @@
 						Account Sign Up As {{message}}
 					</span>
 					<input type="hidden"  name="message" value="{{message }}">
-					{%if 'enter again'==message1%}
+					{%if message1 is defined%}
 						<script>
 						function myFunction() {
-					 	alert("Username already taken!");
+					 	alert('{{message1}}');
 						}
 											window.myFunction();
 											

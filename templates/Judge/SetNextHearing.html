@@ -190,37 +190,51 @@
                                     <div class="row">
                                          <form id="TypeValidation" class="form-horizontal" action="#" method="post">
                                 
-                                        <div class="col-md-10">
+                                        <div class="col-md-12">
                                             </div>
                                         </div>
                                         <div class="row"> 
                                             <div class="col">
-                                        <div class="col-sm-5">
-                                            
+                                        <div class="col-sm-3">
                                                 <div class="form-group label-floating">
-                                                 <input class="form-control" type="text" placeholder="Previous Hearing  :{{Pc.NextHearing}}" readonly>
-                                                                <input class="form-control" type="hidden" name="NextHearing" value="{{Pc.NextHearing}}">
+                                                                                                <label>Previous Hearing</label>
+
+                                                 <input class="form-control" type="text" placeholder="{{Pc.NextHearing}}" readonly>
+                                                                <input  type="hidden" name="PrevHearing" value="{{Pc.NextHearing}}">
+                                                                <input  type="hidden" name="CNRno" value="{{Pc.CNRno}}">
 
                                                     </div>
                                                 </div>
-                                        </div>
+                                        
                                        
 
                                         
                                
-                                        <div class="col"> 
+                                        
 
                                          <div class="col-sm-3">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text"placeholder="Next Hearing" name="NextHearing" required=""  />
+                                                    <label>Next Hearing Date</label>
+
+                                                        <input class="form-control" type="date" name="NextHearingDate" required=""  min="2020-01-01" max="2021-01-01" />
+                                                    </div>
+                                                </div>
+                                       
+                                         <div class="col-sm-3">
+                                                <div class="form-group label-floating">
+                                                    <label>Next Hearing Time</label>
+
+                                                        <input class="form-control" type="time"name="NextHearingTime" required=""  />
                                                     </div>
                                                 </div>
                                         </div>
                                     
 
-                                         <div class="col-sm-4">
+                                         <div class="col-sm-3">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text" placeholder="Purpose" name="Purpose" required="" />
+                                                    <label>Purpose</label>
+
+                                                        <input class="form-control" type="text"  name="Purpose" required="" />
                                                     </div>
                                                 </div>
                                         </div>
@@ -243,29 +257,11 @@
                                 </div>
                             </div>
                          
-                             {%else%}
-                            
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                    <h4 class="card-title"> 
-                                       Success
-                                    </h4>
-                                </div>
+                             {%endif%}
                             </div>
                         </div>
                     </div>
-
-                            {%endif%}
-                        </div>
-                    
-
-                   
-                    </div>
                 </div>
-            </div>
                     
             <footer class="footer">
                 <div class="container-fluid">

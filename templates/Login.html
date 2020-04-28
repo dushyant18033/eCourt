@@ -38,25 +38,17 @@
                     </span>
 
 
-                        {%if 'enter again'==message%}
+                        {%if message is defined%}
                         <script>
     function myFunction() {
-    alert("Username already taken!");
+    alert("{{message}}");
     }
                         window.myFunction();
 
                     </script>
                             {% endif%}
 
-{%if 'wrongpass'==message %}
-                        <script>
-    function myFunction() {
-    alert("Wrong password entered!");
-    }
-                        window.myFunction();
 
-                    </script>
-                            {% endif%}
 
                     <div class="p-t-31 p-b-9">
                         <span class="txt1">

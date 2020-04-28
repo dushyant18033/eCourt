@@ -188,7 +188,7 @@
                                     <h4 class="card-title text-center">Announce Final Verdict </h4>
                                    
                                     <div class="row">
-                                         <form id="TypeValidation" class="form-horizontal" action="#" method="post">
+                                         <form  class="form-horizontal" action="#" method="post">
                                 
                                         <div class="col-md-4">
                                             </div>
@@ -197,16 +197,18 @@
                                         <div class="col-md-4">
                                             
                                                 <div class="form-group label-floating">
-                                                 <input class="form-control" type="text" placeholder="CNR Number :{{Pc.CNRno}}" readonly>
+                                                    <label>CNR Number</label>
+                                                 <input class="form-control" type="text" placeholder="{{Pc.CNRno}}" readonly>
                                                                 <input class="form-control" type="hidden" name="CNRno" value="{{Pc.CNRno}}">
 
                                                     </div>
                                                 </div>
                                         
 
-                                         <div class="pull-right col-md-4">
+                                         <div class=" col-md-4">
                                                 <div class="form-group label-floating">
-                                                    <input class="form-control" type="text"  placeholder="Victim Lawyer ID:" name="Victim_LawyerID" required="">
+                                                    <label> Victim Lawyer ID</label>
+                                                    <input class="form-control" type="text"  name="Victim_LawyerID" required="">
 
                                                     </div>
                                                 </div>
@@ -216,7 +218,8 @@
 
                                                 <div class="col-md-4">
                                                        <div class="form-group label-floating">
-                                                           <input class="form-control" type="text"  placeholder="Accused Lawyer ID:"name="Accused_LawyerID" required="">
+                                                        <label>Accused Lawyer ID</label>
+                                                           <input class="form-control" type="text"  name="Accused_LawyerID" required="">
        
                                                            </div>
                                                        </div>
@@ -225,28 +228,32 @@
 
                                          <div class="col-md-4">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text"placeholder="Case Statement" name="CaseStmnt" required=""  />
+                                                    <label>Case Statement</label>
+                                                        <input class="form-control" type="text" name="CaseStmnt" required=""  />
                                                     </div>
                                                 </div>
                                        </div>
                                         <div class="row">
-                                         <div class="col-md-4 pull-right">
+                                         <div class="col-md-4 ">
                                                 <div class="form-group label-floating">
-                                                        <input class="form-control" type="text" placeholder="Final Verdict" name="FinalVerdict" required="" />
+                                                    <label>Final Verdict</label>
+                                                        <input class="form-control" type="text"  name="FinalVerdict" required="" />
                                                     </div>
                                                 </div>
                                        
 
                                                     <div class="col-md-4">
                                                            <div class="form-group label-floating">
-                                                                   <input class="form-control" type="text" placeholder="Winning Client ID" name="WonID_Client" required="" />
+                                                            <label>Winning Client ID</label>
+                                                                   <input class="form-control" type="text"  name="WonID_Client" required="" />
                                                                </div>
                                                            </div>
 
 
                                                     <div class="col-md-4">
                                                            <div class="form-group label-floating">
-                                                                   <input class="form-control" type="text" placeholder="WInning Lawyer ID" name="WonID_Lawyer" required="" />
+                                                            <label>Winning Lawyer ID</label>
+                                                                   <input class="form-control" type="text" name="WonID_Lawyer" required="" />
                                                                </div>
                                                            </div>
                                              </div>

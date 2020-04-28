@@ -296,7 +296,7 @@
 
                                                                         </td>
                                                                         <td>
-                                                                            {{document.Descrption}}
+                                                                            {{document.Description}}
 
                                                                         </td>
                                                                        
@@ -323,7 +323,7 @@
                                 <div class="card-content">
                                     <h4 class="card-title">View Case Documents</h4>
                                     <div class="row">
-                                         <form id="TypeValidation" class="form-horizontal" action="" method="post">
+                                         <form  action="" method="post">
                                         
                                         <div class="col-md-6">
                                             </div>
@@ -340,8 +340,11 @@
                                             </div>
                                        
                                        <div class='col-md-6'>
-                                      <input class="form-control" type="number"placeholder="Filing Number" name="FilingNo" required=""  />
+                                        <div class="form-group label-floating">
+                                        <label>Filing Number</label>
+                                      <input class="form-control" type="number" name="FilingNo" required=""  />
                                         </div>
+                                    </div>
                                        
                                     <div class="col-md-12">
 
@@ -357,6 +360,8 @@
                             </div>
                 </div>
                 </div>
+            </div>
+        </div>
             
             <footer class="footer">
                 <div class="container-fluid">
