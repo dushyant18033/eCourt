@@ -271,11 +271,11 @@
                                                                             {{case.Acts}}
                                                                         </td>
                                                                         <td>
+                                                                             
                                                                                 <form method="post">
                                                                                         <input  type="hidden" name="AccusedID" value="{{case.AccusedID}}">
 
-                                                                                <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Hearing" >
-                                                                                </button>
+                                                                                <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Hearing" ><i class="material-icons">check_circle_outline</i> </button>
                                                                               </form>
                                                                    
                                                                  
@@ -283,8 +283,7 @@
                                                                 <td>
                                                                         <form method="post">
 
-                                                                        <button  class="btn btn-danger" type="submit" value={{case.CNRno}}  name="Final" >
-                                                                        </button>
+                                                                        <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Final" ><i class="material-icons">check_circle_outline</i>         </button>
                                                                       </form>                                                                    
                                                            
                                                          
@@ -408,10 +407,9 @@
                                                                             <i class="material-icons">check_circle_outline</i>
                                                                             {%endif%}
                                                                         </td>
-                                                                  <td>
+                                                                        <td>
 
-                                                                                    <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" >
-                                                                                    </button>
+                                                                                    <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" ><i class="material-icons">check_circle_outline</i>  </button>
                                                                                    </form>
                                                                                 
                                                                        

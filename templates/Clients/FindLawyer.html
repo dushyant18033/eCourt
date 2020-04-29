@@ -323,8 +323,9 @@
                                                             
                                                               <td >
                                                                 {%if 'active'==lawyer.License_status %}
-                                                                <button  class="btn btn-success" type="submit" value={{lawyer.ID}}  name="Request" ></button>
-                                                               
+                                                                <button  class="btn btn-success" type="submit" value={{lawyer.ID}}  name="Request" ><i class="material-icons">check_circle_outline</i></button>
+                                                               {%else%}
+                                                               <button  disabled class="btn btn-danger" name="Request" value="final" type="submit"  ><i class="material-icons">highlight_off</i>       
                                                                 {%endif%}
                                                             </td>
                                                         </tr>

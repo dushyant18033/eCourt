@@ -415,17 +415,18 @@
                                                                             <i class="material-icons">check_circle_outline</i>
                                                                             {%endif%}
                                                                         </td>
+                                                                        <td>
                                                                  {%if di['ID']==case.VictimID%}
-                                                                 <td>
+                                                                 
                                                                                 <form method="post">
                                                                                         <input  type="hidden" name="Case_ID" value="{{case.FilingNo}}">
                                                                                         <input  type="hidden" name="VictimID" value="{{case.VictimID}}">
 
-                                                                                <button  class="btn btn-danger" type="submit" value={{case.CNRno}}  name="Hearing" >
-                                                                                </button>
+                                                                                <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Hearing" ><i class="material-icons">check_circle_outline</i>  </button>
                                                                               </form>
-                                                                
-                                                                   
+                                                                {%else%}
+                                                                   <button  disabled class="btn btn-danger" name="Request" value="final" type="submit"  ><i class="material-icons">highlight_off</i>       
+                                                               
                                                                  
                                                                 </td>
                                                                 {%endif%}

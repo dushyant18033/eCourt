@@ -24,34 +24,44 @@ my_db.init_app(app)
 my_db.session.configure()
 login_manager.init_app(app)
 
-
-
 def getUser(current_user):
 	di={}
-	if current_user!=None:
-		if current_user.ClientID:
-			di['mode']='client'
-			di['ID']=current_user.ClientID
-			
-
-		if current_user.LawyerID:
-			di['mode']='lawyer'
-			di['ID']=current_user.LawyerID
-
-		if current_user.JudgeID:
-			di['mode']='judge'
-			di['ID']=current_user.JudgeID
-		
-		if current_user.FirmID:
-			di['mode']='law firm'
-			di['ID']=current_user.FirmID
-		di['username']=current_user.Username
-		# di['mode']='law firm'#########INJECTING USER TYPE#########
-		return di
+	print(current_user)
 	
+	if current_user!=None:
+		if 'flask_login.mixins.AnonymousUserMixin' not in str(current_user):
+			if current_user.ClientID:
+				di['mode']='client'
+				di['ID']=current_user.ClientID
+				di['username']=current_user.Username
+				
+
+			elif current_user.LawyerID:
+				di['mode']='lawyer'
+				di['ID']=current_user.LawyerID
+				di['username']=current_user.Username
+
+			elif current_user.JudgeID:
+				di['mode']='judge'
+				di['ID']=current_user.JudgeID
+				
+				di['username']=current_user.Username
+
+			
+			elif current_user.FirmID:
+				di['mode']='law firm'
+				di['ID']=current_user.FirmID
+				di['username']=current_user.Username
+		else:
+			di['mode']='officer'
+			di['ID']=1
+			di['username']='OFFICER'
 
 
 
+		# di['mode']='law firm'#########INJECTING USER TYPE#########
+		print(di)
+		return di
 
 Bootstrap(app)
 @app.route('/',methods=['GET','POST'])
@@ -350,6 +360,8 @@ def LawfirmAccount():
 
 	print(Pc)
 	return render_template('Lawfirm/LawfirmAccount.html', di=di,Pc=Pc)
+
+
 
 
 
@@ -1002,6 +1014,7 @@ def AnnounceVerdict():
 			Pc=i
 			break
 	print(Pc)
+
 	if request.method=="POST":
 			
 			
@@ -1058,8 +1071,6 @@ def Result():
 		print(Ccases)
 
 		return render_template('Judge/result.html',di=di,Ccases=Ccases,message="SUCCESS")
-
-
 
 
 
