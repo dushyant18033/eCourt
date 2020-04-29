@@ -336,8 +336,8 @@ def LawyerAccount():
 def LawfirmAccount():
 	di=getUser(current_user) 
 	 
-	url=backend_url + "lawyer/getAccountDetails"
-	param={'Lawyer':di['ID']}
+	url=backend_url + "firm/getAccountDetails"
+	param={'FirmID':di['ID']}
 	res = requests.post(url,json=param).json()
 	print(res)
 	if res["res"] == "success":
@@ -349,7 +349,7 @@ def LawfirmAccount():
 		Pc = {}
 
 	print(Pc)
-	return render_template('Lawyer/LawyerAccount.html', di=di,Pc=Pc)
+	return render_template('Lawfirm/LawfirmAccount.html', di=di,Pc=Pc)
 
 
 
