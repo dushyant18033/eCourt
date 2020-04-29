@@ -79,45 +79,24 @@ def Login():
 
 		user = User.query.filter_by(Username=username).first()
 		if(not user):
-			return redirect('/Signupas')
+			message="Username Does Not Exist"
+			return render_template('Loginnew.html',message=message)
 
 		if(user.Password != password):
-			message='wrongpass'
-			return render_template('Login.html',message=message)
+			message="Wrong Password Entered"
+			return render_template('Loginnew.html',message=message)
 
 		login_user(user)
-		return redirect(url_for('Home'))
+		di=getUser(current_user)
+		if di['mode']=='client':
+			return redirect(url_for('CheckStatus'))
+		if di['mode']=='judge':
+			return redirect(url_for('PreviousJudgements'))
+		if di['mode']=='lawyer':
+			return redirect(url_for('CaseHistory'))
+		if di['mode']=='law firm':
+			return redirect(url_for('FirmLawyers'))
 
-
-	return render_template('Login.html')
-
-@app.route('/Loginnew',methods=['GET','POST'])
-def Loginnew():
-	if request.method=='POST':
-		result=request.form
-		print(result.items())
-		username=request.form.get('username')
-		password=request.form.get('password')
-		print(username+" "+str(password))
-		# if username =='dush' and password !='panch':
-		# 	message='wrongpass'
-		# 	redirect(url_for('Login'))
-		# 	return render_template('Login.html',message=message)
-		# else:
-		# 	USERNAME=username
-		# 	di["username"]=USERNAME
-
-		# 	return redirect(url_for('Home'))
-
-		user = User.query.filter_by(Username=username).first()
-		if(not user):
-			return redirect('/Signupas')
-
-		if(user.Password != password):
-			message='wrongpass'
-			return render_template('Login.html',message=message)
-
-		login_user(user)
 		return redirect(url_for('Home'))
 
 
@@ -130,55 +109,39 @@ def logout():
     session.clear()
     return redirect("/Login")
 
-@app.route('/Signupas',methods=['GET','POST'])
-
-def Signupas():
-
-	message=None
-	
-	if 'client' in str(request):
-		message="Client"
-	if 'judge' in str(request):
-		message="Judge"
-	if 'lawyer' in str(request):
-		message="Lawyer"
-	if 'firm' in str(request):
-		message="Firm"
-	print(str(message))
-	if message!=None:
-		return redirect(url_for('Signup',message=message))
-	return render_template('Signupas.html')
 
 @app.route('/Registeras',methods=['GET','POST'])
 
 def Registeras():
 
 	message=None
-	
-	if 'client' in str(request):
+	print(str(request.form.to_dict()))
+	keys=request.form.to_dict().keys()
+	print(keys)
+	if 'Client' in keys:
 		message="Client"
-	if 'judge' in str(request):
+	if 'Judge' in keys:
 		message="Judge"
-	if 'lawyer' in str(request):
+	if 'Lawyer' in keys:
 		message="Lawyer"
-	if 'firm' in str(request):
+	if 'Firm' in keys:
 		message="Firm"
 	print(str(message))
 	if message!=None:
-		return redirect(url_for('Registeras',message=message))
+		return redirect(url_for('Register',message=message))
 	return render_template('Registeras.html')
 
-@app.route('/Signup/<message>',methods=['GET','POST'])
+@app.route('/Register/<message>',methods=['GET','POST'])
 
-def Signup(message):
+def Register(message):
 	
 	if request.method=='POST':
 
 		username=request.form.get('username')
 		password=request.form.get('password')
 		message=request.form.get('message')
-	
-
+		print(request.form.to_dict())
+		input()
 
 		new_user = User.query.filter_by(Username=username).first()
 
@@ -187,7 +150,7 @@ def Signup(message):
 	
 			message1="Username Already Registered"
 			print( message1)
-			return render_template('Signup.html',message=message,message1=message1)
+			return render_template('Resgister.html',message=message,message1=message1)
 		
 		new_user = User(
 			Username = username,
@@ -217,11 +180,14 @@ def Signup(message):
 			lastname=request.form.get('lastname')
 			if message=='Client':
 				dob=request.form.get('dob')
+				input()
 
 				new_client = Client(
 						Name = firstname+" "+lastname,
 						DOB = dob
 					)
+				print(new_client)
+				input()
 				my_db.session.add(new_client)
 				my_db.session.commit()
 				new_user.ClientID = new_client.ID
@@ -266,7 +232,8 @@ def Signup(message):
 		return redirect(url_for('Home'))
 
 
-	return render_template('Signup.html',message=message)
+	return render_template('Register.html',message=message)
+
 
 
 
@@ -287,7 +254,18 @@ def Home():
 	else:
 		return redirect(url_for('ScheduleOfficer'))
 
+
+@app.route('/Account',methods=['GET','POST'])
+
+def Account():
+	# print(current_user.Username, current_user.id, current_user.ClientID, current_user.LawyerID)	#di gets updated from sql table
+	di=getUser(current_user) 
+	
+	return render_template('Home.html', di=di)
+	# elif request.form['submit'] == 'judges':
+	# 	return redirect(url_for('index'))
 	 
+
 
 
 
@@ -550,7 +528,14 @@ def CheckStatus():
 		Acases=Acases["arr"]
 	print(Acases)
 	print(Pcases)
-	
+	cric=0
+	civic=0
+	for i in Pcases:
+		if i['Type']==0:
+			civic=1
+		if i['Type']==1:
+			cric=1
+			pass
 	if request.method=="POST":
 		m=request.form.to_dict()
 		print(m)
@@ -569,10 +554,10 @@ def CheckStatus():
 			Acases=Acases["arr"]
 		print(Acases)
 		print(Pcases)
-	
+		return render_template('Clients/Checkstatus.html',di=di,Acases=Acases,Pcases=Pcases,message="SUCCESS",cric=cric,civic=civic)
 
 
-	return render_template('Clients/Checkstatus.html',di=di,Acases=Acases,Pcases=Pcases)
+	return render_template('Clients/Checkstatus.html',di=di,Acases=Acases,Pcases=Pcases,cric=cric,civic=civic)
 
 
 @app.route('/Clients/HearingTime')
@@ -609,11 +594,11 @@ def Documents():
 			if 'failed'!=Value['res']:	
 				return render_template('Clients/Documents.html',di=di,message="SUCCESS")
 			else:
-				return render_template('Clients/Documents.html',di=di,message="Invalid Fields")
+				return render_template('Clients/Documents.html',di=di,message="ERROR")
 
 
 		#Val=requests.post(URL,json=param).json()
-		return render_template('Clients/Documents.html',di=di,message="")
+		return render_template('Clients/Documents.html',di=di)
 
 @app.route('/Clients/LawyerRequest',methods=["POST","GET"])
 def LawyerRequest():
@@ -631,10 +616,10 @@ def LawyerRequest():
 		if 'failed'!=Value['res']:	
 			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="SUCCESS")
 		else:
-			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="fail")
+			return render_template('Clients/LawyerRequest.html',di=di,lawyerid=request.form.get("LawyerID"),message="ERROR")
 
 	else:
-		return render_template('Clients/LawyerRequest.html',di=di,lawyerid=LawyerID,message=message)
+		return render_template('Clients/LawyerRequest.html',di=di,lawyerid=LawyerID)
 
 
 @app.route('/Clients/FirmRequest',methods=["POST","GET"])
@@ -653,7 +638,7 @@ def FirmRequest():
 		if 'failed'!=Value['res']:	
 			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="SUCCESS")
 		else:
-			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="fail")
+			return render_template('Clients/FirmRequest.html',di=di,Firmid=request.form.get("FirmID"),message="ERROR")
 
 	else:
 		return render_template('Clients/FirmRequest.html',di=di,Firmid=FirmID,message=message)
@@ -777,7 +762,7 @@ def SearchRecords():
 		Ccases=Ccases["arr"]
 	print()
 
-	return render_template('Judge/SearchRecords.html',di=di,Ccases=Ccases)
+	return render_template('Judge/SearchRecords.html',di=di,Ccases=Ccases,message="SUCCESS")
 
 
 
@@ -815,8 +800,17 @@ def Cases():
 	if Acases["res"]=="success":
 		Acases=Acases["arr"]
 	print(Pcases)
-
-	return render_template('Judge/Cases.html',di=di,Acases=Acases,Pcases=Pcases)
+	cric=0
+	civic=0
+	for i in Pcases:
+		if i['Type']==0:
+			civic=1
+		if i['Type']==1:
+			cric=1
+			pass
+	print(cric)
+	print(Pcases)
+	return render_template('Judge/Cases.html',di=di,Acases=Acases,Pcases=Pcases,cric=cric,civic=civic)
 
 @app.route('/Judge/AcceptPendingCase',methods=['GET','POST'])
 def AcceptPendingCase():
@@ -847,9 +841,9 @@ def AcceptPendingCase():
 			URL=backend_url+"judge/acceptCase"
 			Value=requests.post(URL,json=param).json()
 			if 'failed'!=Value['res']:
-				return render_template('Judge/Acceptpending.html',message='Success',di=di)
+				return render_template('Judge/Acceptpending.html',message='SUCCESS',di=di)
 			else:
-				return render_template('Judge/Acceptpending.html',message='Failed',di=di)
+				return render_template('Judge/Acceptpending.html',message='ERROR',di=di)
 
 	return render_template('Judge/Acceptpending.html',Pc=Pc,di=di)
 
@@ -886,9 +880,9 @@ def SetNextHearing():
 			Value=requests.post(URL,json=param).json()
 			print(Value)
 			if 'failed'!=Value['res']:
-				return render_template('Judge/SetNextHearing.html',message='Success',di=di)
+				return render_template('Judge/SetNextHearing.html',message='SUCCESS',di=di)
 			else:
-				return render_template('Judge/SetNextHearing.html',message='Failed',di=di)
+				return render_template('Judge/SetNextHearing.html',message='ERROR',di=di)
 	
 	return render_template('Judge/SetNextHearing.html',Pc=Pc,di=di)
 
@@ -921,9 +915,9 @@ def AnnounceVerdict():
 			Value=requests.post(URL,json=param).json()
 			print(Value)
 			if 'failed' == Value['res']:
-				return render_template('Judge/AnnounceVerdict.html',message='Failed :Invalid Inputs !!!',di=di)
+				return render_template('Judge/AnnounceVerdict.html',message='ERROR',di=di)
 			else:
-				return render_template('Judge/AnnounceVerdict.html',message='Success',di=di)
+				return render_template('Judge/AnnounceVerdict.html',message='SUCCESS',di=di)
 	return render_template('Judge/AnnounceVerdict.html',Pc=Pc,di=di)
 
 	
@@ -966,7 +960,7 @@ def Result():
 
 		print(Ccases)
 
-		return render_template('Judge/result.html',di=di,Ccases=Ccases)
+		return render_template('Judge/result.html',di=di,Ccases=Ccases,message="SUCCESS")
 
 
 
@@ -1194,10 +1188,16 @@ def DocUploadStatus():
 	
 		print(param)
 		# m={'spec_area':'civil'}
-		Pcases=requests.post(URL,json=param).json()
-		print(Pcases)
-		Pcases=Pcases['arr']
-		return render_template('Officer/DocUploadStatus.html', di=di,Pcases=Pcases)
+		if param['Type']==0:
+			Pcases=requests.post(URL,json=param).json()
+			print(Pcases)
+			Pcases=Pcases['arr']
+			return render_template('Officer/DocUploadStatus.html', di=di,Pcases=Pcases)
+		else:
+			Acases=requests.post(URL,json=param).json()
+			print(Acases)
+			Acases=Acases['arr']
+			return render_template('Officer/DocUploadStatus.html', di=di,Acases=Acases)
 
 	if request.method=="POST" and request.form.get('Request')=='final':
 		param={'FilingNo':int(request.form.get('FilingNo')),'Type':int(request.form.get('Type'))}
@@ -1206,9 +1206,9 @@ def DocUploadStatus():
 		Value=requests.post(URL,json=param).json()
 		print(Value)
 		if 'failed' == Value['res']:
-			return render_template('Officer/DocUploadStatus.html',message='Failed :Invalid Inputs !!!',di=di)
+			return render_template('Officer/DocUploadStatus.html',message='ERROR',di=di)
 		else:
-			return render_template('Officer/DocUploadStatus.html',message='Success',di=di)
+			return render_template('Officer/DocUploadStatus.html',message='SUCCESS',di=di)
 
 	return render_template('Officer/DocUploadStatus.html', di=di)
 
@@ -1224,9 +1224,9 @@ def CaseStatements():
 		Value=requests.post(URL,json=param).json()
 		print(Value)
 		if 'failed' == Value['res']:
-			return render_template('Officer/CaseStatements.html',message='Failed :Invalid Inputs !!!',di=di)
+			return render_template('Officer/CaseStatements.html',message='ERROR',di=di)
 		else:
-			return render_template('Officer/CaseStatements.html',message='Success',di=di)
+			return render_template('Officer/CaseStatements.html',message='SUCCESS',di=di)
 
 	return render_template('Officer/CaseStatements.html', di=di)
 
@@ -1255,8 +1255,6 @@ def ViewDocuments():
 				return render_template('Officer/ViewDocuments.html', di=di,Docs=Docs,Fir=Fir)
 
 	return render_template('Officer/ViewDocuments.html', di=di)
-
-
 
 if __name__ == '__main__':
 	app.run(debug=True)

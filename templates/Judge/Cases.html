@@ -49,8 +49,8 @@
 <body>
         {%if 'judge'==di['mode'] %}
 
-    <div class="wrapper">
-        <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
+     <div class="wrapper">
+        <div class="sidebar" data-active-color="magic" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
         Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
         Tip 2: you can also add an image using data-image tag
@@ -64,40 +64,50 @@
            
             <div class="sidebar-wrapper">
                 <div class="user">
-                    <div class="photo">
-                        <img src="/static/static2/assets/img/avatardum.png" />
-                    </div>
+                    
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             {{di["username"]}}
                            
+                       
                         </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-                                <li>
-                                    <a >{{di["name"]}}</a>
-                                </li>
-                                <li>
-                                    <a >{{di["username"]}}</a>
-                                </li>
-                                <li>
-                                    <a >{{di["username"]}}</a>
-                                </li>
-                            </ul>
-                        </div>
+                        
+                        
                     </div>
                 </div>
-                <ul class="nav">
-                	<li>
-                        <a href="#">My Profile</a>
-                    </li>
-                    <li>
-                        <a href="#">Edit Profile</a>
-                    </li>
-                    <li>
-                    <a href="#">Settings</a>
-                                </li>
-                </ul>
+                <ul class="nav ">
+                                    <li >
+                                        <a  href="{{url_for('PreviousJudgements')}}" >
+                                          Previous Judgements
+                                                                           </a>
+                                    </li>
+                                     <li >
+                                        <a  href="{{url_for('JudgeSchedule')}}" >
+                                          Schedule 
+                                                                           </a>
+                                    </li>
+                                     <li>
+                                        <a href="{{url_for('Records')}}" >
+                                            Records
+                                                                           </a>
+                                    </li>                            
+                                                            
+                                                            
+                                    
+                                    
+                                    
+                                    <li class="active">
+                                        <a href="{{url_for('Cases')}}" >
+        
+                                        
+                                        View Active/Pending Cases                                                                  
+                                         </a>
+                                    </li>
+                                    
+                            
+                            
+                        </ul>
+                        
             </div>
         </div>
         <div class="main-panel">
@@ -116,40 +126,20 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{url_for('Home')}}"> Dashboard </a>
+
                     </div>
                     <div class="collapse navbar-collapse">
-                       <ul class="nav navbar-nav navbar-right">
-                            <li >
-                                <a  href="{{url_for('PreviousJudgements')}}" >
-                                  Previous Judgements
-                                                                   </a>
-                            </li>
-                             <li >
-                                <a  href="{{url_for('JudgeSchedule')}}" >
-                                  Schedule 
-                                                                   </a>
-                            </li>
+                        <ul class="nav navbar-nav navbar-right">
+                                                    
+                               
                              <li>
-                                <a href="{{url_for('Records')}}" >
-                                    Records
+                                <a href="{{url_for('Account')}}" >
+                                  View Account
                                                                    </a>
-                            </li>                            
-                                                    
-                                                    
-                            
-                           
-                            
-                            <li>
-                                <a href="{{url_for('Cases')}}" >
-
-                                
-                                View Active/Pending Cases                                                                  
-                                 </a>
                             </li>
                             
                         </ul>
-                         <!-- <form class="navbar-form navbar-right" role="search">
+                        <form class="navbar-form navbar-right" role="search">
                             <div class="form-group form-search is-empty">
                                 <input type="text" class="form-control" placeholder="Search">
                                 <span class="material-input"></span>
@@ -158,11 +148,14 @@
                                 <i class="material-icons">search</i>
                                 <div class="ripple-container"></div>
                             </button>
-                        </form> -->
+                        </form>
+                        
                     </div>
+                        
+                    
                 </div>
             </nav>
-            <div class="content">
+           <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -312,64 +305,188 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                            {%if Pcases !=[]%}
-                                            Pending Cases currently available 
-                                            {%else%}
-                                            No Pending case currently available 
-                                            {%endif%}
-                                            </h4>
-                                            {%if Pcases !=[] %}
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="table-responsive table-sales">
-                                                        
-                                                        <table class="table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>
-                                                                        Filing Number
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="card-title">
+                                    {%if Pcases !=[]%}
+                                    {%if civic==1%}
+                                    Civil Pending Cases currently Available
+                                    {%else%}
+                                    No Civil Pending case currently Available
+                                    {%endif%}
+                                    {%endif%}
+                                    </h4>
+                                    {%if Pcases !=[] and civic==1%}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Filing Number
+                                                            </td>
+                                                            <td>
+                                                                Filing Date
+                                                            </td>
+                                                           <td>
+                                                                Victim ID
+                                                            </td>
+                                                            <td>
+                                                                Victim Lawyer ID
+                                                            </td>
+                                                           
+                                                            <td>
+                                                                Type
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                Document Uploaded by Victim
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                Document Verified
+                                                            </td>
+                                                            <td>
+                                                                Withdrawal
+                                                            </td>
+                                                        </tr>    
+                                                        {% for case in Pcases %}
+                                                        {%if case.Type==0%}
+                                                            <tr>
+                                                               <form method="post">
+
+                                                                        <td>
+                                                                            {{case.FilingNo}}
+                                                                            <input  type="hidden" name="FilingNo" value="{{case.FilingNo}}">
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.FilingDate}}
+                                                                            <input  type="hidden" name="FilingDate" value="{{case.FilingDate}}">
+
+                                                                        </td>
+                                                                       <td>
+                                                                            {{case.VictimID}}
+                                                                            <input  type="hidden" name="VictimID" value="{{case.VictimID}}">
+
+                                                                        </td>
+                                                                        <td>
+                                                                            {{case.Victim_LawyerID}}
+
+                                                                        </td> 
+                                                                <td>{%if case.Type==0%}
+                                                                    Civil
+                                                                    {%else%}
+                                                                    Criminal
+                                                                    {%endif%}
+                                                                    
+                                                                
+                                                                </td>
+                                                               
+                                                                <td style="text-align: center">
+                                                                            {%if case.Doc_Uploaded_Victim==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
+                                                                        </td>
+                                                               
+                                                              <td style="text-align: center">
+                                                                            {%if case.is_Verified==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
+                                                                        </td>
+                                                                  <td>
+
+                                                                                    <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" >
+                                                                                    </button>
+                                                                                   </form>
+                                                                                
+                                                                       
+                                                                     
                                                                     </td>
-                                                                    <td>
-                                                                        Filing Date
-                                                                    </td>
-                                                                   <td>
-                                                                        Victim ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Victim Lawyer ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Accused ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Accused Lawyer ID
-                                                                    </td>
-                                                                    <td>
-                                                                        Type
-                                                                    </td>
-                                                                    <td>
-                                                                        FIR Number
-                                                                    </td>
-                                                                    <td>
-                                                                        Document Uploaded by Victim
-                                                                    </td>
-                                                                    <td>
-                                                                        Document Uploaded by Accused
-                                                                    </td>
-                                                                    <td>
-                                                                        Document Verified
-                                                                    </td>
-                                                                    <td>
+                                                            </tr>
+                                                            {%endif%}
+                                                        {%endfor%}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="card-title">
+                                    {%if Pcases !=[]%}
+                                    {%if cric==1%}
+                                    Criminal Pending Cases currently Available
+                                    {%else%}
+                                    No Criminal Pending case currently Available
+                                    {%endif%}
+                                    {%endif%}
+                                    </h4>
+                                    {%if Pcases !=[] and cric==1%}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive table-sales">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Filing Number
+                                                            </td>
+                                                            <td>
+                                                                Filing Date
+                                                            </td>
+                                                           <td>
+                                                                Victim ID
+                                                            </td>
+                                                            <td>
+                                                                Victim Lawyer ID
+                                                            </td>
+                                                            <td>
+                                                                Accused ID
+                                                            </td>
+                                                            <td>
+                                                                Accused Lawyer ID
+                                                            </td>
+                                                            <td>
+                                                                Type
+                                                            </td>
+                                                            <td>
+                                                                FIR Uploaded
+                                                            </td>
+                                                            <td>
+                                                                Document Uploaded by Victim
+                                                            </td>
+                                                            <td>
+                                                                Document Uploaded by Accused
+                                                            </td>
+                                                            <td>
+                                                                Document Verified
+                                                            </td>
+                                                            <td>
+                                                                Withdrawal
+                                                            </td>
+                                                            <td>
                                                                     Accept Case
                                                                     </td>
-                                                                </tr>    
-                                                                {% for case in Pcases %}
-                                                                    <tr>
-                                                                            <form method="post">
+                                                        </tr>    
+                                                        {% for case in Pcases %}
+                                                        {%if case.Type==1%}
+                                                            <tr>
+                                                               <form method="post">
 
                                                                         <td>
                                                                             {{case.FilingNo}}
@@ -399,23 +516,45 @@
                                                                             {{case.Accused_LawyerID}}
 
                                                                         </td>
-                                                                        <td>
-                                                                            {{case.Type}}
 
+                                                                <td>{%if case.Type==0%}
+                                                                    Civil
+                                                                    {%else%}
+                                                                    Criminal
+                                                                    {%endif%}
+                                                                    
+                                                                
+                                                                </td>
+                                                                 <td style="text-align: center">
+                                                                            {%if case.Fir_Uploaded==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
+                                                                            
+                                                                     </td>
+                                                                <td style="text-align: center">
+                                                                            {%if case.Doc_Uploaded_Victim==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
                                                                         </td>
-                                                                        <td>
-                                                                            {{case.FIRno}}
+                                                                <td style="text-align: center">
+                                                                            {%if case.Doc_Uploaded_Accused==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
                                                                         </td>
-                                                                        <td>
-                                                                            {{case.Doc_Uploaded_Victim}}
+                                                              <td style="text-align: cen_ter">
+                                                                            {%if case.is_Verified==0%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            <i class="material-icons">check_circle_outline</i>
+                                                                            {%endif%}
                                                                         </td>
-                                                                        <td>
-                                                                            {{case.Doc_Uploaded_Accused}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{case.isVerified}}
-                                                                        </td >
-                                                                            <td>
+                                                                          <td>
 
                                                                                     <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" >
                                                                                     </button>
@@ -424,54 +563,33 @@
                                                                        
                                                                      
                                                                     </td>
-                                                                    </tr>
-                                                                {%endfor%}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                
+                                                            </tr>
+                                                            {%endif%}
+                                                        {%endfor%}
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            {%endif%}
                                         </div>
+                                        
                                     </div>
+                                    {%endif%}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                   
+                           
                 </div>
                 </div>
             
-            <footer class="footer">
+          <footer class="footer">
                 <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                     <p class="copyright pull-right">
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a href="http://www.creative-tim.com/">Creative Tim</a>, made with love for a better web
+                        HONOUR, made with love for a better web
                     </p>
                 </div>
             </footer>

@@ -8,7 +8,6 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/static/static2/assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="/static/static2/assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>eCourt</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Canonical SEO -->
@@ -47,6 +46,15 @@
 </head>
 
 <body>
+    {%if message1 is defined%}
+                        <script>
+                        function myFunction() {
+                        alert('{{message1}}');
+                        }
+                                            window.myFunction();
+                                            
+                                        </script>
+                    {%endif%}
     <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
         <div class="container">
             <div class="navbar-header">
@@ -58,7 +66,7 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse">
-               <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
                     
                     <li class="active">
                         <a href="{{ url_for('Registeras')}}">
@@ -79,64 +87,136 @@
         <div class="full-page register-page" filter-color="black" data-image="/static/static2/assets/img/register.jpg">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-5 col-sm-6 col-md-offset-4 col-sm-offset-3">
                         <div class="card card-signup">
-                            <h2 class="card-title text-center">Register As</h2>
+                            <h2 class="card-title text-center">Register  As A {{message}}</h2>
+
                             <div class="row">
-                                <div class="col-md-12 ">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <form method="post">
-                                            <div class="col-md-6">
-                                             <div class="info info-horizontal">
-                                                <div class="icon icon-info">
-                                                
-                                                </div>
-                                                <div class="description">
-                                                  <input  type="submit"class="btn btn-primary btn-lg  btn-block"name="Client" value="client">
+                               
+                                    
+                                    <form class="form" method="post" action="">
+                                        <div class="card-content">
+                                         <input type="hidden"  name="message" value="{{message }}">
 
+                                            {%if 'Firm'==message%}
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Name of the Firm</label>
+                                                <input type="text" class="form-control" name="firmname" required="">
                                                 </div>
                                             </div>
-                                            <div class="info info-horizontal">
-                                                <div class="icon icon-info">
-                                                
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Year of Establishment</label>
+                                                <input type="text" class="form-control" name="est"required="">
                                                 </div>
-                                                <div class="description">
-                                                  <input  type="submit"class="btn btn-info btn-lg  btn-block"name="Firm" value="firm">
+                                            </div>
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Area of Specialization</label>
+                                                <input type="text" class="form-control" name="areaspe"required="">
+                                                </div>
+                                            </div>
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>License Status</label>
+                                                <input type="text" class="form-control" name="ls"required="">
+                                                </div>
+                                            </div>
+                                            {%else%}
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>First Name</label>
+                                                <input type="text" class="form-control" name="firstname"required="">
+                                                </div>
+                                            </div>
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Last Name</label>
+                                                <input type="text" class="form-control" name="lastname"required="">
+                                                </div>
+                                            </div>
+                                            {% if  'Client'==message%} 
 
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>DOB</label>
+                                                <input type="date" class="form-control" name="dob"required="">
+                                                </div>
+                                            </div>
+                                            {% endif %}                
+
+                                            {% if  'Lawyer'==message%} 
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Educational Profile</label>
+                                                <input type="text" class="form-control" name="ed"required="">
+                                                </div>
+                                            </div>
+                                             <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Specialization Area</label>
+                                                <input type="text" class="form-control" name="specarea"required="">
+                                                </div>
+                                            </div>
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>AIBE Year of Passing</label>
+                                                <input type="text" class="form-control" name="AIBE"required="">
+                                                </div>
+                                            </div>
+                                                               
+
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>License Staus</label>
+                                                <input type="text" class="form-control" name="lis"required="">
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if  'Judge'==message%}   
+                                            
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Source of Appoitment</label>
+                                                <input type="text" class="form-control" name="ed"required="">
+                                                </div>
+                                            </div>
+                                             <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Date of Appointment</label>
+                                                <input type="text" class="form-control" name="doa"required="">
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                    
+                                             {%endif%}
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Username</label>
+                                                <input type="text" class="form-control" name="username"required="">
+                                                </div>
+                                            </div>
+                                                               
+
+                                            <div class="input-group row-md-8 ">
+                                                <div class="form-group label-floating">
+                                                    <label>Password</label>
+                                                <input type="password" class="form-control" name="password"required="">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 ">
-                                             <div class="info info-horizontal">
-                                                <div class="icon icon-info">
-                                                
-                                                </div>
-                                                <div class="description">
-                                                  <input  type="submit"class="btn btn-info btn-lg  btn-block"name="Lawyer" value="lawyer">
-
-                                                </div>
-                                            </div>
-                                            <div class="info info-horizontal">
-                                                <div class="icon icon-info">
-                                                
-                                                </div>
-                                                <div class="description">
-                                                  <input  type="submit"class="btn btn-primary btn-lg  btn-block"name="Judge" value="judge">
-
-                                                </div>
-                                            </div>
-                                            </form>
+                                        <div class="footer text-center">
+                                            <button type="submit" class="btn btn-primary btn-round">Sign Up</button>
                                         </div>
-                                </div>
+                                    </form>
+                                
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
             <footer class="footer">
                 <div class="container">
                     <nav class="pull-left">
