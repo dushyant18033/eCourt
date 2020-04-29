@@ -1,0 +1,24 @@
+{
+	"name" : "Honour",
+	"short_name" : "Honour",
+	"description" : "E-Court Portal.",
+	"start_url" : "./index.html",
+	"display" : "standalone",
+	"orientation" : "natural",
+	"lang" : "English",
+	"theme_color": "#FFC77D",
+	"scope": "/",
+	"background_color": "#2C3D41",
+	"icons": [
+		{
+		  "src": "/img/favicon.png",
+		  "type": "image/png",
+		  "sizes": "192x192"
+		},
+		{
+		  "src": "/img/favicon.png",
+		  "type": "image/png",
+		  "sizes": "512x512"
+		}
+	  ]
+}

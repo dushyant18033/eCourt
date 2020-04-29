@@ -1,0 +1,67 @@
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1000px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 650px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+     background: #1C2331!important;
+  }
+}
+/* Navbar animation */
+.navbar {
+  background-color: rgba(44,61,65,0.3); }
+
+.top-nav-collapse {
+  background-color: #2C3D41 }
+
+/* Adding color to the Navbar on mobile */
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: #2C3D41; } }
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: #2C3D41; }
+
+.btn-indigo {
+    color: #FFC77D !important;
+    background-color: #2C3D41 !important
+}   
+
+.indigo-text {
+    color: #FFC77D !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 199, 125, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}   
+
+.nav-link {
+    color: #FFC77D !important;
+}
+
+.custom-btn {
+    width: 35%;
+    font-size: medium !important;
+    border-radius: 12px;
+}

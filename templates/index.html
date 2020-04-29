@@ -1,155 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>eCourt Portal</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,500|Dosis:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/animate.css">
-    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="static/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="static/css/magnific-popup.css">
-    <link rel="stylesheet" href="static/css/aos.css">
-    <link rel="stylesheet" href="static/css/ionicons.min.css">
-    <link rel="stylesheet" href="static/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="static/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="static/css/flaticon.css">
-    <link rel="stylesheet" href="static/css/icomoon.css">
-    <link rel="stylesheet" href="static/css/fancybox.min.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Honour</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="static1/img/favicon.png" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="static1/css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="static1/css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="static1/css/style.css">
+  <link rel='manifest' href='static1/manifest.json'>
 
-    <link rel="stylesheet" href="static/css/bootstrap.css">
-    <link rel="stylesheet" href="static/css/style.css">
+  <script type="module" href="static1/pwabuilder-sw.js"></script>
+</head>
+<body>
 
-  </head>
-  <body>
-    
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <!-- Start your project here-->  
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/">eCourt</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
+
+      <!-- Brand -->
+      <a style="color: #FFC77D !important;" class="navbar-brand" href="/">
+        <strong>eCourt</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button style="color: #FFC77D !important;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#AboutUs" class="nav-link">About Us</a></li>
-          <li class="nav-item"><a href="#HowItWorks" class="nav-link">How It Works</a></li>
-          <li class="nav-item"><a href="#ContactUs" class="nav-link">Contact Us</a></li>
-          <li class="nav-item"><a href="Login" class="nav-link">Login</a></li>
+      <!-- Links -->
+      <div style="color: #FFC77D !important;"  class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#AboutHonour">About Honour</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#MoreOnHonour">More on Honour</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Features">Features</a>
+          </li>
         </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="/Login" class="nav-link border border-light rounded"
+              target="_blank">
+              <i class="fab fa fa-play mr-2"></i>Login
+            </a>
+          </li>
+        </ul>
+
       </div>
+
     </div>
   </nav>
-  <!-- END nav -->
-  
-  <div class="block-31" style="position: relative;">
-    <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('static/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center text-center">
-            <div class="col-md-7">
-              <h2 class="heading mb-5">eCourt Portal for managing court cases online with the power of databases.</h2>
-            
+  <!-- Navbar -->
+
+  <!-- Full Page Intro -->
+  <div class="view full-page-intro" style="height: 100vh; background-image: url('https://3m7ajlsrzj92lfd1hu16hu7vc-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/shutterstock_234987925-660x350.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+
+    <!-- Mask & flexbox options-->
+    <div style="background-color: rgba(44,61,65,0.6);" class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+      <!-- Content -->
+      <div class="container">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-lg-8 mb-4 white-text text-center text-md-left">
+
+            <h1 class="display-4 font-weight-light"><span class="font-weight-normal" style="color:#FFC77D;">Honour</span> : An eCourt Platform</h1>
+
+            <hr class="hr-light">
+
+            <p>
+              <strong></strong>
+            </p>
+
+            <p class="mb-4 d-none d-md-block">
+              <strong>An eCourt Portal for managing court cases online with the power of databases.</strong>
+            </p>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </div>
+      <!-- Content -->
+
+    </div>
+    <!-- Mask & flexbox options-->
+
+  </div>
+  <!-- Full Page Intro -->
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+
+      <!--Section: Main info-->
+      <section class="mt-5 wow fadeIn"  id="AboutHonour">
+
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-6 mb-4">
+
+            <img src="https://media.istockphoto.com/vectors/illustrations-representing-aspects-of-the-judicial-branch-vector-id468472254?k=6&m=468472254&s=170667a&w=0&h=xQxmiZRZdqQL4wEeCbS5uIu7i0SeoggGrl9T-8raZ78=" class="img-fluid z-depth-1-half" alt="">
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-6 mb-4">
+
+            <!-- Main heading -->
+            <h3 class="h3 mb-3">About Honour</h3>
+            <p>The objective of the project is to design and develop a system/platform to ease the overall process experienced by any user involved in any judicial case. This platform aims to simplify the process of filing a case and then track it in its various stages. </p>
+            <hr>
+            <p>The platform would be a web based application which would provide an end to end solution for any user ranging from any client filing a case to police and other stakeholders. The application would ensure transparency amongst various users and thus regulate the entire pipeline involved in serving justice to a citizen.
+            </p>
+            <!-- Main heading -->
+
+            <hr>
+            <!-- <h5 class="h5 mb-3"> Stakeholders</h5>
+            <p>
+              <strong>Client</strong> to request lawyers and cases,
+              <strong>Lawyer</strong> to fight cases,
+              <strong>Judge</strong> to give verdict,
+              <strong>Firm</strong> to see analytics,
+              <strong>Officers</strong> to verify and ensure proper functioning.
+            </p> -->
+
+            <!-- CTA -->
+            <a target="_blank" href="/Registeras" class="custom-btn btn btn-indigo btn-md">Signup
+            </a>
+            <a target="_blank" href="/Login" class="custom-btn btn btn-indigo btn-md">Login
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Main info-->
+
+      <hr class="my-5">
+
+      <!--Section: Main features & Quick Start-->
+      <section id="MoreOnHonour">
+
+        <h3 class="h3 text-center mb-5">More on Honour</h3>
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12 px-4">
+
+            <!--First row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-code fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title">Dashboard</h5>
+                <p class="grey-text">Fully function dashboard interface for all Stakeholders.</p>
+              </div>
+            </div>
+            <!--/First row-->
+
+            <div style="height:30px"></div>
+
+            <!--Second row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-book fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title">IPC/Act Prediction based on keywords</h5>
+                <p class="grey-text">Our dashboard helps the judges/officers to enter keywords and get relevant acts and IPC from previous judgments that took place in India (Real Context).
+                </p>
+              </div>
+            </div>
+            <!--/Second row-->
+
+            <div style="height:30px"></div>
+
+            <!--Third row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-graduation-cap fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title">API Endpoint for Educational Use</h5>
+                <p class="grey-text">Since we keep the record of all the cases even after their completion, this acts as information that can be accessed by scholars for their benefit.</p>
+              </div>
+            </div>
+            <!--/Third row-->
+
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12">
+
+            <p class="h5 text-center mb-4">Our Logo</p>
+            <div style="width: auto; height: auto; display: flex; align-items: center; justify-content: center;">
+              <img style="width: 70%; height: auto; border-radius: 20px;"src="static1/img/logo.png" class="img-fluid z-depth-1-half" alt="">
             </div>
           </div>
+          <!--/Grid column-->
+
         </div>
-      </div>
-      
-    </div>
-  </div>
-  
-  <div class="site-section section-counter" id="AboutUs">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 pr-5">
-          <div class="block-48">
-              <span class="block-48-text-1">Served Over</span>
-              <div class="block-48-counter ftco-number" data-number="1321901">0</div>
-              <span class="block-48-text-1 mb-4 d-block">Cases in India</span>
-              <span class="block-48-text-1 mb-4 d-block">and many other countries.</span>
+        <!--/Grid row-->
+
+      </section>
+      <!--Section: Main features & Quick Start-->
+
+      <hr class="my-5">
+
+      <!--Section: Not enough-->
+      <section id="Features">
+
+        <h2 class="my-5 h3 text-center">Features</h2>
+
+        <!--First row-->
+        <div class="row features-small mb-5 mt-3 wow fadeIn">
+
+          <!--First column-->
+          <div class="col-md-4">
+            <!--First row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">Simple Login Interface</h6>
+                <p class="grey-text">A quick and easy login and signup form to get you on our platform. This improves and simplifies our whole user onboarding process. 
+                </p>
+                <div style="height:15px"></div>
+              </div>
             </div>
-        </div>
-        <div class="col-md-6 welcome-text">
-          <h2 class="display-4 mb-3">Who Are We?</h2>
-          <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-          <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-        </div>
-      </div>
-    </div>
-  </div>
+            <!--/First row-->
 
-
-
-
-  <div class="site-section section-counter" id="HowItWorks">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 welcome-text">
-          <h2 class="display-4 mb-3">How It Works?</h2>
-          <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-          <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <footer class="footer">
-    <div class="container" id="ContactUs">
-      <div class="row mb-5">
-        <div class="col-md-6 col-lg-4">
-          <div class="block-23">
-            <h3 class="heading-section">Contact Us</h3>
-              <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text">Indraprastha Institute of Information Technology, Okhla Industrial Estate, Phase III, near Govind Puri Metro Station, New Delhi, Delhi 110020</span></li>
-                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 987 6543 210</span></a></li>
-                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@ecourt.com</span></a></li>
-              </ul>
+            <!--Second row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">4+ User Roles</h6>
+                <p class="grey-text">Our Dashboard has multiple user roles defined each with unique features and tasks it can perform.
+                </p>
+                <div style="height:15px"></div>
+              </div>
             </div>
+            <!--/Second row-->
+
+            <!--Third row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">2 Bonus Features</h6>
+                <p class="grey-text">Our homgrown NLP model to help any Judge get acts based on previous judgemnts and an Educational API endpoint for academic purposes.</p>
+                <div style="height:15px"></div>
+              </div>
+            </div>
+            <!--/Third row-->
+          </div>
+          <!--/First column-->
+
+          <!--Second column-->
+          <div class="col-md-4 flex-center">
+            <img src="https://mdbootstrap.com/img/Others/screens.png" alt="MDB Magazine Template displayed on iPhone" class="z-depth-0 img-fluid">
+          </div>
+          <!--/Second column-->
+
+          <!--Third column-->
+          <div class="col-md-4 mt-2">
+            <!--First row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">Easy to deploy Backend</h6>
+                <p class="grey-text">We have setup a robust and deployable backend API server which can be setup within a few minutes, ready to be deployed!
+                </p>
+                <div style="height:15px"></div>
+              </div>
+            </div>
+            <!--/First row-->
+
+            <!--Second row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">Intuitive UI</h6>
+                <p class="grey-text">An easy to use dashboard, with consistent and interactive interface which gives accurate responsive actions on use.</p>
+                <div style="height:15px"></div>
+              </div>
+            </div>
+            <!--/Second row-->
+
+            <!--Third row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">Fully responsive</h6>
+                <p class="grey-text">It doesn't matter whether your project will be displayed on desktop, laptop, tablet or mobile phone. Our platform would
+                  looks great on each screen.</p>
+                <div style="height:15px"></div>
+              </div>
+            </div>
+            <!--/Third row-->
+          </div>
+          <!--/Third column-->
+
         </div>
-        
-        
-      </div>
-      <div class="row pt-5">
-        <div class="col-md-12 text-center">
-          
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-ios-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          
-        </div>
-      </div>
+        <!--/First row-->
+
+      </section>
+      <!--Section: Not enough-->
     </div>
+  </main>
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <div class="pt-4">
+      <a class="btn btn-outline-white" href="/Login" target="_blank" role="button">Login Now
+      </a>
+      <a class="btn btn-outline-white" href="/Registeras" target="_blank" role="button">Signup Now
+      </a>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © Made with love by <strong>Group 71</strong>
+    </div>
+    <!--/.Copyright-->
+
   </footer>
+  <!--/.Footer-->
+  <!-- End your project here-->
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+  <!-- jQuery -->
+  <script type="text/javascript" src="static1/js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="static1/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="static1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="static1/js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript">
+    new WOW().init()
+  </script>
 
-
-  <script src="static/js/jquery.min.js"></script>
-  <script src="static/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="static/js/popper.min.js"></script>
-  <script src="static/js/bootstrap.min.js"></script>
-  <script src="static/js/jquery.easing.1.3.js"></script>
-  <script src="static/js/jquery.waypoints.min.js"></script>
-  <script src="static/js/jquery.stellar.min.js"></script>
-  <script src="static/js/owl.carousel.min.js"></script>
-  <script src="static/js/jquery.magnific-popup.min.js"></script>
-  <script src="static/js/bootstrap-datepicker.js"></script>
-
-  <script src="static/js/jquery.fancybox.min.js"></script>
-  
-  <script src="static/js/aos.js"></script>
-  <script src="static/js/jquery.animateNumber.min.js"></script>
-<!--   <script src="static/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
- -->  <script src="static/js/google-map.js"></script>
-  <script src="static/js/main1.js"></script>
-    
-  </body>
+</body>
 </html>
