@@ -96,7 +96,7 @@
                               
                              <li>
                                 <a href="{{url_for('Payment')}}" >
-                                  Make Payement
+                                  Make Payment
                                                                    </a>
                             </li>
                             
@@ -311,7 +311,7 @@
                                                                 {%if 'active'==lawyer.License_status %}
                                                                 <button  class="btn btn-success" type="submit" value={{lawyer.ID}}  name="Request" ><i class="material-icons">check_circle_outline</i></button>
                                                                {%else%}
-                                                               <button  disabled class="btn btn-danger" name="Request" value="final" type="submit"  ><i class="material-icons">highlight_off</i>       
+                                                               <button  disabled class="btn btn-danger" name="Request" value="final" type="submit"  ><i class="material-icons">highlight_off</i>   </button>    
                                                                 {%endif%}
                                                             </td>
                                                         </tr>
@@ -363,7 +363,7 @@
                                         <div class="row">
 
                                     
-                                        <input type="submit" class="btn btn-rose btn-fill"></button>
+                                        <input type="submit" class="btn btn-rose btn-fill">
                                     
                                     </div>
                                 </div>
@@ -372,7 +372,9 @@
                             </div>
                         </div>
                     </div>
-                    
+                    </div>
+                </div>
+
             <footer class="footer">
                 <div class="container-fluid">
                     <p class="copyright pull-right">
