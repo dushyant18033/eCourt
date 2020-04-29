@@ -175,7 +175,7 @@
                                                                         Next Hearing
                                                                     </td>
                                                                     <td>
-                                                                        Previous 
+                                                                        Previous Hearing
                                                                     </td>
                                                                     <td>
                                                                        Stage
@@ -226,9 +226,14 @@
                                                                         <td>
                                                                             {{case.NextHearing}}
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="text-align: center">
+                                                                            {%if case.PrevHearing==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.PrevHearing}}
-                                                                        </td>
+                                                                            {%endif%}
+                                                                    
+                                                                            </td>
                                                                         <td>
                                                                             {{case.Stage}}
                                                                         </td>
@@ -241,18 +246,39 @@
                                                                         <td>
                                                                             {{case.VictimID}}
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="text-align: center">
+                                                                            {%if case.VictimStmnt==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.VictimStmnt}}
-                                                                        </td>
-                                                                        <td>
+                                                                            {%endif%}
+                                                                    
+                                                                </td>
+                                                                <td style="text-align: center">
+                                                                            {%if case.AccusedID==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.AccusedID}}
-                                                                        </td>
-                                                                        <td>
+                                                                            {%endif%}
+                                                                    
+                                                                </td>
+                                                                <td style="text-align: center">
+                                                                            {%if case.AccusedStmnt==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.AccusedStmnt}}
-                                                                        </td>
-                                                                        <td>
+                                                                            {%endif%}
+                                                                    
+                                                                </td>
+                                                                
+                                                                    <td style="text-align: center">
+                                                                            {%if case.Acts==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.Acts}}
-                                                                        </td>
+                                                                            {%endif%}
+                                                                    
+                                                                </td>
                                                                         <td>
                                                                              
                                                                                 <form method="post">
@@ -264,9 +290,13 @@
                                                                  
                                                                 </td>
                                                                 <td>
-                                                                        <form method="post">
 
+                                                                        <form method="post">
+                                                                            {%if case.Stage!=0%}
                                                                         <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Final" ><i class="material-icons">check_circle_outline</i>         </button>
+                                                                        {%else%}
+                                                                        <button  disabled class="btn btn-danger" type="submit" value={{case.CNRno}}  name="Final" ><i class="material-icons">highlight_off</i>        </button>
+                                                                        {%endif%}
                                                                       </form>                                                                    
                                                            
                                                          
@@ -286,30 +316,38 @@
                                     </div>
                                 </div>
                             </div>
-                              {%if Pcases is defined %}
+                              {%if Pcases is defined and civic==0 %}
                             <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
                                     <h4 class="card-title">
                                   
-                                    {%if civic==1%}
-                                    Civil Pending Cases currently Available
-                                    {%else%}
+                                    
                                     No Civil Pending case currently Available
-                                    {%endif%}
+                                    
                                     
                                     </h4>
                                     
-                                    {%endif%}
+                                    
                             </div>
                         </div>
                         </div>
                     </div>
+{%endif%}
 
                                     {%if Pcases !=[] and civic==1%}
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h4 class="card-title">
+                                                  
+                                                    
+                                                     Civil Pending cases currently Available
+                                                    
+                                                    
+                                                    </h4>
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
                                                     <tbody>
@@ -339,7 +377,7 @@
                                                                 Document Verified
                                                             </td>
                                                             <td>
-                                                                Withdrawal
+                                                                Accept Case
                                                             </td>
                                                         </tr>    
                                                         {% for case in Pcases %}
@@ -409,28 +447,34 @@
                                     </div>
                                     {%endif%}
                                 
-                    {%if Pcases  is defined%}
+                    {%if Pcases  is defined and cric==0%}
                      <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
                                     <h4 class="card-title">
                                     
-                                    {%if cric==1%}
-                                    Criminal Pending Cases currently Available
-                                    {%else%}
+                                   
                                     No Criminal Pending case currently Available
-                                    {%endif%}
                                     </h4>
-                               {%endif%}
+                              
 
                                 </div>
                             </div>
                         </div>
                     </div>
+                     {%endif%}
                                     {%if Pcases !=[] and cric==1%}
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h4 class="card-title">
+                                                    
+                                                   
+                                                    Criminal Pending case currently Available
+                                                    </h4>
+                              
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
                                                     <tbody>
@@ -468,9 +512,7 @@
                                                             <td>
                                                                 Document Verified
                                                             </td>
-                                                            <td>
-                                                                Withdrawal
-                                                            </td>
+                                                            
                                                             <td>
                                                                     Accept Case
                                                                     </td>

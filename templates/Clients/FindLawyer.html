@@ -174,7 +174,7 @@
                                                             <td >
                                                                 Lawyer Name
                                                             </td>
-                                                            <td >
+                                                            <td style="text-align:center">
                                                                     Education Profile 
                                                             </td>
                                                              <td >
@@ -203,7 +203,7 @@
                                                              <td>{{lawyer.ID}}</td>
                                                                     <td>{{lawyer.Name}}
                                                                     </td>
-                                                                     <td>{{lawyer.Ed_Profile}}
+                                                                     <td style="text-align:center">{{lawyer.Ed_Profile}}
                                                                     </td>
                                                                      <td style="text-align:center">{{lawyer.Spec_Area}}
                                                                     </td>
@@ -300,7 +300,13 @@
                                                                     </td>
                                                                      <td style="text-align:center">{{lawyer.License_status}}
                                                                     </td>
-                                                                     <td>{{lawyer.FirmID}}
+                                                                     <td>
+                                                                        {%if lawyer.FirmID==None%}
+                                                                        <i class="material-icons">highlight_off</i>
+                                                                        {%else%}
+                                                                        {{lawyer.FirmID}}
+                                                                        {%endif%}
+
                                                                     </td>
                                                                      <td>{{lawyer.Rating}}
                                                                     </td>

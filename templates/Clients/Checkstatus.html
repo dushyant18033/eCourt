@@ -6,16 +6,16 @@
 <head>
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-    var myVar = setInterval(myTimer, 1000);
+    var myVar1 = setInterval(myTimer1, 1000);
 
-    function myTimer() 
+    function myTimer1() 
     {
         var d=document.getElementById('success-msg');
         //console.log(d);
         if (d!=null)
         {
             swal({ title:"Good job!", text: "Successful!", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-danger" });
-            clearInterval(myVar);
+            clearInterval(myVar1);
             var a = document.createElement('a');
             a.href ="{{url_for('CheckStatus')}}";  
             setTimeout(function(){a.click()},2000);
@@ -163,7 +163,7 @@
                                
                              <li>
                                 <a href="{{url_for('Account')}}" >
-                                  View Account
+                                  View Account 
                                                                    </a>
                             </li>
                             <li>
@@ -218,7 +218,7 @@
                                                                 Next Hearing
                                                             </td>
                                                             <td>
-                                                                Previous 
+                                                                Previous  Hearing
                                                             </td>
                                                             <td>
                                                                Stage
@@ -244,9 +244,7 @@
                                                             <td>
                                                                 Acts
                                                             </td>
-                                                            <td>
-                                                                Withdraw 
-                                                            </td>
+                                                            
                                                         </tr>
                                                     	{% for case in Acases %}
 	                                                        <tr>
@@ -265,8 +263,13 @@
 	                                                        	<td>
 	                                                        		{{case.NextHearing}}
 	                                                        	</td>
-																<td>
-	                                                        		{{case.PrevHearing}}
+																<td style="text-align: center">
+                                                                            {%if case.PrevHearing==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {{case.PrevHearing}}
+                                                                            {%endif%}
+	                                                        		
 	                                                        	</td>
 																<td>
 	                                                        		{{case.Stage}}
@@ -280,17 +283,38 @@
 	                                                        	<td>
 	                                                        		{{case.VictimID}}
 	                                                        	</td>
-	                                                        	<td>
-	                                                        		{{case.VictimStmnt}}
+	                                                        	<td style="text-align: center">
+                                                                            {%if case.VictimStmnt==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {{case.VictimStmnt}}
+                                                                            {%endif%}
+	                                                        		
 	                                                        	</td>
-																<td>
-	                                                        		{{case.AccusedID}}
+																<td style="text-align: center">
+                                                                            {%if case.AccusedID==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {{case.AccusedID}}
+                                                                            {%endif%}
+	                                                        		
 	                                                        	</td>
-	                                                        	<td>
-	                                                        		{{case.AccusedStmnt}}
+	                                                        	<td style="text-align: center">
+                                                                            {%if case.AccusedStmnt==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {{case.AccusedStmnt}}
+                                                                            {%endif%}
+	                                                        		
 	                                                        	</td>
-																<td>
-	                                                        		{{case.Acts}}
+																
+                                                                    <td style="text-align: center">
+                                                                            {%if case.Acts==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {{case.Acts}}
+                                                                            {%endif%}
+	                                                        		
 	                                                        	</td>
                                                                
                                                                 
@@ -307,18 +331,17 @@
                             </div>
                         </div>
                     </div>
-                    {%if Pcases is defined%}
+                    {%if Pcases is defined and civic==0%}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
                                     <h4 class="card-title">
                                    
-                                    {%if civic==1%}
-                                    Civil Pending Cases currently involved in
-                                    {%else%}
+                                    
+                                    
                                     No Civil Pending case currently involved in
-                                    {%endif%}
+                                    
                                     
                                     </h4>
                                      </div>
@@ -329,6 +352,16 @@
                             {%if Pcases !=[] and civic==1%}
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h4 class="card-title">
+                                                   
+                                                    {%if civic==1%}
+                                                    
+                                                     Civil Pending case currently involved in
+                                                    {%endif%}
+                                                    
+                                                    </h4>
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
                                                     <tbody>
@@ -428,18 +461,16 @@
                                     
                                
                     {%endif%}
-                     {%if Pcases is defined%}
+                     {%if Pcases is defined and cric==0%}
                      <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content">
                                     <h4 class="card-title">
                                    
-                                    {%if cric==1%}
-                                    Criminal Pending Cases currently involved in
-                                    {%else%}
+                                    
                                     No Criminal Pending case currently involved in
-                                    {%endif%}
+                                    
                                       
                                     </h4>
                                      </div>
@@ -450,6 +481,16 @@
                                     {%if Pcases !=[] and cric==1%}
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h4 class="card-title">
+                                                   
+                                                    {%if cric==1%}
+                                                    
+                                                     Criminal Pending case currently involved in
+                                                    {%endif%}
+                                                    
+                                                    </h4>
                                             <div class="table-responsive table-sales">
                                                 <table class="table">
                                                     <tbody>
@@ -549,17 +590,18 @@
                                                                             <i class="material-icons">check_circle_outline</i>
                                                                             {%endif%}
                                                                         </td>
+                                                                  <td>
                                                                  {%if di['ID']==case.VictimID%}
-                                                                 <td>
+                                                                 
                                                                                 <form method="post">
                                                                                         <input  type="hidden" name="Case_ID" value="{{case.FilingNo}}">
                                                                                         <input  type="hidden" name="VictimID" value="{{case.VictimID}}">
 
-                                                                                <button  class="btn btn-danger" type="submit" value={{case.CNRno}}  name="Hearing" >
-                                                                                </button>
+                                                                                <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Hearing" ><i class="material-icons">check_circle_outline</i>  </button>
                                                                               </form>
-                                                                
-                                                                   
+                                                                {%else%}
+                                                                   <button  disabled class="btn btn-danger" name="Request" value="final" type="submit"  ><i class="material-icons">highlight_off</i>       
+                                                               
                                                                  
                                                                 </td>
                                                                 {%endif%}
@@ -578,7 +620,7 @@
                 </div>
 
                     
-                    {% if message=="SUCCESS" %}
+{% if message=="SUCCESS" %}
 <div id="success-msg"></div>                   
 {% endif %}
 {% if message=="ERROR" %}

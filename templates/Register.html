@@ -92,7 +92,7 @@
         <div class="full-page register-page" filter-color="black" data-image="/static/static2/assets/img/register.jpg">
             <div class="container">
                 <div class="row">
-                        <div class="col-sm-5 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                        <div class="col-md-5 col-sm-6 col-md-offset-4 col-sm-offset-3">
                         <div class="card card-signup">
                             <h2 class="card-title text-center">Register  As A {{message}}</h2>
 
@@ -104,19 +104,19 @@
                                          <input type="hidden"  name="message" value="{{message }}">
 
                                             {%if 'Firm'==message%}
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Name of the Firm</label>
                                                 <input type="text" class="form-control" name="firmname" required="">
                                                 </div>
                                             </div>
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Year of Establishment</label>
                                                 <input type="number" class="form-control" name="est"required="">
                                                 </div>
                                             </div>
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Area of Specialization</label>
                                                     <div class="radio">
@@ -131,7 +131,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="input-group row-md-8 ">
+                                            <div class="row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>License Status</label>
                                                     <div class="radio">
@@ -147,13 +147,13 @@
                                                 </div>
                                             </div>
                                             {%else%}
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>First Name</label>
                                                 <input type="text" class="form-control" name="firstname"required="">
                                                 </div>
                                             </div>
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Last Name</label>
                                                 <input type="text" class="form-control" name="lastname"required="">
@@ -161,7 +161,7 @@
                                             </div>
                                             {% if  'Client'==message%} 
 
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>DOB</label>
                                                 <input type="date" class="form-control" name="dob"required="">
@@ -170,13 +170,13 @@
                                             {% endif %}                
 
                                             {% if  'Lawyer'==message%} 
-                                            <div class="input-group row-md-8 ">
+                                            <div class="row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Educational Profile</label>
                                                 <input type="text" class="form-control" name="ed"required="">
                                                 </div>
                                             </div>
-                                             <div class="input-group row-md-8 ">
+                                             <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Specialization Area</label>
                                                     <div class="radio">
@@ -195,7 +195,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="input-group row-md-8 ">
+                                            <div class="row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>AIBE Year of Passing</label>
                                                 <input type="number" class="form-control" name="AIBE"required="">
@@ -203,7 +203,7 @@
                                             </div>
                                                                
 
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>License Staus</label>
                                                     <div class="radio">
@@ -222,7 +222,7 @@
 
                                             {% if  'Judge'==message%}   
                                             
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Source of Recruitment</label>
                                                     <div class="radio">
@@ -237,7 +237,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div class="input-group row-md-8 ">
+                                             <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Date of Appointment</label>
                                                 <input type="date" class="form-control" name="doa"required="">
@@ -246,7 +246,7 @@
                                             {% endif %}
                     
                                              {%endif%}
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Username</label>
                                                 <input type="text" class="form-control" name="username"required="">
@@ -254,7 +254,7 @@
                                             </div>
                                                                
 
-                                            <div class="input-group row-md-8 ">
+                                            <div class=" row-md-12 ">
                                                 <div class="form-group label-floating">
                                                     <label>Password</label>
                                                 <input type="password" class="form-control" name="password"required="">

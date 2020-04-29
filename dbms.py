@@ -581,7 +581,7 @@ def FindLawyer():
 			# print(x.json())
 			# print(x.json())
 			
-				
+			
 			return render_template('Clients/FindLawyer.html',di=di,LawyerSearch=Lawyers,Lawyercurrent=Lawyercurrent)
 		return render_template('Clients/FindLawyer.html',di=di,Lawyercurrent=Lawyercurrent)
 
@@ -660,14 +660,14 @@ def CheckStatus():
 
 		
 		print(Value)
-		Pcases=requests.post(URL,json=param).json()
-		print(Pcases)
-		if Pcases["res"]=="success":
-			Pcases=Pcases["arr"]
-		if Acases["res"]=="success":
-			Acases=Acases["arr"]
-		print(Acases)
-		print(Pcases)
+		# Pcases=requests.post(URL,json=param).json()
+		# print(Pcases)
+		# if Pcases["res"]=="success":
+		# 	Pcases=Pcases["arr"]
+		# if Acases["res"]=="success":
+		# 	Acases=Acases["arr"]
+		# print(Acases)
+		# print(Pcases)
 		return render_template('Clients/Checkstatus.html',di=di,Acases=Acases,Pcases=Pcases,message="SUCCESS",cric=cric,civic=civic)
 
 
