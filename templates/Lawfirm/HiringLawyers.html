@@ -44,7 +44,6 @@
     <!--     Fonts and icons     -->
     <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var myVar = setInterval(myTimer, 1000);
 
@@ -59,7 +58,6 @@
             }
         }
     </script>
-    
 </head>
 
 <body>
@@ -91,11 +89,11 @@
                     </div>
                 </div>
                 <ul class="nav ">
-                    <li >
-                        <a  href="{{url_for('HiringLawyers')}}" >
-                        Recruit Lawyers
-                                                        </a>
-                    </li>
+                            <li >
+                                <a  href="{{url_for('HiringLawyers')}}" >
+                                Recruit Lawyers
+                                                                </a>
+                            </li>
                             <li >
                                 <a  href="{{url_for('FirmLawyers')}}" >
                                   Associated Lawyers
@@ -172,117 +170,92 @@
                     
                 </div>
             </nav>
-  
-            
+           
             <div class="content">
                 <div class="container-fluid">
 
-                 {%if clients==[] %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <form id="TypeValidation" class="form-horizontal" action="/Lawfirm/HiringLawyers" method="POST">
+                                            <div class="col-sm-8">
+                                                <div class="row"> 
+                                                    <div class="form-group label-floating">    
+                                                        <input class="form-control" type="text" placeholder="Enter Specialization Area To Search For Lawyers" name="Spec_Area">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
+                                                </div>
+                                            </div>                                            
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                 {%if lawyers==[] %}
                  <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">No Current Clients</h4>
-                                 </div>
-                             </div>
-                         </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="card-title">Enter Specialization Area to continue</h4>
+                            </div>
+                        </div>
+                    </div>
                  </div>
+
                  {%else%}
- 
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
                                  
                                  <div class="card-content">
-                                     <h4 class="card-title">Current Clients</h4>
-                                     <div class="row">
-                                         <div class="col-md-10">
-                                             <div class="table-responsive table-sales">
-                                                 <table class="table">
-                                                     <tbody class="text-center">
-                                                         <tr>
-                                                             <td>Client ID</td>
-                                                             <td>Name</td>
-                                                             <td>DOB</td>
-                                                         </tr>
-                                                         {% for cl in clients %}
-                                                         <tr>
-                                                             <td>{{cl.ID}}</td>
-                                                             <td>{{cl.Name}}</td>
-                                                             <td>{{cl.DOB}}</td>
-                                                         </tr>
-                                                         {%endfor%}
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
- 
-                                         <div class="col-md-6 col-md-offset-1">
-                                             <!-- <div id="worldMap" class="map"></div> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {%endif%}
-
-
-                {%if clientRequests==[] %}
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 <div class="card-content">
-                                     <h4 class="card-title">No Client Requests</h4>
-                                 </div>
-                             </div>
-                         </div>
-                 </div>
-                 {%else%}
- 
-                 <div class="row">
-                         <div class="col-md-12">
-                             <div class="card">
-                                 
-                                 <div class="card-content">
-                                     <h4 class="card-title">New Client Requests</h4>
+                                     <h4 class="card-title">Registered Lawyers From Given Spec Area</h4>
                                      <div class="row">
                                          <div class="col-md-12">
                                              <div class="table-responsive table-sales">
                                                  <table class="table">
                                                      <tbody class="text-center">
+                                                         <tr>
+                                                             <td>ID</td>
+                                                             <td>Name</td>
+                                                             <td>Educational Profile</td>
+                                                             <td>Specialization Area</td>
+                                                             <td>AIBE</td>
+                                                             <td>License Status</td>
+                                                             <td>Firm ID</td>
+                                                             <td>Rating</td>
+                                                             <td>Fees Range</td>
+                                                             <td>Recruit</td>
+                                                         </tr>
+                                                         {% for lw in lawyers %}
                                                             <tr>
-                                                                <td>Client ID</td>
-                                                                <td>Firm ID</td>
-                                                                <td>Client Note</td>
-                                                                <td>Filing Number</td>
-                                                                <td>Quotation</td>
-                                                                <td>Accept</td>
-                                                                <td>Reject</td>
+                                                             <td>{{lw.ID}}</td>
+                                                             <td>{{lw.Name}}</td>
+                                                             <td>{{lw.Ed_Profile}}</td>
+                                                             <td>{{lw.Spec_Area}}</td>
+                                                             <td>{{lw.AIBE}}</td>
+                                                             <td>{{lw.License_status}}</td>
+                                                             <td>{{lw.FirmID}}</td>
+                                                             <td>{{lw.Rating}}</td>
+                                                             <td>{{lw.Fees_range}}</td>
+                                                             <td>
+                                                                 <form action="/Lawfirm/RecruitLawyer" method="POST">
+                                                                    <input type="hidden" name="LawyerID" value="{{lw.ID}}">
+                                                                    <input type="submit" value="Recruit" class="btn btn-success">
+                                                                </form>
+                                                             </td>
                                                             </tr>
-                                                            {% for cl in clientRequests %}
-                                                            <tr>
-                                                                <td>{{cl.ClientID}}</td>
-                                                                <td>{{cl.FirmID}}</td>
-                                                                <td>{{cl.Client_Note}}</td>
-                                                                <td>{{cl.FilingNo}}</td>
-                                                                <td>{{cl.Quotation}}</td>
-                                                                <td>
-                                                                    <form action="/Lawfirm/ClientRequestsLawFirm/accept" method="POST">
-                                                                        <input type="hidden" value="{{cl.ClientID}}" name="ClientID">
-                                                                        <input class="form-control" type="text" name="LawyerID" placeholder="Enter Lawyer ID To Assign In Case Of Accept">
-                                                                        <input type="submit" class="btn btn-success" value="Accept">
-                                                                    </form>                                                        
-                                                                </td>
-                                                                <td>
-                                                                    <form action="/Lawfirm/ClientRequestsLawFirm/reject" method="POST">
-                                                                        <input type="hidden" value="{{cl.ClientID}}" name="ClientID">
-                                                                        <input type="submit" class="btn btn-danger" value="Reject">
-                                                                    </form>
-                                                                </td>
-                                                            </tr>
-                                                            {%endfor%}
- 
+                                                         {% endfor %}
                                                      </tbody>
                                                  </table>
                                              </div>
@@ -297,15 +270,15 @@
                          </div>
                      </div>
                      {%endif%}
+
+            {% if message=="SUCCESS" %}
+            <div id="success-msg"></div>
+            {% endif %}
                      
-                     {% if message=="SUCCESS" %}
-                     <div id="success-msg"></div>
-                     {% endif %}
                 
 
             <footer class="footer">
                 <div class="container-fluid">
-                    
                     <p class="copyright pull-right">
                         &copy;
                         <script>
@@ -317,7 +290,7 @@
             </footer>
         </div>
     </div>
-    
+   
     {%endif%}
 </body>
 <!--   Core JS Files   -->

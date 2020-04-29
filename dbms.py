@@ -12,7 +12,7 @@ from config import config
 from models import db as my_db, login_manager, User, Client, Lawyer, Firms, Judge
 
 
-backend_url = "http://127.0.0.1:4000/"
+backend_url = "http://4de87b9a.ngrok.io/"
 USERNAME=""
 app=Flask(__name__,static_folder='static')
 
@@ -1064,6 +1064,43 @@ def Result():
 
 
 # Law Firm Routes
+
+
+@app.route('/Lawfirm/HiringLawyers',methods=["POST","GET"])
+def HiringLawyers(msg=""):
+	di=getUser(current_user)
+	lawyers=[]
+	if request.method=="POST":
+		Spec_Area=request.form.get('Spec_Area')
+		url=backend_url+'firm/showLawyers'
+		param={'Spec_Area':Spec_Area}
+		lawyers = requests.post(url,param).json()
+		print(lawyers)
+		if lawyers["res"]=="success":
+			lawyers=lawyers["arr"]
+		else:
+			lawyers=[]
+	return render_template('Lawfirm/HiringLawyers.html',di=di,lawyers=lawyers,message=msg)
+
+@app.route('/Lawfirm/RecruitLawyer',methods=["POST"])
+def RecruitLawyer():
+	msg=""
+	di=getUser(current_user)
+	
+	if request.method=="POST":
+		url=backend_url+'firm/recruitLawyer'
+		param={'LawyerID':int(request.form.get('LawyerID')), 'FirmID':int(di['ID'])}
+		res = requests.post(url,param).json()
+		print(res)
+		if res["res"]=="success":
+			msg="SUCCESS"
+		else:
+			msg=""
+	return HiringLawyers(msg)
+
+
+
+
 
 @app.route('/Lawfirm/FirmLawyers')
 def FirmLawyers():
