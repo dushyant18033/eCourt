@@ -261,7 +261,6 @@
                                                            <td>Victim Lawyer ID</td>
                                                            <td>Accused ID</td>
                                                            <td>Accused Lawyer ID</td>
-                                                           <td>Type</td>
                                                            <td>FIR Uploaded</td>
                                                            <td>Docs Uploaded Victim</td>
                                                            <td>Docs Uploaded Accused</td>
@@ -276,11 +275,38 @@
                                                            <td>{{case.Victim_LawyerID}}</td>
                                                            <td>{{case.AccusedID}}</td>
                                                            <td>{{case.Accused_LawyerID}}</td>
-                                                           <td>{{case.Type}}</td>
-                                                           <td>{{case.Fir_Uploaded}}</td>
-                                                           <td>{{case.Doc_Uploaded_Victim}}</td>
-                                                           <td>{{case.Doc_Uploaded_Accused}}</td>
-                                                           <td>{{case.is_Verified}}</td>
+
+                                                           <td>
+                                                            {% if case.Fir_Uploaded == 1 %}
+                                                                <i class="material-icons">check_circle_outline</i>
+                                                            {% else %}
+                                                                <i class="material-icons">highlight_off</i>
+                                                            {% endif %}
+                                                            </td>
+
+                                                            <td>
+                                                                {% if case.Doc_Uploaded_Victim == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {% if case.Doc_Uploaded_Accused == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {% if case.is_Verified == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
                                                         </tr>
                                                         {% endif %}
                                                         {%endfor%}
@@ -310,7 +336,6 @@
                                                            <td>Victim Lawyer ID</td>
                                                            <td>Accused ID</td>
                                                            <td>Accused Lawyer ID</td>
-                                                           <td>Type</td>
                                                            <td>FIR Uploaded</td>
                                                            <td>Docs Uploaded Victim</td>
                                                            <td>Docs Uploaded Accused</td>
@@ -325,11 +350,38 @@
                                                            <td>{{case.Victim_LawyerID}}</td>
                                                            <td>{{case.AccusedID}}</td>
                                                            <td>{{case.Accused_LawyerID}}</td>
-                                                           <td>{{case.Type}}</td>
-                                                           <td>{{case.Fir_Uploaded}}</td>
-                                                           <td>{{case.Doc_Uploaded_Victim}}</td>
-                                                           <td>{{case.Doc_Uploaded_Accused}}</td>
-                                                           <td>{{case.is_Verified}}</td>
+
+                                                           <td>
+                                                            {% if case.Fir_Uploaded == 1 %}
+                                                                <i class="material-icons">check_circle_outline</i>
+                                                            {% else %}
+                                                                <i class="material-icons">highlight_off</i>
+                                                            {% endif %}
+                                                            </td>
+
+                                                            <td>
+                                                                {% if case.Doc_Uploaded_Victim == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {% if case.Doc_Uploaded_Accused == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                {% if case.is_Verified == 1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
                                                         </tr>
                                                         {% endif %}
                                                         {%endfor%}

@@ -216,8 +216,20 @@
                                                             <td>{{en.CNRno}}</td>
                                                             <td>{{en.Side}}</td>
                                                             <td>{{en.Fee}}</td>
-                                                            <td>{{en.isPaid}}</td>
-                                                            <td>{{en.isRequested}}</td>
+                                                            <td>
+                                                                {% if en.isPaid==1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% if en.isRequested==1 %}
+                                                                    <i class="material-icons">check_circle_outline</i>
+                                                                {% else %}
+                                                                    <i class="material-icons">highlight_off</i>
+                                                                {% endif %}
+                                                            </td>
                                                             <td>{{en.datePaid}}</td>
                                                          </tr>
                                                          {% endfor %}
