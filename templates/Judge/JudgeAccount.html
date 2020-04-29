@@ -82,12 +82,15 @@
     <!--     Fonts and icons     -->
     <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
+<style>
+    .link123 { color: #000000; font-size: large; pointer-events: none;} /* CSS link color */
+  </style>
 </head>
 
 <body>
         {%if 'judge'==di['mode'] %}
 
-  <div class="wrapper">
+    <div class="wrapper">
         <div class="sidebar" data-active-color="magic" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
             <!--
         Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
@@ -101,20 +104,9 @@
             </div>
            
             <div class="sidebar-wrapper">
-                <div class="user">
-                    
-                    <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            {{di["username"]}}
-                           
-                       
-                        </a>
-                        
-                        
-                    </div>
-                </div>
+                
                 <ul class="nav ">
-                                    <li >
+                            <li >
                                         <a  href="{{url_for('PreviousJudgements')}}" >
                                           Previous Judgements
                                                                            </a>
@@ -124,7 +116,7 @@
                                           Schedule 
                                                                            </a>
                                     </li>
-                                     <li >
+                                     <li>
                                         <a href="{{url_for('Records')}}" >
                                             Records
                                                                            </a>
@@ -134,7 +126,7 @@
                                     
                                     
                                     
-                                    <li>
+                                    <li class="active">
                                         <a href="{{url_for('Cases')}}" >
         
                                         
@@ -142,11 +134,6 @@
                                          </a>
                                     </li>
                                     
-                                    <li>
-                                        <a href="/Logout" >
-                                            Logout
-                                        </a>
-                                    </li>
                             
                         </ul>
                         
@@ -155,11 +142,8 @@
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">
-                    <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
-                        </button>
+                    <div class="navbar-minimize" data-active-color="magic">
+                        <a class="link123" disabled>Welcome {{di.username}}</a>
                     </div>
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse">
@@ -174,30 +158,25 @@
                         <ul class="nav navbar-nav navbar-right">
                                                     
                                
-                             <li class="active">
+                             <li>
                                 <a href="{{url_for('Account')}}" >
                                   View Account
                                                                    </a>
                             </li>
+                            <li>
+                                <a href="/Logout" >
+                                    Logout
+                                </a>
+                            </li>
                             
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group form-search is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
+                        
                         
                     </div>
                         
                     
                 </div>
-            </nav>
-                <div class="content">
+            </nav>                <div class="content">
                 <div class="container-fluid">
                      
                     
