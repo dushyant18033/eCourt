@@ -172,40 +172,12 @@
             <div class="content">
                 <div class="container-fluid">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="row">
-                                        <form id="TypeValidation" class="form-horizontal" action="/Lawfirm/ClientRequestsLawFirm" method="POST">
-                                            <div class="col-sm-8">
-                                                <div class="row"> 
-                                                    <div class="form-group label-floating">    
-                                                        <input class="form-control" type="number" placeholder="Enter Firm ID" name="FirmID">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-8">
-                                                <div class="row">
-                                                    <button type="submit" class="btn btn-rose btn-fill">Submit</button>
-                                                </div>
-                                            </div>                                            
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                  {%if clients==[] %}
                  <div class="row">
                          <div class="col-md-12">
                              <div class="card">
                                  <div class="card-content">
-                                     <h4 class="card-title">Enter FirmID to continue</h4>
+                                     <h4 class="card-title">No Current Clients</h4>
                                  </div>
                              </div>
                          </div>
@@ -256,7 +228,7 @@
                          <div class="col-md-12">
                              <div class="card">
                                  <div class="card-content">
-                                     <h4 class="card-title">Enter FirmID to continue</h4>
+                                     <h4 class="card-title">No Client Requests</h4>
                                  </div>
                              </div>
                          </div>
@@ -292,7 +264,6 @@
                                                                 <td>{{cl.Quotation}}</td>
                                                                 <td>
                                                                     <form action="/Lawfirm/ClientRequestsLawFirm/accept" method="POST">
-                                                                        <input type="hidden" value="{{cl.FirmID}}" name="FirmID">
                                                                         <input type="hidden" value="{{cl.ClientID}}" name="ClientID">
                                                                         <input class="form-control" type="text" name="LawyerID" placeholder="Enter Lawyer ID To Assign In Case Of Accept">
                                                                         <input type="submit" class="btn btn-success" value="Accept">
@@ -300,7 +271,6 @@
                                                                 </td>
                                                                 <td>
                                                                     <form action="/Lawfirm/ClientRequestsLawFirm/reject" method="POST">
-                                                                        <input type="hidden" value="{{cl.FirmID}}" name="FirmID">
                                                                         <input type="hidden" value="{{cl.ClientID}}" name="ClientID">
                                                                         <input type="submit" class="btn btn-danger" value="Reject">
                                                                     </form>
