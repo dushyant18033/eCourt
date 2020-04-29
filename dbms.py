@@ -12,7 +12,7 @@ from config import config
 from models import db as my_db, login_manager, User, Client, Lawyer, Firms, Judge
 
 
-backend_url = "http://8d6d86e0.ngrok.io/"
+backend_url = "http://127.0.0.1:4000/"
 USERNAME=""
 app=Flask(__name__,static_folder='static')
 
