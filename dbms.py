@@ -240,7 +240,6 @@ def Register(message):
 @app.route('/Home',methods=['GET','POST'])
 @login_required
 def Home():
-	# print(current_user.Username, current_user.id, current_user.ClientID, current_user.LawyerID)	#di gets updated from sql table
 	di=getUser(current_user) 
 	
 	if di['mode']=='client':
@@ -258,13 +257,101 @@ def Home():
 @app.route('/Account',methods=['GET','POST'])
 
 def Account():
-	# print(current_user.Username, current_user.id, current_user.ClientID, current_user.LawyerID)	#di gets updated from sql table
 	di=getUser(current_user) 
-	
+	if di['mode']=='client':
+		return redirect(url_for('ClientAccount'))
+	if di['mode']=='judge':
+		return redirect(url_for('JudgeAccount'))
+	if di['mode']=='lawyer':
+		return redirect(url_for('LawyerAccount'))
+	if di['mode']=='law firm':
+		return redirect(url_for('LawfirmAccount'))
+
 	return render_template('Home.html', di=di)
-	# elif request.form['submit'] == 'judges':
-	# 	return redirect(url_for('index'))
+	
+
+
+
+@app.route('/Clients/Account',methods=['GET','POST'])
+def ClientAccount():
+	di=getUser(current_user) 
+	url=backend_url + "client/getAccountDetails"
+	param={'ClientID':di['ID']}
+	res = requests.post(url,json=param).json()
+	print(res)
+	if res["res"] == "success":
+			Pc = res["arr"]
+			for i in Pc:
+				Pc= i
+				break
+	else:
+		Pc = {}
+
+	print(Pc)
+	return render_template('Clients/ClientAccount.html', di=di,Pc=Pc)
+	
+
+@app.route('/Judge/Account',methods=['GET','POST'])
+def JudgeAccount():
+	di=getUser(current_user) 
 	 
+	url=backend_url + "judge/getAccountDetails"
+	param={'JudgeID':di['ID']}
+	res = requests.post(url,json=param).json()
+	print(res)
+	if res["res"] == "success":
+			Pc = res["arr"]
+			for i in Pc:
+				Pc= i
+				break
+	else:
+		Pc = {}
+
+	print(Pc)
+	return render_template('Judge/JudgeAccount.html', di=di,Pc=Pc)
+
+
+@app.route('/Lawyer/Account',methods=['GET','POST'])
+def LawyerAccount():
+	di=getUser(current_user) 
+	 
+	url=backend_url + "lawyer/getAccountDetails"
+	param={'LawyerID':di['ID']}
+	res = requests.post(url,json=param).json()
+	print(res)
+	if res["res"] == "success":
+			Pc = res["arr"]
+			for i in Pc:
+				Pc= i
+				break
+	else:
+		Pc = {}
+
+	print(Pc)
+	return render_template('Lawyer/LawyerAccount.html', di=di,Pc=Pc)
+
+
+
+@app.route('/Lawfirm/Account',methods=['GET','POST'])
+def LawfirmAccount():
+	di=getUser(current_user) 
+	 
+	url=backend_url + "lawyer/getAccountDetails"
+	param={'Lawyer':di['ID']}
+	res = requests.post(url,json=param).json()
+	print(res)
+	if res["res"] == "success":
+			Pc = res["arr"]
+			for i in Pc:
+				Pc= i
+				break
+	else:
+		Pc = {}
+
+	print(Pc)
+	return render_template('Lawyer/LawyerAccount.html', di=di,Pc=Pc)
+
+
 
 
 

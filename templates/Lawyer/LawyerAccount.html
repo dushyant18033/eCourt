@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 21:29:18 GMT -->
+<head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var myVar = setInterval(myTimer1, 1000);
+
+    function myTimer1() 
+    {
+        var d=document.getElementById('success-msg');
+        console.log(d);
+        if (d!=null)
+        {
+            swal({ title:"Good job!", text: "Successful!", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-danger" });
+            clearInterval(myVar);
+            var a = document.createElement('a');
+            a.href ="{{url_for('CaseStatements')}}";  
+            setTimeout(function(){a.click()},2000);
+        }
+    }
+</script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var myVar1 = setInterval(myTimer, 1000);
+
+    function myTimer() 
+    {
+        var d=document.getElementById('error-msg');
+        //console.log(d);
+        if (d!=null)
+        {
+            swal({ title:"Opps!", text: "Something went wrong!", type: "error", buttonsStyling: false, confirmButtonClass: "btn btn-danger" });
+            clearInterval(myVar1);
+            var a = document.createElement('a');
+            a.href ="{{url_for('CaseStatements')}}";  
+            setTimeout(function(){a.click()},2000);
+            // setTimeout(a.click(), 4000);
+        }
+    }
+</script>
+
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/static2/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="/static/static2/assets/img/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Ecourt</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard-pro" />
+    <!--  Social tags      -->
+    <meta name="keywords" content="material dashboard, bootstrap material admin, bootstrap material dashboard, material design admin, material design, creative tim, html dashboard, html css dashboard, web dashboard, freebie, free bootstrap dashboard, css3 dashboard, bootstrap admin, bootstrap dashboard, frontend, responsive bootstrap dashboard, premiu material design admin">
+    <meta name="description" content="Material Dashboard PRO is a Premium Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design.">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Material Dashboard PRO by Creative Tim | Premium Bootstrap Admin Template">
+    <meta itemprop="description" content="Material Dashboard PRO is a Premium Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design.">
+    <meta itemprop="image" content="/static/static2//static/static2//static/static2/s3.amazonaws.com/creativetim_bucket/products/51/opt_mdp_thumbnail.jpg">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Material Dashboard PRO by Creative Tim | Premium Bootstrap Admin Template">
+    <meta name="twitter:description" content="Material Dashboard PRO is a Premium Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:image" content="/static/static2//static/static2//static/static2/s3.amazonaws.com/creativetim_bucket/products/51/opt_mdp_thumbnail.jpg">
+    <!-- Open Graph data -->
+    <meta property="fb:app_id" content="655968634437471">
+    <meta property="og:title" content="Material Dashboard PRO by Creative Tim | Premium Bootstrap Admin Template" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://www.creative-tim.com/product/material-dashboard-pro" />
+    <meta property="og:image" content="/static/static2//static/static2//static/static2/s3.amazonaws.com/creativetim_bucket/products/51/opt_mdp_thumbnail.jpg" />
+    <meta property="og:description" content="Material Dashboard PRO is a Premium Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design." />
+    <meta property="og:site_name" content="Creative Tim" />
+    <!-- Bootstrap core CSS     -->
+    <link href="/static/static2/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="/static/static2/assets/css/material-dashboard.css" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="/static/static2/assets/css/demo.css" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="/static/static2/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/static/static2/assets/css/google-roboto-300-700.css" rel="stylesheet" />
+</head>
+
+<body>
+    {%if 'lawyer'==di['mode'] %}
+  <div class="wrapper">
+        <div class="sidebar" data-active-color="magic" data-background-color="black" data-image="/static/static2/assets/img/sidebar-1.jpg">
+            <!--
+        Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
+        Tip 2: you can also add an image using data-image tag
+        Tip 3: you can change the color of the sidebar with data-background-color="white | black"
+    -->
+            <div class="logo">
+                <a class="simple-text">
+                    {{di["mode"]}}
+                </a>
+            </div>
+           
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            {{di["username"]}}
+                           
+                       
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+                <ul class="nav ">
+                            <li >
+                                <a  href="{{url_for('ClientRequests')}}" >
+                                  Client Requests
+                                                                   </a>
+                            </li>
+                            <li >
+                                <a  href="{{url_for('FileCase')}}" >
+                                  File A Case
+                                                                   </a>
+                            </li>
+                             <li >
+                                <a  href="{{url_for('ActivePending')}}" >
+                                  Active/Pending Cases
+                                                                   </a>
+                            </li>
+                             <li >
+                                <a href="{{url_for('Schedule')}}" >
+                                  Schedule For The Day
+                                                                   </a>
+                            </li>                            
+                            <li>
+                                <a href="{{url_for('CaseHistory')}}" >
+                                  Check Case History
+                                                                   </a>
+                            </li>
+                             <li>
+                                <a href="{{url_for('RequestPayment')}}" >
+                                  Request Payement
+                                                                   </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                                                    
+                               
+                             <li class="active">
+                                <a href="{{url_for('Account')}}" >
+                                  View Account
+                                                                   </a>
+                            </li>
+                            
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group form-search is-empty">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="material-input"></span>
+                            </div>
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </form>
+                        
+                    </div>
+                        
+                    
+                </div>
+            </nav>
+                   <div class="content">
+                <div class="container-fluid">
+                     
+                    
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-content">
+                                    <h4 class="card-title text-center"> Account Information </h4>
+                                   
+                                    <div class="row">
+                                         <form id="TypeValidation" class="form-horizontal" >
+                                
+                                        <div class="col-md-10">
+                                            </div>
+                                        </div>
+                                        <div class="row"> 
+                                            
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Lawyer ID  </label>
+                                                 <input class="form-control" placeholder="{{Pc['ID']}}" name="CNRno" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                        
+                                       
+
+                                        
+                               
+                                        
+
+                                         <div class="col-sm-6">
+                                                <div class="form-group label-floating">
+                                                     <label>Name</label>
+                                                        <input class="form-control" placeholder="{{Pc.Name}}" name="VictimStmnt" readonly=""  />
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    <div class="row"> 
+                                            
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>AIBE YEAR</label>
+                                                 <input class="form-control" placeholder="{{Pc.AIBE}}" name="AccusedStmnt" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Education Profile</label>
+                                                 <input class="form-control" placeholder="{{Pc.Ed_Profile}}" name="AccusedStmnt" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                         <div class="row"> 
+                                            
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>License Status</label>
+                                                 <input class="form-control" placeholder="{{Pc.License_status}}" name="AccusedStmnt"  readonly="" />
+
+
+                                                </div>
+                                            </div>
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Area of Specialisation</label>
+                                                 <input class="form-control" placeholder="{{Pc.Spec_Area}}" name="AccusedStmnt"   readonly="" />
+
+
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                         <div class="row"> 
+                                            
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Rating</label>
+                                                 <input class="form-control" placeholder="{{Pc.Rating}}" name="AccusedStmnt" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Fees Range</label>
+                                                 <input class="form-control" placeholder="{{Pc.Fees_range}}" name="AccusedStmnt" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                        {%if Pc.FirmID!=""%}
+                                        <div class="row"> 
+                                            
+                                        <div class="col-sm-6 ">
+                                            
+                                                <div class="form-group label-floating">
+                                                     <label>Firm ID</label>
+                                                 <input class="form-control" placeholder="{{Pc.FirmID}}" name="AccusedStmnt" readonly=""  />
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endif%}
+                                        
+    
+
+                                            
+                                           
+                                    
+                                </form>
+                                </div>
+                            </div>
+                         
+                             
+                        </div>
+                    
+
+                   
+                    </div>
+                </div>
+            </div>
+                      {% if message=="SUCCESS" %}
+<div id="success-msg"></div>                   
+{% endif %}
+{% if message=="ERROR" %}
+<div id="error-msg"></div>                   
+{% endif %}
+          <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        HONOUR, made with love for a better web
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+  
+    {%endif%}
+</body>
+<!--   Core JS Files   -->
+<script src="/static/static2/assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="/static/static2/assets/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/static/static2/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/static2/assets/js/material.min.js" type="text/javascript"></script>
+<script src="/static/static2/assets/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<!-- Forms Validations Plugin -->
+<script src="/static/static2/assets/js/jquery.validate.min.js"></script>
+<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<script src="/static/static2/assets/js/moment.min.js"></script>
+<!--  Charts Plugin -->
+<script src="/static/static2/assets/js/chartist.min.js"></script>
+<!--  Plugin for the Wizard -->
+<script src="/static/static2/assets/js/jquery.bootstrap-wizard.js"></script>
+<!--  Notifications Plugin    -->
+<script src="/static/static2/assets/js/bootstrap-notify.js"></script>
+<!--   Sharrre Library    -->
+<script src="/static/static2/assets/js/jquery.sharrre.js"></script>
+<!-- DateTimePicker Plugin -->
+<script src="/static/static2/assets/js/bootstrap-datetimepicker.js"></script>
+<!-- Vector Map plugin -->
+<script src="/static/static2/assets/js/jquery-jvectormap.js"></script>
+<!-- Sliders Plugin -->
+<script src="/static/static2/assets/js/nouislider.min.js"></script>
+<!--  Google Maps Plugin    -->
+<!--<script src="/static/static2/assets/js/jquery.select-bootstrap.js"></script>-->
+<!-- Select Plugin -->
+<script src="/static/static2/assets/js/jquery.select-bootstrap.js"></script>
+<!--  DataTables.net Plugin    -->
+<script src="/static/static2/assets/js/jquery.datatables.js"></script>
+<!-- Sweet Alert 2 plugin -->
+<script src="/static/static2/assets/js/sweetalert2.js"></script>
+<!--  Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="/static/static2/assets/js/jasny-bootstrap.min.js"></script>
+<!--  Full Calendar Plugin    -->
+<script src="/static/static2/assets/js/fullcalendar.min.js"></script>
+<!-- TagsInput Plugin -->
+<script src="/static/static2/assets/js/jquery.tagsinput.js"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="/static/static2/assets/js/material-dashboard.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="/static/static2/assets/js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+        demo.initVectorMap();
+    });
+</script>
+
+
+<!-- Mirrored from demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 21:32:16 GMT -->
+</html>

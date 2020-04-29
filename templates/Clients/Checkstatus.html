@@ -202,11 +202,11 @@
                                 <div class="card-content">
                                     <h4 class="card-title">
                                     {%if Acases !=[]%}
-                                    Active Cases currently involved in
+                                        Active Cases currently involved in
                                     {%else%}
-                                    No Active case currently involved in
-                                    {%endif%}
-                                    {%endif%}
+                                        No Active case currently involved in
+                                        {%endif%}
+                                    
                                 	</h4>
                                     {%if Acases !=[]%}
                                     
@@ -321,7 +321,7 @@
                             </div>
                         </div>
                     </div>
-                    {%if Pcases ==[]%}
+                    {%if Pcases is defined%}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -333,9 +333,14 @@
                                     {%else%}
                                     No Civil Pending case currently involved in
                                     {%endif%}
-                                    {%endif%}
+                                    
                                     </h4>
-                                    {%if Pcases !=[] and civic==1%}
+                                     </div>
+                            </div>
+                        </div>
+                    </div>
+                        {%endif%}        
+                            {%if Pcases !=[] and civic==1%}
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="table-responsive table-sales">
@@ -434,12 +439,9 @@
                                         
                                     </div>
                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                               
                     {%endif%}
-                     {%if Pcases !=[]%}
+                     {%if Pcases is defined%}
                      <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -451,8 +453,13 @@
                                     {%else%}
                                     No Criminal Pending case currently involved in
                                     {%endif%}
-                                    {%endif%}
+                                      
                                     </h4>
+                                     </div>
+                            </div>
+                        </div>
+                    </div>
+                        {%endif%}        
                                     {%if Pcases !=[] and cric==1%}
                                     <div class="row">
                                         <div class="col-md-12">
@@ -577,11 +584,7 @@
                                             </div>
                                         </div>
                                         
-                                    </div>
-                                  
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                      {%endif%}
                     </div>
