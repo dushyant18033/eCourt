@@ -28,26 +28,27 @@ login_manager.init_app(app)
 
 def getUser(current_user):
 	di={}
-	if current_user.ClientID:
-		di['mode']='client'
-		di['ID']=current_user.ClientID
-		di['ID']=2
+	if current_user!=None:
+		if current_user.ClientID:
+			di['mode']='client'
+			di['ID']=current_user.ClientID
+			di['ID']=2
 
-	if current_user.LawyerID:
-		di['mode']='lawyer'
-		di['ID']=current_user.LawyerID
+		if current_user.LawyerID:
+			di['mode']='lawyer'
+			di['ID']=current_user.LawyerID
 
-	if current_user.JudgeID:
-		di['mode']='judge'
-		di['ID']=current_user.JudgeID
+		if current_user.JudgeID:
+			di['mode']='judge'
+			di['ID']=current_user.JudgeID
+		
+		if current_user.FirmID:
+			di['mode']='law firm'
+			di['ID']=current_user.FirmID
+		di['username']=current_user.Username
+		# di['mode']='law firm'#########INJECTING USER TYPE#########
+		return di
 	
-	if current_user.FirmID:
-		di['mode']='law firm'
-		di['ID']=current_user.FirmID
-	di['username']=current_user.Username
-	di['mode']='law firm'#########INJECTING USER TYPE#########
-	return di
-
 
 
 
@@ -141,7 +142,7 @@ def Register(message):
 		password=request.form.get('password')
 		message=request.form.get('message')
 		print(request.form.to_dict())
-		input()
+		
 
 		new_user = User.query.filter_by(Username=username).first()
 
@@ -180,14 +181,12 @@ def Register(message):
 			lastname=request.form.get('lastname')
 			if message=='Client':
 				dob=request.form.get('dob')
-				input()
-
+				
 				new_client = Client(
 						Name = firstname+" "+lastname,
 						DOB = dob
 					)
 				print(new_client)
-				input()
 				my_db.session.add(new_client)
 				my_db.session.commit()
 				new_user.ClientID = new_client.ID
