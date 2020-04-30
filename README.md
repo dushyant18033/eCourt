@@ -1,6 +1,6 @@
 # eCourt
 
-# Python Dependencies (Required Modules/Libaries)
+### Python Dependencies (Required Modules/Libaries)
   * flask
   * flask-bootstrap
   * flask-sqlalchemy
