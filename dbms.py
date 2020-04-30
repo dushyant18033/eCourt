@@ -33,7 +33,7 @@ def getUser(current_user):
 			if current_user.ClientID:
 				di['mode']='client'
 				di['ID']=current_user.ClientID
-				di['ID']=1
+				
 
 				di['username']=current_user.Username
 				
