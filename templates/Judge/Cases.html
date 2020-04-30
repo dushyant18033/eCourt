@@ -263,10 +263,14 @@
                                                                     
                                                                 </td>
                                                                 <td style="text-align: center">
-                                                                            {%if case.AccusedStmnt==None%}
+                                                                            {%if case.AccusedID==None%}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
+                                                                            {%if case.AccusedID!=None and case.AccusedStmnt==None %}
                                                                             <i class="material-icons">highlight_off</i>
                                                                             {%else%}
                                                                             {{case.AccusedStmnt}}
+                                                                            {%endif%}
                                                                             {%endif%}
                                                                     
                                                                 </td>
@@ -292,7 +296,7 @@
                                                                 <td>
 
                                                                         <form method="post">
-                                                                            {%if case.Stage!=0%}
+                                                                            {%if case.Stage!=0 and case.Acts!=None%}
                                                                         <button  class="btn btn-success" type="submit" value={{case.CNRno}}  name="Final" ><i class="material-icons">check_circle_outline</i>         </button>
                                                                         {%else%}
                                                                         <button  disabled class="btn btn-danger" type="submit" value={{case.CNRno}}  name="Final" ><i class="material-icons">highlight_off</i>        </button>
@@ -590,7 +594,7 @@
                                                                         </td>
                                                                           <td>
 
-                                                                                    <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" >
+                                                                                    <button  class="btn btn-success" type="submit" value={{case.FilingNo}}  name="Request" ><i class="material-icons">check_circle_outline</i> 
                                                                                     </button>
                                                                                    </form>
                                                                                 

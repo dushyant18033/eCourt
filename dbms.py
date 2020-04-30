@@ -12,7 +12,7 @@ from config import config
 from models import db as my_db, login_manager, User, Client, Lawyer, Firms, Judge
 
 
-backend_url = "http://4de87b9a.ngrok.io/"
+backend_url = "http://9be4e9be.ngrok.io/"
 USERNAME=""
 app=Flask(__name__,static_folder='static')
 
@@ -33,6 +33,8 @@ def getUser(current_user):
 			if current_user.ClientID:
 				di['mode']='client'
 				di['ID']=current_user.ClientID
+				di['ID']=1
+
 				di['username']=current_user.Username
 				
 
@@ -1013,13 +1015,35 @@ def AnnounceVerdict():
 		if str(i['CNRno'])==str(CNRno):
 			Pc=i
 			break
+
 	print(Pc)
+	URL=backend_url+"judge/getRelatedUser"
+	param={'CNRno':str(CNRno)}
+	DETAILS=requests.post(URL,json=param).json()
+	ACID=0
+	print(DETAILS)
+	for i in DETAILS['Victim_Lawyer']:
+		VID=i['ID']
+		break
+	if Pc['AccusedID']!=None:
+		for i in DETAILS['Accused_Lawyer']:
+			ACID=i['ID']
+			break
+
+	for i in DETAILS['Victim_Lawyer']:
+		VID=i['ID']
+		break
+
 
 	if request.method=="POST":
 			
 			
-
+			if ACID!=0:
+				param={'CNRno':request.form.get('CNRno'),'CaseStmnt':request.form.get('CaseStmnt'),'Victim_LawyerID':request.form.get('Victim_LawyerID'),'FinalVerdict':request.form.get('FinalVerdict'),'WonID_Client':request.form.get('WonID_Client'),'WonID_Lawyer':request.form.get('WonID_Lawyer'),'Accused_LawyerID':request.form.get('Accused_LawyerID')}
+			else:
+				param={'CNRno':request.form.get('CNRno'),'CaseStmnt':request.form.get('CaseStmnt'),'Victim_LawyerID':request.form.get('Victim_LawyerID'),'FinalVerdict':request.form.get('FinalVerdict'),'WonID_Client':request.form.get('WonID_Client'),'WonID_Lawyer':request.form.get('WonID_Lawyer')}
 			param={'CNRno':request.form.get('CNRno'),'CaseStmnt':request.form.get('CaseStmnt'),'Victim_LawyerID':request.form.get('Victim_LawyerID'),'FinalVerdict':request.form.get('FinalVerdict'),'WonID_Client':request.form.get('WonID_Client'),'WonID_Lawyer':request.form.get('WonID_Lawyer'),'Accused_LawyerID':request.form.get('Accused_LawyerID')}
+
 			URL=backend_url+"judge/announceVerdict"
 			print(param)
 			Value=requests.post(URL,json=param).json()
@@ -1028,7 +1052,7 @@ def AnnounceVerdict():
 				return render_template('Judge/AnnounceVerdict.html',message='ERROR',di=di)
 			else:
 				return render_template('Judge/AnnounceVerdict.html',message='SUCCESS',di=di)
-	return render_template('Judge/AnnounceVerdict.html',Pc=Pc,di=di)
+	return render_template('Judge/AnnounceVerdict.html',Pc=Pc,di=di,ACID=ACID,VID=VID)
 
 	
 
@@ -1368,10 +1392,44 @@ def CaseStatements():
 	di=getUser(current_user)  
 
 	if request.method=="POST":
-		param={'CNRno':request.form.get('CNRno'),'VictimStmnt':request.form.get('VictimStmnt'),'AccusedStmnt':request.form.get('AccusedStmnt'),'Acts':request.form.get('Acts')}
+		URL=backend_url+"judge/viewCase"
+
+		param={"CNRno":request.form.get('CNRno')}
+		print(param)
+		Pc=requests.post(URL,json=param).json()
+		if Pc["res"]=="success":
+				Pc=Pc["arr"]
+		for i in Pc:
+			Pc=i
+			break
+
+		
+		URL=backend_url+"judge/getRelatedUser"
+		param={'CNRno':request.form.get('CNRno')}
+		DETAILS=requests.post(URL,json=param).json()
+		ACID=0
+		print(Pc)
+		print(DETAILS)
+		for i in DETAILS['Victim_Lawyer']:
+			VID=i['ID']
+			break
+		if Pc['AccusedID']!=None:
+			for i in DETAILS['Victim_Lawyer']:
+				ACID=i['ID']
+				break
+
+		for i in DETAILS['Victim_Lawyer']:
+			VID=i['ID']
+			break
+		if ACID!=0:
+			param={'CNRno':request.form.get('CNRno'),'VictimStmnt':request.form.get('VictimStmnt'),'AccusedStmnt':request.form.get('AccusedStmnt'),'Acts':request.form.get('Acts')}
+		else:
+			param={'CNRno':request.form.get('CNRno'),'VictimStmnt':request.form.get('VictimStmnt'),'AccusedStmnt':None,'Acts':request.form.get('Acts')}
+
 		URL=backend_url+"officer/updateCaseStatements"
 		Value=requests.post(URL,json=param).json()
 		print(Value)
+		print(param)
 		if 'failed' == Value['res']:
 			return render_template('Officer/CaseStatements.html',message='ERROR',di=di)
 		else:

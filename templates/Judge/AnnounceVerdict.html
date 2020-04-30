@@ -178,19 +178,7 @@
             </nav>
                 <div class="content">
                 <div class="container-fluid">
-                     {%if message !='SUCCESS'%}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                
-                                <div class="card-content">
-                                   
-                                    <h4 class="card-title">{{message}}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endif%}
+                     
                     {%if Pc is defined%}
 
                     <div class="row">
@@ -221,22 +209,13 @@
                                          <div class=" col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label> Victim Lawyer ID</label>
-                                                    <input class="form-control" type="number"  name="Victim_LawyerID" required="">
+                                                   <input class="form-control" type="text" placeholder="{{VID}}" readonly>
+                                                   <input class="form-control" type="hidden" name="Victim_LawyerID" value="{{VID}}">
 
                                                     </div>
                                                 </div>
                                         
-                                        {%if Pc.AccusedID!=None%}
-
-
-                                                <div class="col-md-4">
-                                                       <div class="form-group label-floating">
-                                                        <label>Accused Lawyer ID</label>
-                                                           <input class="form-control" type="number"  name="Accused_LawyerID" required="">
-       
-                                                           </div>
-                                                       </div>
-                                        {%endif%}
+                                        
                                          
 
                                          <div class="col-md-4">
@@ -247,6 +226,18 @@
                                                 </div>
                                        </div>
                                         <div class="row">
+                                            {%if Pc.AccusedID!=None%}
+
+
+                                                <div class="col-md-4">
+                                                       <div class="form-group label-floating">
+                                                        <label>Accused Lawyer ID</label>
+                                                           <input class="form-control" type="text" placeholder="{{ACID}}" readonly>
+                                                           <input class="form-control" type="hidden" name="Accused_LawyerID" value="{{ACID}}">
+       
+                                                           </div>
+                                                       </div>
+                                        {%endif%}
                                          <div class="col-md-4 ">
                                                 <div class="form-group label-floating">
                                                     <label>Final Verdict</label>

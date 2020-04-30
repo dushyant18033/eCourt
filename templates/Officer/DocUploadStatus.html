@@ -380,9 +380,12 @@
                                                                             {{case.AccusedID}}
 
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="text-align: center">
+                                                                            {%if case.Accused_LawyerID==None %}
+                                                                            <i class="material-icons">highlight_off</i>
+                                                                            {%else%}
                                                                             {{case.Accused_LawyerID}}
-
+                                                                            {%endif%}
                                                                         </td>
                                                                         <td>
                                                                             {%if case.Type==0%}
